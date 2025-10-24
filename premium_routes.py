@@ -8,7 +8,7 @@ import os
 premium_bp = Blueprint('premium_bp', __name__, url_prefix='/premium')
 
 # O modelo é configurado no app.py principal, aqui apenas usamos
-MODEL_NAME = "gemini-1.5-flash" 
+MODEL_NAME = "gemini-2.5-flash" 
 
 # Função de verificação de segurança
 def check_premium_access(id_aluno):
