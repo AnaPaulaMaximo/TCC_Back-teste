@@ -1,0 +1,919 @@
+[
+  {
+    "question": "Quem foi Sócrates?",
+    "options": ["Filósofo grego fundador da matemática", "Filósofo grego fundador da filosofia ocidental", "Filósofo romano", "Filósofo francês moderno"],
+    "correctAnswer": "Filósofo grego fundador da filosofia ocidental",
+    "category": "filosofia",
+    "explicacao": "Sócrates é considerado um dos fundadores da filosofia ocidental por seu método de questionamento e foco na ética e no autoconhecimento."
+  },
+  {
+    "question": "O que é o método socrático?",
+    "options": ["Técnica de escrita filosófica", "Método de observação da natureza", "Técnica de questionamento para chegar à verdade", "Ritual religioso grego"],
+    "correctAnswer": "Técnica de questionamento para chegar à verdade",
+    "category": "filosofia",
+    "explicacao": "O método socrático, ou maiêutica, envolve um diálogo de perguntas e respostas para estimular o pensamento crítico e extrair ideias."
+  },
+  {
+    "question": "Quem foi Platão?",
+    "options": ["Discípulo de Aristóteles", "Filósofo romano", "Filósofo grego, discípulo de Sócrates e fundador da Academia", "Filósofo moderno francês"],
+    "correctAnswer": "Filósofo grego, discípulo de Sócrates e fundador da Academia",
+    "category": "filosofia",
+    "explicacao": "Platão foi um dos mais importantes filósofos gregos, cujas ideias sobre o mundo das formas e a política influenciaram profundamente o pensamento ocidental."
+  },
+  {
+    "question": "O que é o 'Mito da Caverna' de Platão?",
+    "options": ["Uma teoria científica", "Uma alegoria sobre a busca pelo conhecimento e a verdade", "Uma história de guerra", "Uma lei matemática"],
+    "correctAnswer": "Uma alegoria sobre a busca pelo conhecimento e a verdade",
+    "category": "filosofia",
+    "explicacao": "A alegoria descreve prisioneiros em uma caverna que confundem sombras com a realidade, simbolizando a jornada do filósofo da ignorância para o conhecimento."
+  },
+  {
+    "question": "Quem foi Aristóteles?",
+    "options": ["Filósofo grego, discípulo de Platão e tutor de Alexandre, o Grande", "Filósofo moderno", "Filósofo francês", "Filósofo romano"],
+    "correctAnswer": "Filósofo grego, discípulo de Platão e tutor de Alexandre, o Grande",
+    "category": "filosofia",
+    "explicacao": "Aristóteles foi um filósofo grego que fez contribuições significativas para a lógica, ética, política, biologia e metafísica."
+  },
+  {
+    "question": "Quem foi René Descartes?",
+    "options": ["Filósofo francês, pai da filosofia moderna", "Filósofo inglês", "Filósofo grego", "Filósofo alemão"],
+    "correctAnswer": "Filósofo francês, pai da filosofia moderna",
+    "category": "filosofia",
+    "explicacao": "Descartes é famoso por seu racionalismo e pela busca de um fundamento sólido para o conhecimento, começando pela dúvida metódica."
+  },
+  {
+    "question": "Qual a famosa frase de Descartes?",
+    "options": ["Penso, logo existo", "Conhece-te a ti mesmo", "A vida é sonho", "Tudo que sei é que nada sei"],
+    "correctAnswer": "Penso, logo existo",
+    "category": "filosofia",
+    "explicacao": "Esta frase (Cogito, ergo sum) é a conclusão de Descartes de que, mesmo que duvide de tudo, o ato de duvidar prova sua própria existência como ser pensante."
+  },
+  {
+    "question": "Quem foi Immanuel Kant?",
+    "options": ["Filósofo alemão, defensor do criticismo", "Filósofo francês", "Filósofo inglês", "Filósofo grego"],
+    "correctAnswer": "Filósofo alemão, defensor do criticismo",
+    "category": "filosofia",
+    "explicacao": "Kant buscou superar a divisão entre racionalismo e empirismo, argumentando que o conhecimento é uma combinação de experiência e estruturas a priori da mente."
+  },
+  {
+    "question": "O que é imperativo categórico em Kant?",
+    "options": ["Princípio moral universal e obrigatório", "Lei matemática", "Regra social opcional", "Teoria científica"],
+    "correctAnswer": "Princípio moral universal e obrigatório",
+    "category": "filosofia",
+    "explicacao": "É o princípio central da ética kantiana: uma ação é moralmente correta se sua máxima puder ser universalizada para todos os seres racionais."
+  },
+  {
+    "question": "Quem foi Hegel?",
+    "options": ["Filósofo alemão, idealista", "Filósofo francês", "Filósofo inglês", "Filósofo grego"],
+    "correctAnswer": "Filósofo alemão, idealista",
+    "category": "filosofia",
+    "explicacao": "Hegel desenvolveu um sistema filosófico complexo baseado na dialética, onde a história e o pensamento progridem através da tese, antítese e síntese."
+  },
+  {
+    "question": "Quem foi Friedrich Nietzsche?",
+    "options": ["Filósofo alemão, crítico da moral e religião", "Filósofo francês", "Filósofo inglês", "Filósofo grego"],
+    "correctAnswer": "Filósofo alemão, crítico da moral e religião",
+    "category": "filosofia",
+    "explicacao": "Nietzsche é conhecido por suas críticas à moralidade judaico-cristã, à religião e à metafísica tradicional, e por conceitos como a 'vontade de poder' e o 'eterno retorno'."
+  },
+  {
+    "question": "Qual conceito é central em Nietzsche?",
+    "options": ["Vontade de poder", "Racionalismo", "Hegemonia", "Utilitarismo"],
+    "correctAnswer": "Vontade de poder",
+    "category": "filosofia",
+    "explicacao": "Para Nietzsche, a 'vontade de poder' é a força motriz fundamental de todos os seres, uma busca por auto superação e crescimento."
+  },
+  {
+    "question": "Quem foi Jean-Paul Sartre?",
+    "options": ["Filósofo francês, existencialista", "Filósofo alemão", "Filósofo inglês", "Filósofo grego"],
+    "correctAnswer": "Filósofo francês, existencialista",
+    "category": "filosofia",
+    "explicacao": "Sartre é uma figura chave do existencialismo, defendendo que a 'existência precede a essência', ou seja, os seres humanos são livres e responsáveis por criar seu próprio propósito."
+  },
+  {
+    "question": "Qual conceito central em Sartre?",
+    "options": ["Liberdade e responsabilidade individual", "Determinismo biológico", "Hegemonia cultural", "Capital simbólico"],
+    "correctAnswer": "Liberdade e responsabilidade individual",
+    "category": "filosofia",
+    "explicacao": "Sartre enfatiza que os indivíduos são radicalmente livres e, portanto, totalmente responsáveis por suas escolhas e pela construção de suas vidas."
+  },
+  {
+    "question": "Quem foi Simone de Beauvoir?",
+    "options": ["Filósofa francesa, escritora e feminista", "Filósofa alemã", "Filósofa inglesa", "Filósofa grega"],
+    "correctAnswer": "Filósofa francesa, escritora e feminista",
+    "category": "filosofia",
+    "explicacao": "Beauvoir foi uma filósofa existencialista e uma das fundadoras da segunda onda do feminismo, analisando a opressão histórica das mulheres."
+  },
+  {
+    "question": "Qual obra é famosa de Beauvoir?",
+    "options": ["O Segundo Sexo", "O Capital", "A República", "O Contrato Social"],
+    "correctAnswer": "O Segundo Sexo",
+    "category": "filosofia",
+    "explicacao": "Nesta obra seminal, Beauvoir argumenta que 'não se nasce mulher, torna-se mulher', destacando a construção social do gênero."
+  },
+  {
+    "question": "O que Beauvoir entende por 'outra'?",
+    "options": ["A mulher como 'outro' em relação ao homem", "A criança em relação ao adulto", "O estrangeiro na sociedade", "O trabalhador em relação ao patrão"],
+    "correctAnswer": "A mulher como 'outro' em relação ao homem",
+    "category": "filosofia",
+    "explicacao": "Ela argumenta que a mulher é historicamente definida e diferenciada em relação ao homem, que é visto como o padrão ou o 'essencial'."
+  },
+  {
+    "question": "Como Beauvoir vê a liberdade feminina?",
+    "options": ["Como conquista e luta contra opressões sociais", "Como algo inato e natural", "Como resultado apenas da educação", "Como uma função do Estado"],
+    "correctAnswer": "Como conquista e luta contra opressões sociais",
+    "category": "filosofia",
+    "explicacao": "Para Beauvoir, a liberdade da mulher não é dada, mas deve ser conquistada através da superação de estruturas sociais e culturais opressivas."
+  },
+  {
+    "question": "Quem foi Michel Foucault?",
+    "options": ["Filósofo francês, estudou poder, conhecimento e sociedade", "Filósofo inglês", "Filósofo alemão", "Filósofo italiano"],
+    "correctAnswer": "Filósofo francês, estudou poder, conhecimento e sociedade",
+    "category": "filosofia",
+    "explicacao": "Foucault analisou como as relações de poder se manifestam em instituições como prisões, hospitais e escolas, e como o conhecimento é usado como forma de controle."
+  },
+  {
+    "question": "Qual obra de Foucault aborda prisão e disciplina?",
+    "options": ["Vigiar e Punir", "O Capital", "A República", "O Segundo Sexo"],
+    "correctAnswer": "Vigiar e Punir",
+    "category": "filosofia",
+    "explicacao": "Neste livro, Foucault traça a história da punição e argumenta que a sociedade moderna se moveu para formas mais sutis e eficazes de controle e vigilância."
+  },
+  {
+    "question": "O que Foucault entende por 'biopoder'?",
+    "options": ["Controle da vida e corpo pelas instituições", "Poder militar", "Poder econômico", "Poder religioso"],
+    "correctAnswer": "Controle da vida e corpo pelas instituições",
+    "category": "filosofia",
+    "explicacao": "Biopoder é o controle exercido por instituições sobre a vida das populações, gerenciando aspectos como saúde, natalidade e mortalidade."
+  },
+  {
+    "question": "Quem foi Jürgen Habermas?",
+    "options": ["Filósofo alemão contemporâneo, teórico da comunicação e democracia", "Filósofo francês", "Filósofo inglês", "Filósofo grego"],
+    "correctAnswer": "Filósofo alemão contemporâneo, teórico da comunicação e democracia",
+    "category": "filosofia",
+    "explicacao": "Habermas é conhecido por sua teoria da 'ação comunicativa', que propõe que a razão e a democracia podem ser alcançadas através do diálogo livre e aberto."
+  },
+  {
+    "question": "Qual teoria é central em Habermas?",
+    "options": ["Teoria da Ação Comunicativa", "Teoria da Relatividade", "Teoria Marxista", "Teoria da Justiça"],
+    "correctAnswer": "Teoria da Ação Comunicativa",
+    "category": "filosofia",
+    "explicacao": "Esta teoria defende que a linguagem e a comunicação são fundamentais para a coordenação social e para a construção de um consenso racional."
+  },
+  {
+    "question": "Quem foi Karl Marx?",
+    "options": ["Filósofo inglês", "Filósofo e sociólogo alemão, fundador do socialismo científico", "Sociólogo francês", "Filósofo grego"],
+    "correctAnswer": "Filósofo e sociólogo alemão, fundador do socialismo científico",
+    "category": "sociologia",
+    "explicacao": "Marx desenvolveu uma teoria crítica do capitalismo, focando na luta de classes e na exploração do trabalho como motores da história."
+  },
+  {
+    "question": "Qual é a obra mais conhecida de Marx?",
+    "options": ["O Capital", "O Contrato Social", "O Príncipe", "A República"],
+    "correctAnswer": "O Capital",
+    "category": "sociologia",
+    "explicacao": "Em 'O Capital', Marx analisa detalhadamente o modo de produção capitalista, descrevendo conceitos como mais-valia e alienação."
+  },
+  {
+    "question": "O que é luta de classes em Marx?",
+    "options": ["Conflito entre diferentes nações", "Conflito entre diferentes religiões", "Conflito entre explorados (proletariado) e exploradores (burguesia)", "Conflito entre gêneros"],
+    "correctAnswer": "Conflito entre explorados (proletariado) e exploradores (burguesia)",
+    "category": "sociologia",
+    "explicacao": "A luta de classes é o conflito central na sociedade capitalista entre a classe trabalhadora (proletariado) e a classe proprietária dos meios de produção (burguesia)."
+  },
+  {
+    "question": "Quem foi Émile Durkheim?",
+    "options": ["Filósofo francês", "Sociólogo francês, fundador da sociologia moderna", "Filósofo alemão", "Sociólogo brasileiro"],
+    "correctAnswer": "Sociólogo francês, fundador da sociologia moderna",
+    "category": "sociologia",
+    "explicacao": "Durkheim é considerado um dos pais da sociologia por seu trabalho em estabelecer a sociologia como uma ciência autônoma, com foco nos 'fatos sociais'."
+  },
+  {
+    "question": "Qual obra de Durkheim estuda o suicídio?",
+    "options": ["O Capital", "O Suicídio", "A Ética Protestante", "O Segundo Sexo"],
+    "correctAnswer": "O Suicídio",
+    "category": "sociologia",
+    "explicacao": "Nesta obra, Durkheim demonstra que o suicídio, embora pareça um ato individual, é um fato social influenciado pelo grau de integração e regulação social."
+  },
+  {
+    "question": "Quem foi Max Weber?",
+    "options": ["Sociólogo alemão, estudou burocracia, economia e poder", "Filósofo francês", "Filósofo grego", "Sociólogo brasileiro"],
+    "correctAnswer": "Sociólogo alemão, estudou burocracia, economia e poder",
+    "category": "sociologia",
+    "explicacao": "Weber é conhecido por sua abordagem compreensiva da sociologia, analisando a ação social e a influência da cultura e da religião na economia."
+  },
+  {
+    "question": "Qual obra famosa de Weber analisa a ética protestante e o capitalismo?",
+    "options": ["O Capital", "A Ética Protestante e o Espírito do Capitalismo", "O Príncipe", "O Segundo Sexo"],
+    "correctAnswer": "A Ética Protestante e o Espírito do Capitalismo",
+    "category": "sociologia",
+    "explicacao": "Weber argumenta que a ética de trabalho e a disciplina do protestantismo foram fatores importantes para o desenvolvimento do capitalismo moderno."
+  },
+  {
+    "question": "Quem foi Georg Simmel?",
+    "options": ["Sociólogo alemão, estudou interações sociais e cultura urbana", "Filósofo francês", "Filósofo grego", "Sociólogo brasileiro"],
+    "correctAnswer": "Sociólogo alemão, estudou interações sociais e cultura urbana",
+    "category": "sociologia",
+    "explicacao": "Simmel foi um dos primeiros a analisar a vida urbana moderna, focando nas formas de interação social e no impacto da cidade sobre o indivíduo."
+  },
+  {
+    "question": "O que Simmel entende por forma e conteúdo social?",
+    "options": ["Forma: tipo de relação; Conteúdo: assunto da relação", "Forma: lei; Conteúdo: crime", "Forma: corpo; Conteúdo: alma", "Forma: economia; Conteúdo: política"],
+    "correctAnswer": "Forma: tipo de relação; Conteúdo: assunto da relação",
+    "category": "sociologia",
+    "explicacao": "Simmel diferencia a 'forma' da interação social (como competição, conflito) do seu 'conteúdo' (os interesses ou motivos por trás dela)."
+  },
+  {
+    "question": "Quem foi Auguste Comte?",
+    "options": ["Filósofo francês, pai da sociologia", "Sociólogo alemão", "Filósofo grego", "Filósofo inglês"],
+    "correctAnswer": "Filósofo francês, pai da sociologia",
+    "category": "sociologia",
+    "explicacao": "Comte cunhou o termo 'sociologia' e defendeu o positivismo, a ideia de que a sociedade deveria ser estudada com os mesmos métodos das ciências naturais."
+  },
+  {
+    "question": "Qual sociólogo brasileiro é famoso por sua obra 'Casa-Grande & Senzala'?",
+    "options": ["Florestan Fernandes", "Sérgio Buarque de Holanda", "Darcy Ribeiro", "Gilberto Freyre"],
+    "correctAnswer": "Gilberto Freyre",
+    "category": "sociologia",
+    "explicacao": "Nesta obra, Freyre analisa a formação da sociedade brasileira a partir da miscigenação e das relações entre a casa-grande e a senzala no período colonial."
+  },
+  {
+    "question": "Quem foi Florestan Fernandes?",
+    "options": ["Sociólogo brasileiro, estudou desigualdade e racismo", "Filósofo francês", "Sociólogo alemão", "Filósofo inglês"],
+    "correctAnswer": "Sociólogo brasileiro, estudou desigualdade e racismo",
+    "category": "sociologia",
+    "explicacao": "Fernandes foi um dos principais sociólogos brasileiros, conhecido por sua análise crítica das relações raciais e da desigualdade social no Brasil."
+  },
+  {
+    "question": "Quem foi Sérgio Buarque de Holanda?",
+    "options": ["Sociólogo brasileiro, autor de 'Raízes do Brasil'", "Sociólogo francês", "Sociólogo alemão", "Filósofo brasileiro"],
+    "correctAnswer": "Sociólogo brasileiro, autor de 'Raízes do Brasil'",
+    "category": "sociologia",
+    "explicacao": "Em 'Raízes do Brasil', ele introduz o conceito do 'homem cordial' para descrever traços da identidade nacional brasileira, marcada pela afetividade e pela dificuldade em separar o público do privado."
+  },
+  {
+    "question": "Quem foi Darcy Ribeiro?",
+    "options": ["Sociólogo brasileiro, estudou indígenas e educação", "Sociólogo francês", "Sociólogo alemão", "Filósofo brasileiro"],
+    "correctAnswer": "Sociólogo brasileiro, estudou indígenas e educação",
+    "category": "sociologia",
+    "explicacao": "Darcy Ribeiro foi um antropólogo e educador que dedicou sua vida ao estudo dos povos indígenas brasileiros e à defesa de uma educação pública de qualidade."
+  },
+  {
+    "question": "Qual obra importante de Gilberto Freyre analisa a sociedade brasileira?",
+    "options": ["Casa-Grande & Senzala", "Raízes do Brasil", "O Capital", "A Ética Protestante e o Espírito do Capitalismo"],
+    "correctAnswer": "Casa-Grande & Senzala",
+    "category": "sociologia",
+    "explicacao": "Esta obra é um marco na sociologia brasileira, analisando a formação da sociedade patriarcal e a importância da miscigenação cultural."
+  },
+  {
+    "question": "Qual sociólogo brasileiro estudou desigualdade racial e social no Brasil?",
+    "options": ["Florestan Fernandes", "Gilberto Freyre", "Darcy Ribeiro", "Sérgio Buarque de Holanda"],
+    "correctAnswer": "Florestan Fernandes",
+    "category": "sociologia",
+    "explicacao": "Florestan Fernandes criticou a ideia de uma 'democracia racial' no Brasil, argumentando que o racismo e a desigualdade persistiram após a abolição da escravatura."
+  },
+  {
+    "question": "Quem escreveu 'Raízes do Brasil'?",
+    "options": ["Sérgio Buarque de Holanda", "Darcy Ribeiro", "Gilberto Freyre", "Florestan Fernandes"],
+    "correctAnswer": "Sérgio Buarque de Holanda",
+    "category": "sociologia",
+    "explicacao": "Nesta obra, Sérgio Buarque de Holanda analisa a formação da identidade brasileira, destacando a herança colonial e o conceito de 'homem cordial'."
+  },
+  {
+    "question": "Quem foi Darcy Ribeiro?",
+    "options": ["Sociólogo e antropólogo brasileiro, estudou educação e povos indígenas", "Filósofo francês", "Sociólogo alemão", "Filósofo grego"],
+    "correctAnswer": "Sociólogo e antropólogo brasileiro, estudou educação e povos indígenas",
+    "category": "sociologia",
+    "explicacao": "Darcy Ribeiro foi um defensor incansável dos direitos dos povos indígenas e um importante pensador da educação no Brasil, propondo reformas educacionais."
+  },
+  {
+    "question": "O que Gilberto Freyre destaca sobre a colonização brasileira?",
+    "options": ["Influência da miscigenação na formação cultural", "Influxo francês na política", "Colonização inglesa na economia", "Industrialização alemã"],
+    "correctAnswer": "Influência da miscigenação na formação cultural",
+    "category": "sociologia",
+    "explicacao": "Freyre valorizou a mistura de raças e culturas (indígena, africana e europeia) como um elemento central e positivo na formação do Brasil."
+  },
+  {
+    "question": "Qual contribuição principal de Florestan Fernandes?",
+    "options": ["Estudo sobre racismo e democracia no Brasil", "Teoria da ação comunicativa", "Estudo sobre ética protestante", "Crítica à moral judaico-cristã"],
+    "correctAnswer": "Estudo sobre racismo e democracia no Brasil",
+    "category": "sociologia",
+    "explicacao": "Sua obra foi fundamental para desmistificar a ideia de que o Brasil era uma democracia racial, mostrando como o preconceito e a discriminação persistiam."
+  },
+  {
+    "question": "O que Darcy Ribeiro defende sobre a educação no Brasil?",
+    "options": ["Educação inclusiva e valorização cultural dos povos indígenas", "Educação elitista", "Educação restrita a cidades grandes", "Educação baseada apenas em economia"],
+    "correctAnswer": "Educação inclusiva e valorização cultural dos povos indígenas",
+    "category": "sociologia",
+    "explicacao": "Darcy Ribeiro defendia um projeto de educação que respeitasse e integrasse as diversas culturas brasileiras, especialmente as indígenas."
+  },
+  {
+    "question": "Qual é a principal ideia de Sérgio Buarque de Holanda em 'Raízes do Brasil'?",
+    "options": ["A formação do caráter nacional brasileiro a partir da colonização portuguesa", "O socialismo científico", "O racionalismo francês", "A teoria do contrato social"],
+    "correctAnswer": "A formação do caráter nacional brasileiro a partir da colonização portuguesa",
+    "category": "sociologia",
+    "explicacao": "Ele explora como a herança colonial, especialmente o personalismo e a afetividade, moldou as relações sociais e políticas no Brasil."
+  },
+  {
+    "question": "Quem estudou a formação social e cultural do Brasil com foco na miscigenação?",
+    "options": ["Gilberto Freyre", "Florestan Fernandes", "Darcy Ribeiro", "Sérgio Buarque de Holanda"],
+    "correctAnswer": "Gilberto Freyre",
+    "category": "sociologia",
+    "explicacao": "Gilberto Freyre é o principal autor a destacar a miscigenação como um elemento fundamental e positivo na construção da identidade brasileira."
+  },
+  {
+    "question": "Qual sociólogo brasileiro é conhecido pelo estudo da escravidão e da sociedade patriarcal?",
+    "options": ["Gilberto Freyre", "Darcy Ribeiro", "Florestan Fernandes", "Sérgio Buarque de Holanda"],
+    "correctAnswer": "Gilberto Freyre",
+    "category": "sociologia",
+    "explicacao": "Em 'Casa-Grande & Senzala', Freyre detalha como a estrutura da sociedade patriarcal e escravocrata do período colonial influenciou a cultura brasileira."
+  },
+  {
+    "question": "O que Aristóteles entendia por 'virtude'?",
+    "options": ["Hábito de agir corretamente", "Riqueza", "Poder político", "Conhecimento científico"],
+    "correctAnswer": "Hábito de agir corretamente",
+    "category": "filosofia",
+    "explicacao": "Para Aristóteles, a virtude é uma disposição de caráter adquirida pelo hábito, que se encontra no 'meio-termo' entre dois extremos (vícios)."
+  },
+  {
+    "question": "O que Platão acreditava sobre o mundo das ideias?",
+    "options": ["Que é eterno e perfeito", "Que não existe", "Que é igual ao mundo físico", "Que é ilusório e negativo"],
+    "correctAnswer": "Que é eterno e perfeito",
+    "category": "filosofia",
+    "explicacao": "Platão defendia que o mundo sensível é uma cópia imperfeita do mundo das ideias, que é a verdadeira realidade, eterna e imutável."
+  },
+  {
+    "question": "Qual filósofo defendeu o existencialismo ateu?",
+    "options": ["Jean-Paul Sartre", "Kant", "Hegel", "Platão"],
+    "correctAnswer": "Jean-Paul Sartre",
+    "category": "filosofia",
+    "explicacao": "Sartre argumentava que, sem um Deus para definir a natureza humana, os indivíduos são livres e responsáveis por criar seus próprios valores e sentido para a vida."
+  },
+  {
+    "question": "Segundo Foucault, o que é disciplina?",
+    "options": ["Mecanismos de poder que moldam comportamentos", "Liberdade individual absoluta", "Igualdade econômica", "Educação tradicional apenas"],
+    "correctAnswer": "Mecanismos de poder que moldam comportamentos",
+    "category": "filosofia",
+    "explicacao": "Foucault via a disciplina como uma forma de poder que atua sobre os corpos dos indivíduos, organizando-os no tempo e no espaço para torná-los dóceis e úteis."
+  },
+  {
+    "question": "Para Kant, como se determina uma ação moralmente correta?",
+    "options": ["Pelo dever e pela razão", "Pelo prazer que causa", "Pela tradição", "Pelo poder que proporciona"],
+    "correctAnswer": "Pelo dever e pela razão",
+    "category": "filosofia",
+    "explicacao": "Uma ação tem valor moral para Kant não por suas consequências, mas por ser realizada por dever, de acordo com uma lei universal que a razão estabelece (o imperativo categórico)."
+  },
+  {
+    "question": "O que Marx entende por 'alienação'?",
+    "options": ["Separação do trabalhador do produto do seu trabalho", "Amizade entre classes", "Riqueza acumulada", "Educação formal"],
+    "correctAnswer": "Separação do trabalhador do produto do seu trabalho",
+    "category": "sociologia",
+    "explicacao": "No capitalismo, o trabalhador se torna alienado do produto que cria, do processo de trabalho, de si mesmo e dos outros, perdendo o controle sobre sua própria vida."
+  },
+  {
+    "question": "Para Durkheim, o que é fato social?",
+    "options": ["Maneira de agir, pensar ou sentir externa ao indivíduo e coercitiva", "A vontade individual", "Ideias filosóficas abstratas", "Fenômenos naturais apenas"],
+    "correctAnswer": "Maneira de agir, pensar ou sentir externa ao indivíduo e coercitiva",
+    "category": "sociologia",
+    "explicacao": "Fatos sociais são padrões de comportamento coletivo que existem fora do indivíduo e exercem uma pressão (coerção) sobre ele, como a língua ou as leis."
+  },
+  {
+    "question": "Segundo Weber, o que caracteriza a burocracia moderna?",
+    "options": ["Hierarquia clara, regras formais e funções especializadas", "Decisões informais e improvisadas", "Ausência de regras", "Liderança baseada em carisma apenas"],
+    "correctAnswer": "Hierarquia clara, regras formais e funções especializadas",
+    "category": "sociologia",
+    "explicacao": "Weber descreveu a burocracia como a forma mais eficiente de organização, baseada na racionalidade, impessoalidade e em regras claras e previsíveis."
+  },
+  {
+    "question": "Qual sociólogo estudou a cultura urbana e a vida moderna?",
+    "options": ["Georg Simmel", "Karl Marx", "Émile Durkheim", "Florestan Fernandes"],
+    "correctAnswer": "Georg Simmel",
+    "category": "sociologia",
+    "explicacao": "Simmel analisou como a vida nas grandes cidades afeta a psicologia individual, gerando atitudes como a reserva e a indiferença como forma de proteção."
+  },
+  {
+    "question": "Qual filósofo desenvolveu o conceito de 'dialética'?",
+    "options": ["Hegel", "Nietzsche", "Sartre", "Kant"],
+    "correctAnswer": "Hegel",
+    "category": "filosofia",
+    "explicacao": "A dialética hegeliana é um processo em que uma ideia (tese) gera sua oposta (antítese), e a tensão entre as duas é resolvida em uma nova ideia (síntese)."
+  },
+  {
+    "question": "Qual filósofo é conhecido pelo conceito de 'vontade de poder'?",
+    "options": ["Nietzsche", "Sartre", "Descartes", "Platão"],
+    "correctAnswer": "Nietzsche",
+    "category": "filosofia",
+    "explicacao": "Para Nietzsche, a vontade de poder não é apenas o desejo de dominar os outros, mas a força fundamental que impulsiona todos os seres a crescer, expandir e se superar."
+  },
+  {
+    "question": "Qual sociólogo brasileiro escreveu sobre a formação social da população indígena e negra?",
+    "options": ["Darcy Ribeiro", "Gilberto Freyre", "Sérgio Buarque de Holanda", "Florestan Fernandes"],
+    "correctAnswer": "Darcy Ribeiro",
+    "category": "sociologia",
+    "explicacao": "Darcy Ribeiro dedicou grande parte de sua obra a entender e defender a importância das populações indígenas e negras na formação do Brasil."
+  },
+  {
+    "question": "Para Foucault, o que é 'panóptico'?",
+    "options": ["Modelo de vigilância e controle social", "Teoria econômica", "Conceito de liberdade", "Ideia de democracia direta"],
+    "correctAnswer": "Modelo de vigilância e controle social",
+    "category": "filosofia",
+    "explicacao": "O panóptico é um modelo de prisão onde um único vigia pode observar todos os prisioneiros sem que eles saibam se estão sendo observados, simbolizando a vigilância constante na sociedade moderna."
+  },
+  {
+    "question": "O que Habermas entende por 'ação comunicativa'?",
+    "options": ["Interação voltada à compreensão mútua e consenso", "Ação política violenta", "Gestão burocrática", "Ação econômica"],
+    "correctAnswer": "Interação voltada à compreensão mútua e consenso",
+    "category": "filosofia",
+    "explicacao": "É a forma de interação social em que os participantes buscam o entendimento e o acordo através do diálogo racional, livre de coerção."
+  },
+  {
+    "question": "Quem enfatizou a importância da educação para a transformação social no Brasil?",
+    "options": ["Darcy Ribeiro", "Sérgio Buarque de Holanda", "Gilberto Freyre", "Florestan Fernandes"],
+    "correctAnswer": "Darcy Ribeiro",
+    "category": "sociologia",
+    "explicacao": "Darcy Ribeiro acreditava que a educação era a ferramenta fundamental para superar as desigualdades e construir um Brasil mais justo e desenvolvido."
+  },
+  {
+    "question": "O que Durkheim entendia por 'anomia'?",
+    "options": ["Ausência de normas sociais reguladoras", "Conflito de classes", "Relação familiar", "Capital econômico"],
+    "correctAnswer": "Ausência de normas sociais reguladoras",
+    "category": "sociologia",
+    "explicacao": "A anomia é um estado de desorientação social causado pela falta de normas claras, o que pode levar ao aumento de desvios e do suicídio."
+  },
+  {
+    "question": "Qual filósofo questionou a moral tradicional e a religião cristã?",
+    "options": ["Nietzsche", "Kant", "Sartre", "Hegel"],
+    "correctAnswer": "Nietzsche",
+    "category": "filosofia",
+    "explicacao": "Nietzsche criticou a moralidade judaico-cristã por, segundo ele, enfraquecer o potencial humano, propondo uma 'transvaloração de todos os valores'."
+  },
+  {
+    "question": "Quem escreveu sobre o papel da religião na economia moderna?",
+    "options": ["Max Weber", "Karl Marx", "Émile Durkheim", "Georg Simmel"],
+    "correctAnswer": "Max Weber",
+    "category": "sociologia",
+    "explicacao": "Em 'A Ética Protestante e o Espírito do Capitalismo', Weber explora como os valores do protestantismo ascético influenciaram o desenvolvimento do capitalismo."
+  },
+  {
+    "question": "Segundo Marx, qual é a classe que detém os meios de produção?",
+    "options": ["Burguesia", "Proletariado", "Camponeses", "Intelectuais"],
+    "correctAnswer": "Burguesia",
+    "category": "sociologia",
+    "explicacao": "A burguesia é a classe capitalista que possui os meios de produção (fábricas, terras, etc.) e emprega a classe trabalhadora (proletariado)."
+  },
+  {
+    "question": "Qual filósofo é conhecido por afirmar que 'o homem está condenado a ser livre'?",
+    "options": ["Jean-Paul Sartre", "Descartes", "Kant", "Hegel"],
+    "correctAnswer": "Jean-Paul Sartre",
+    "category": "filosofia",
+    "explicacao": "Esta frase de Sartre significa que os seres humanos não têm uma essência predefinida e são, portanto, obrigados a fazer escolhas que definem quem eles são."
+  },
+  {
+    "question": "Quem foi Thomas Hobbes?",
+    "options": ["Filósofo inglês, autor de 'Leviatã'", "Filósofo francês, autor de 'O Segundo Sexo'", "Filósofo alemão, autor de 'O Capital'", "Filósofo grego, discípulo de Sócrates"],
+    "correctAnswer": "Filósofo inglês, autor de 'Leviatã'",
+    "category": "filosofia",
+    "explicacao": "Hobbes foi um filósofo político que argumentou que, para evitar um estado de natureza caótico, as pessoas deveriam ceder parte de sua liberdade a um soberano absoluto."
+  },
+  {
+    "question": "Qual conceito central de Hobbes em 'Leviatã'?",
+    "options": ["Contrato social e poder do soberano", "Imperativo categórico", "Vontade de poder", "Dialética"],
+    "correctAnswer": "Contrato social e poder do soberano",
+    "category": "filosofia",
+    "explicacao": "Hobbes defende que os indivíduos fazem um 'contrato social' para criar um Estado (o Leviatã) com poder absoluto para garantir a paz e a segurança."
+  },
+  {
+    "question": "Quem foi John Locke?",
+    "options": ["Filósofo inglês, pai do liberalismo", "Filósofo francês, pai do existencialismo", "Filósofo alemão, pai do idealismo", "Filósofo grego, discípulo de Platão"],
+    "correctAnswer": "Filósofo inglês, pai do liberalismo",
+    "category": "filosofia",
+    "explicacao": "Locke é uma figura central no liberalismo, defendendo direitos naturais como vida, liberdade e propriedade, e a ideia de um governo com poderes limitados."
+  },
+  {
+    "question": "Qual ideia Locke defendia sobre o conhecimento?",
+    "options": ["Tabula rasa — mente como folha em branco", "Dialética", "Vontade de poder", "Imperativo categórico"],
+    "correctAnswer": "Tabula rasa — mente como folha em branco",
+    "category": "filosofia",
+    "explicacao": "Locke, um empirista, acreditava que a mente humana nasce como uma 'folha em branco' (tabula rasa) e que todo o conhecimento é adquirido através da experiência."
+  },
+  {
+    "question": "Quem foi Jean-Jacques Rousseau?",
+    "options": ["Filósofo francês, autor de 'O Contrato Social'", "Filósofo alemão, autor de 'Fenomenologia do Espírito'", "Filósofo inglês, autor de 'Leviatã'", "Filósofo grego, discípulo de Sócrates"],
+    "correctAnswer": "Filósofo francês, autor de 'O Contrato Social'",
+    "category": "filosofia",
+    "explicacao": "Rousseau foi um filósofo iluminista que influenciou a Revolução Francesa com suas ideias sobre a soberania popular e o 'bom selvagem'."
+  },
+  {
+    "question": "Qual conceito central de Rousseau?",
+    "options": ["Contrato social e vontade geral", "Imperativo categórico", "Vontade de poder", "Dialética"],
+    "correctAnswer": "Contrato social e vontade geral",
+    "category": "filosofia",
+    "explicacao": "Rousseau acreditava que a soberania reside na 'vontade geral' do povo, que é expressa através de um contrato social para o bem comum."
+  },
+  {
+    "question": "Quem foi Thomas Malthus?",
+    "options": ["Economista e sociólogo inglês, estudou população e fome", "Sociólogo francês, estudou suicídio", "Filósofo alemão, estudou dialética", "Filósofo francês, estudou contrato social"],
+    "correctAnswer": "Economista e sociólogo inglês, estudou população e fome",
+    "category": "sociologia",
+    "explicacao": "Malthus é famoso por sua teoria de que o crescimento da população tende a superar a produção de alimentos, levando a crises de fome e miséria."
+  },
+  {
+    "question": "Qual conceito central de Malthus?",
+    "options": ["Crescimento populacional tende a superar recursos", "Luta de classes", "Suicídio como fato social", "Burocracia moderna"],
+    "correctAnswer": "Crescimento populacional tende a superar recursos",
+    "category": "sociologia",
+    "explicacao": "A teoria malthusiana argumenta que, enquanto a população cresce em progressão geométrica, os recursos alimentares crescem em progressão aritmética."
+  },
+  {
+    "question": "Quem foi Herbert Spencer?",
+    "options": ["Sociólogo inglês, aplicou a ideia de 'sobrevivência do mais apto' à sociedade", "Sociólogo francês, estudou suicídio", "Sociólogo alemão, estudou burocracia", "Filósofo francês, estudou contrato social"],
+    "correctAnswer": "Sociólogo inglês, aplicou a ideia de 'sobrevivência do mais apto' à sociedade",
+    "category": "sociologia",
+    "explicacao": "Spencer foi um dos principais proponentes do 'darwinismo social', aplicando conceitos da teoria da evolução de Darwin às sociedades humanas."
+  },
+  {
+    "question": "O que Spencer defendia?",
+    "options": ["Darwinismo social e evolução das sociedades", "Luta de classes", "Imperativo categórico", "Dialética"],
+    "correctAnswer": "Darwinismo social e evolução das sociedades",
+    "category": "sociologia",
+    "explicacao": "Ele acreditava que as sociedades evoluem de formas simples para formas mais complexas, e que a competição social leva à 'sobrevivência do mais apto'."
+  },
+  {
+    "question": "Quem foi Pierre Bourdieu?",
+    "options": ["Sociólogo francês, estudou capital cultural e social", "Filósofo francês, estudou existencialismo", "Filósofo alemão, estudou idealismo", "Sociólogo inglês, estudou população"],
+    "correctAnswer": "Sociólogo francês, estudou capital cultural e social",
+    "category": "sociologia",
+    "explicacao": "Bourdieu analisou como as estruturas sociais são reproduzidas através de diferentes formas de 'capital' (cultural, social, econômico) e do 'habitus'."
+  },
+  {
+    "question": "O que é capital cultural em Bourdieu?",
+    "options": ["Conhecimentos, habilidades e educação que conferem vantagem social", "Riqueza econômica", "Poder político", "Força militar"],
+    "correctAnswer": "Conhecimentos, habilidades e educação que conferem vantagem social",
+    "category": "sociologia",
+    "explicacao": "O capital cultural inclui o conhecimento formal, as maneiras e os gostos que são valorizados em uma sociedade e que contribuem para a distinção social."
+  },
+  {
+    "question": "Quem foi Ludwig Feuerbach?",
+    "options": ["Filósofo alemão, estudou religião e antropologia", "Filósofo francês, estudou existencialismo", "Filósofo inglês, estudou liberalismo", "Filósofo grego, discípulo de Platão"],
+    "correctAnswer": "Filósofo alemão, estudou religião e antropologia",
+    "category": "filosofia",
+    "explicacao": "Feuerbach argumentou que os seres humanos criaram Deus à sua própria imagem, projetando suas melhores qualidades em um ser divino, o que leva à alienação."
+  },
+  {
+    "question": "Segundo Feuerbach, a religião é...",
+    "options": ["Projeção das qualidades humanas em Deus", "Revelação divina absoluta", "Contrato social", "Fenômeno econômico"],
+    "correctAnswer": "Projeção das qualidades humanas em Deus",
+    "category": "filosofia",
+    "explicacao": "Ele via a religião como uma forma de alienação em que os humanos transferem suas próprias virtudes para um ser externo, empobrecendo a si mesmos."
+  },
+  {
+    "question": "Quem foi Antonio Gramsci?",
+    "options": ["Filósofo e sociólogo italiano, estudou hegemonia cultural", "Filósofo francês, estudou existencialismo", "Filósofo alemão, estudou idealismo", "Sociólogo inglês, estudou população"],
+    "correctAnswer": "Filósofo e sociólogo italiano, estudou hegemonia cultural",
+    "category": "sociologia",
+    "explicacao": "Gramsci, um pensador marxista, desenvolveu o conceito de 'hegemonia cultural' para explicar como a classe dominante mantém o poder através do consentimento e da ideologia, não apenas pela força."
+  },
+  {
+    "question": "Qual conceito central de Gramsci?",
+    "options": ["Hegemonia cultural e influência das ideias sobre a sociedade", "Luta de classes", "Imperativo categórico", "Dialética"],
+    "correctAnswer": "Hegemonia cultural e influência das ideias sobre a sociedade",
+    "category": "sociologia",
+    "explicacao": "A hegemonia cultural é a dominação de uma classe social sobre outra através da cultura, das ideias e dos valores, fazendo com que a visão de mundo da classe dominante pareça natural e universal."
+  },
+  {
+    "question": "Quem foi Hannah Arendt?",
+    "options": ["Filósofa alemã, estudou totalitarismo e política", "Filósofa francesa, estudou existencialismo", "Filósofo inglês, estudou liberalismo", "Sociólogo francês, estudou capital cultural"],
+    "correctAnswer": "Filósofa alemã, estudou totalitarismo e política",
+    "category": "filosofia",
+    "explicacao": "Arendt analisou a natureza do poder e do totalitarismo no século XX, e é conhecida por seu conceito da 'banalidade do mal'."
+  },
+  {
+    "question": "Qual obra famosa de Hannah Arendt?",
+    "options": ["Origens do Totalitarismo", "O Capital", "A Ética Protestante e o Espírito do Capitalismo", "O Contrato Social"],
+    "correctAnswer": "Origens do Totalitarismo",
+    "category": "filosofia",
+    "explicacao": "Nesta obra, Arendt investiga as origens e as características dos regimes totalitários nazista e stalinista, analisando o antissemitismo, o imperialismo e a propaganda."
+  },
+  {
+    "question": "Quem foi Auguste Comte?",
+    "options": ["Filósofo francês, fundador da sociologia e do positivismo", "Sociólogo alemão, estudou burocracia", "Filósofo inglês, estudou liberalismo", "Filósofo grego, discípulo de Platão"],
+    "correctAnswer": "Filósofo francês, fundador da sociologia e do positivismo",
+    "category": "sociologia",
+    "explicacao": "Comte é considerado o pai da sociologia e do positivismo, corrente que defende a aplicação do método científico para entender e reformar a sociedade."
+  },
+  {
+    "question": "Qual princípio Comte defendia?",
+    "options": ["Ciência como base do conhecimento e organização social", "Dialética", "Imperativo categórico", "Vontade de poder"],
+    "correctAnswer": "Ciência como base do conhecimento e organização social",
+    "category": "sociologia",
+    "explicacao": "Para Comte, a sociedade deveria ser guiada pela ciência (positivismo) para alcançar a ordem e o progresso."
+  },
+  {
+    "question": "Quem estudou a burocracia e autoridade legal-racional?",
+    "options": ["Max Weber", "Karl Marx", "Émile Durkheim", "Georg Simmel"],
+    "correctAnswer": "Max Weber",
+    "category": "sociologia",
+    "explicacao": "Weber analisou a burocracia como uma forma de dominação baseada na autoridade legal-racional, característica das sociedades modernas."
+  },
+  {
+    "question": "Quem escreveu sobre o papel da ética religiosa no capitalismo?",
+    "options": ["Max Weber", "Karl Marx", "Émile Durkheim", "Darcy Ribeiro"],
+    "correctAnswer": "Max Weber",
+    "category": "sociologia",
+    "explicacao": "Weber, em 'A Ética Protestante e o Espírito do Capitalismo', argumentou que valores religiosos protestantes foram cruciais para o surgimento do capitalismo."
+  },
+  {
+    "question": "Quem estudou o suicídio como fenômeno social?",
+    "options": ["Émile Durkheim", "Karl Marx", "Max Weber", "Georg Simmel"],
+    "correctAnswer": "Émile Durkheim",
+    "category": "sociologia",
+    "explicacao": "Durkheim mostrou que as taxas de suicídio variam de acordo com o grau de integração e regulação social, tratando-o como um fato social."
+  },
+  {
+    "question": "O que Durkheim chamava de 'solidariedade mecânica'?",
+    "options": ["Coesão social baseada em semelhança entre indivíduos", "Conflito de classes", "Vontade de poder", "Relações econômicas"],
+    "correctAnswer": "Coesão social baseada em semelhança entre indivíduos",
+    "category": "sociologia",
+    "explicacao": "Típica de sociedades tradicionais, a solidariedade mecânica une as pessoas através de crenças e valores compartilhados."
+  },
+  {
+    "question": "O que Durkheim chamava de 'solidariedade orgânica'?",
+    "options": ["Coesão social baseada na divisão do trabalho e interdependência", "Conflito de classes", "Vontade de poder", "Relações econômicas"],
+    "correctAnswer": "Coesão social baseada na divisão do trabalho e interdependência",
+    "category": "sociologia",
+    "explicacao": "Típica de sociedades modernas, a solidariedade orgânica surge da interdependência entre indivíduos com funções especializadas."
+  },
+  {
+    "question": "Quem estudou a modernidade e o choque cultural urbano?",
+    "options": ["Georg Simmel", "Émile Durkheim", "Max Weber", "Karl Marx"],
+    "correctAnswer": "Georg Simmel",
+    "category": "sociologia",
+    "explicacao": "Simmel analisou como a vida na metrópole moderna afeta a experiência individual, levando ao desenvolvimento de uma atitude blasé e reservada."
+  },
+  {
+    "question": "O que Marx chamava de 'mais-valia'?",
+    "options": ["Valor excedente produzido pelo trabalhador apropriado pelo capitalista", "Salário justo", "Educação obrigatória", "Relação familiar"],
+    "correctAnswer": "Valor excedente produzido pelo trabalhador apropriado pelo capitalista",
+    "category": "sociologia",
+    "explicacao": "A mais-valia é a diferença entre o valor que o trabalhador produz e o salário que recebe, sendo a fonte do lucro capitalista segundo Marx."
+  },
+  {
+    "question": "Quem estudou hegemonia e poder ideológico?",
+    "options": ["Antonio Gramsci", "Karl Marx", "Max Weber", "Florestan Fernandes"],
+    "correctAnswer": "Antonio Gramsci",
+    "category": "sociologia",
+    "explicacao": "Gramsci expandiu as ideias de Marx, argumentando que a classe dominante mantém o poder não só pela força, mas também pelo controle ideológico e cultural (hegemonia)."
+  },
+  {
+    "question": "Quem é considerado pai da sociologia moderna?",
+    "options": ["Émile Durkheim", "Karl Marx", "Max Weber", "Georg Simmel"],
+    "correctAnswer": "Émile Durkheim",
+    "category": "sociologia",
+    "explicacao": "Durkheim é frequentemente chamado de pai da sociologia por seu esforço em estabelecer a disciplina como uma ciência rigorosa com objeto e método próprios."
+  },
+  {
+    "question": "O que Weber chamava de 'ação social'?",
+    "options": ["Ação orientada ao comportamento de outros", "Ação individual isolada", "Força militar", "Processo econômico"],
+    "correctAnswer": "Ação orientada ao comportamento de outros",
+    "category": "sociologia",
+    "explicacao": "Para Weber, a ação social é qualquer ação que um indivíduo realiza levando em consideração a presença e as possíveis reações de outros."
+  },
+  {
+    "question": "Quem defendeu que a ciência deve guiar a sociedade, segundo o positivismo?",
+    "options": ["Auguste Comte", "Karl Marx", "Émile Durkheim", "Max Weber"],
+    "correctAnswer": "Auguste Comte",
+    "category": "sociologia",
+    "explicacao": "Comte, o fundador do positivismo, acreditava que a sociologia (ou 'física social') poderia descobrir as leis da sociedade e guiar o progresso social."
+  },
+  {
+    "question": "Quem escreveu sobre a ética do protestantismo e a origem do capitalismo?",
+    "options": ["Max Weber", "Karl Marx", "Émile Durkheim", "Darcy Ribeiro"],
+    "correctAnswer": "Max Weber",
+    "category": "sociologia",
+    "explicacao": "Weber argumentou que certos valores do protestantismo, como a disciplina e a valorização do trabalho, criaram uma afinidade com o 'espírito' do capitalismo."
+  },
+  {
+    "question": "Quem foi Baruch Spinoza?",
+    "options": ["Filósofo holandês, racionalista, autor de 'Ética'", "Filósofo francês, autor de 'O Contrato Social'", "Filósofo inglês, autor de 'Leviatã'", "Filósofo grego, discípulo de Platão"],
+    "correctAnswer": "Filósofo holandês, racionalista, autor de 'Ética'",
+    "category": "filosofia",
+    "explicacao": "Spinoza é um dos grandes racionalistas do século XVII, conhecido por sua visão panteísta de que Deus e a Natureza são a mesma coisa."
+  },
+  {
+    "question": "Qual conceito central de Spinoza?",
+    "options": ["Deus ou Natureza como substância única", "Imperativo categórico", "Contrato social", "Vontade de poder"],
+    "correctAnswer": "Deus ou Natureza como substância única",
+    "category": "filosofia",
+    "explicacao": "Spinoza defendia o monismo, a ideia de que existe apenas uma substância no universo, que ele chamava de 'Deus ou Natureza' (Deus sive Natura)."
+  },
+  {
+    "question": "Quem foi Thomas Hobbes?",
+    "options": ["Filósofo inglês, autor de 'Leviatã'", "Filósofo francês, autor de 'O Segundo Sexo'", "Filósofo alemão, autor de 'O Capital'", "Filósofo grego, discípulo de Sócrates"],
+    "correctAnswer": "Filósofo inglês, autor de 'Leviatã'",
+    "category": "filosofia",
+    "explicacao": "Hobbes é um dos fundadores da filosofia política moderna. Sua obra 'Leviatã' defende a necessidade de um soberano forte para evitar o caos social."
+  },
+  {
+    "question": "Qual é a visão de Hobbes sobre o estado natural do homem?",
+    "options": ["Estado de guerra de todos contra todos", "Estado de harmonia perfeita", "Estado de virtude moral", "Estado de igualdade econômica"],
+    "correctAnswer": "Estado de guerra de todos contra todos",
+    "category": "filosofia",
+    "explicacao": "Hobbes acreditava que, sem um governo, a vida humana seria uma 'guerra de todos contra todos', solitária, pobre, sórdida, embrutecida e curta."
+  },
+  {
+    "question": "Quem foi John Locke?",
+    "options": ["Filósofo inglês, pai do liberalismo", "Filósofo francês, autor de 'O Contrato Social'", "Filósofo alemão, idealista", "Filósofo grego, discípulo de Sócrates"],
+    "correctAnswer": "Filósofo inglês, pai do liberalismo",
+    "category": "filosofia",
+    "explicacao": "Locke defendeu os direitos naturais do indivíduo (vida, liberdade e propriedade) e argumentou que o governo deve ter o consentimento dos governados."
+  },
+  {
+    "question": "Segundo Locke, como surge o conhecimento?",
+    "options": ["A partir da experiência sensorial", "Por revelação divina", "Por dialética", "Por vontade de poder"],
+    "correctAnswer": "A partir da experiência sensorial",
+    "category": "filosofia",
+    "explicacao": "Como empirista, Locke acreditava que todo o conhecimento deriva da experiência, através dos sentidos, e que a mente nasce como uma 'tabula rasa' (folha em branco)."
+  },
+  {
+    "question": "Quem foi Jean-Jacques Rousseau?",
+    "options": ["Filósofo francês, autor de 'O Contrato Social'", "Filósofo alemão, idealista", "Filósofo inglês, liberal", "Filósofo grego, discípulo de Platão"],
+    "correctAnswer": "Filósofo francês, autor de 'O Contrato Social'",
+    "category": "filosofia",
+    "explicacao": "Rousseau foi um importante filósofo do Iluminismo, cujas ideias sobre a vontade geral e a soberania popular influenciaram a Revolução Francesa."
+  },
+  {
+    "question": "Qual conceito central de Rousseau?",
+    "options": ["Vontade geral e contrato social", "Imperativo categórico", "Vontade de poder", "Ética da virtude"],
+    "correctAnswer": "Vontade geral e contrato social",
+    "category": "filosofia",
+    "explicacao": "Rousseau propôs que um governo legítimo é baseado na 'vontade geral' do povo, expressa através de um contrato social que visa o bem comum."
+  },
+  {
+    "question": "Quem foi Thomas Malthus?",
+    "options": ["Economista e sociólogo inglês, estudou população e fome", "Sociólogo francês, estudou suicídio", "Filósofo alemão, estudou dialética", "Filósofo francês, estudou contrato social"],
+    "correctAnswer": "Economista e sociólogo inglês, estudou população e fome",
+    "category": "sociologia",
+    "explicacao": "Malthus ficou famoso por sua teoria de que o crescimento populacional, se não controlado, superaria a capacidade de produção de alimentos, levando a crises."
+  },
+  {
+    "question": "Qual teoria é atribuída a Malthus?",
+    "options": ["População cresce mais rápido que recursos, causando fome", "Luta de classes", "Burocracia moderna", "Ética protestante e capitalismo"],
+    "correctAnswer": "População cresce mais rápido que recursos, causando fome",
+    "category": "sociologia",
+    "explicacao": "A teoria malthusiana afirma que a população cresce em progressão geométrica, enquanto os meios de subsistência crescem em progressão aritmética."
+  },
+  {
+    "question": "Quem foi Antonio Gramsci?",
+    "options": ["Filósofo e sociólogo italiano, estudou hegemonia cultural", "Filósofo francês, estudou existencialismo", "Filósofo alemão, estudou idealismo", "Sociólogo inglês, estudou população"],
+    "correctAnswer": "Filósofo e sociólogo italiano, estudou hegemonia cultural",
+    "category": "sociologia",
+    "explicacao": "Gramsci, um pensador marxista, argumentou que a dominação de classe é mantida não apenas pela força, mas principalmente pelo consentimento cultural (hegemonia)."
+  },
+  {
+    "question": "Qual conceito central de Gramsci?",
+    "options": ["Hegemonia cultural e poder ideológico", "Luta de classes", "Imperativo categórico", "Dialética hegeliana"],
+    "correctAnswer": "Hegemonia cultural e poder ideológico",
+    "category": "sociologia",
+    "explicacao": "Hegemonia é a liderança cultural e ideológica de uma classe sobre as outras, fazendo com que seus valores e visão de mundo sejam aceitos como senso comum."
+  },
+  {
+    "question": "Quem foi Hannah Arendt?",
+    "options": ["Filósofa alemã, estudou totalitarismo e política", "Filósofa francesa, estudou existencialismo", "Filósofo inglês, estudou liberalismo", "Sociólogo francês, estudou capital cultural"],
+    "correctAnswer": "Filósofa alemã, estudou totalitarismo e política",
+    "category": "filosofia",
+    "explicacao": "Arendt foi uma teórica política que analisou profundamente a natureza do poder, da autoridade e do totalitarismo, cunhando o termo 'a banalidade do mal'."
+  },
+  {
+    "question": "Qual obra famosa de Hannah Arendt?",
+    "options": ["Origens do Totalitarismo", "O Capital", "A Ética Protestante", "O Contrato Social"],
+    "correctAnswer": "Origens do Totalitarismo",
+    "category": "filosofia",
+    "explicacao": "Nesta obra, ela examina as raízes e os mecanismos dos regimes totalitários do século XX, como o nazismo e o stalinismo."
+  },
+  {
+    "question": "Quem foi Pierre Bourdieu?",
+    "options": ["Sociólogo francês, estudou capital cultural e social", "Filósofo francês, estudou existencialismo", "Filósofo alemão, estudou idealismo", "Sociólogo inglês, estudou população"],
+    "correctAnswer": "Sociólogo francês, estudou capital cultural e social",
+    "category": "sociologia",
+    "explicacao": "Bourdieu é conhecido por suas teorias sobre como as estruturas sociais são reproduzidas através do 'habitus' e de diferentes formas de 'capital' (cultural, social, etc.)."
+  },
+  {
+    "question": "O que Bourdieu entende por 'capital social'?",
+    "options": ["Redes de relacionamentos que oferecem vantagens", "Riqueza financeira", "Educação formal apenas", "Poder político direto"],
+    "correctAnswer": "Redes de relacionamentos que oferecem vantagens",
+    "category": "sociologia",
+    "explicacao": "Para Bourdieu, capital social refere-se aos recursos obtidos através de redes de contatos e relações sociais que um indivíduo pode mobilizar."
+  },
+  {
+    "question": "Quem foi Herbert Spencer?",
+    "options": ["Sociólogo inglês, aplicou a teoria da evolução à sociedade", "Filósofo francês, estudou existencialismo", "Filósofo alemão, estudou idealismo", "Sociólogo brasileiro, estudou educação indígena"],
+    "correctAnswer": "Sociólogo inglês, aplicou a teoria da evolução à sociedade",
+    "category": "sociologia",
+    "explicacao": "Spencer é um dos principais teóricos do 'darwinismo social', que aplica os princípios da seleção natural de Darwin para explicar a evolução das sociedades."
+  },
+  {
+    "question": "Qual conceito é central em Spencer?",
+    "options": ["Darwinismo social e 'sobrevivência do mais apto'", "Imperativo categórico", "Ética protestante", "Vontade de poder"],
+    "correctAnswer": "Darwinismo social e 'sobrevivência do mais apto'",
+    "category": "sociologia",
+    "explicacao": "Ele acreditava que a competição social era um mecanismo natural que levaria ao progresso e à sobrevivência das sociedades mais 'aptas'."
+  },
+  {
+    "question": "Quem foi Friedrich Engels?",
+    "options": ["Sociólogo e filósofo alemão, colaborador de Marx", "Filósofo francês, estudou existencialismo", "Filósofo inglês, estudou liberalismo", "Sociólogo brasileiro, estudou desigualdade racial"],
+    "correctAnswer": "Sociólogo e filósofo alemão, colaborador de Marx",
+    "category": "sociologia",
+    "explicacao": "Engels foi o parceiro intelectual de Karl Marx, coautor de obras importantes como o 'Manifesto Comunista' e fundamental para o desenvolvimento do materialismo histórico."
+  },
+  {
+    "question": "Qual obra Engels coautorou com Marx?",
+    "options": ["Manifesto Comunista", "O Capital", "Raízes do Brasil", "Origens do Totalitarismo"],
+    "correctAnswer": "Manifesto Comunista",
+    "category": "sociologia",
+    "explicacao": "O 'Manifesto Comunista' é uma das obras políticas mais influentes da história, onde Marx e Engels delineiam a teoria da luta de classes e a visão comunista."
+  },
+  {
+    "question": "Quem foi Simone Weil?",
+    "options": ["Filósofa francesa, estudou ética e trabalho", "Filósofa alemã, estudou política", "Filósofo inglês, estudou liberalismo", "Sociólogo francês, estudou capital cultural"],
+    "correctAnswer": "Filósofa francesa, estudou ética e trabalho",
+    "category": "filosofia",
+    "explicacao": "Weil foi uma filósofa, mística e ativista política que escreveu profundamente sobre o sofrimento, a condição operária e a espiritualidade."
+  },
+  {
+    "question": "Qual tema central de Simone Weil?",
+    "options": ["Justiça social, trabalho e opressão", "Liberdade absoluta", "Contrato social", "Dialética hegeliana"],
+    "correctAnswer": "Justiça social, trabalho e opressão",
+    "category": "filosofia",
+    "explicacao": "Sua filosofia é marcada por uma profunda preocupação com a opressão dos trabalhadores e a busca por uma vida autêntica e espiritualmente significativa."
+  },
+  {
+    "question": "Quem foi Auguste Comte?",
+    "options": ["Filósofo francês, fundador do positivismo e da sociologia", "Sociólogo alemão, estudou burocracia", "Filósofo inglês, estudou liberalismo", "Filósofo grego, discípulo de Platão"],
+    "correctAnswer": "Filósofo francês, fundador do positivismo e da sociologia",
+    "category": "sociologia",
+    "explicacao": "Comte é considerado o fundador da sociologia e do positivismo, que defendia o uso do método científico para entender e melhorar a sociedade."
+  },
+  {
+    "question": "Qual princípio do positivismo de Comte?",
+    "options": ["Conhecimento científico como base da organização social", "Ética protestante", "Dialética", "Vontade de poder"],
+    "correctAnswer": "Conhecimento científico como base da organização social",
+    "category": "sociologia",
+    "explicacao": "O positivismo de Comte propõe que a humanidade progride através de estágios teológico, metafísico e, finalmente, o positivo (científico)."
+  },
+  {
+    "question": "Quem foi Élisée Reclus?",
+    "options": ["Geógrafo e sociólogo francês, estudou sociedade e natureza", "Filósofo francês, estudou existencialismo", "Filósofo inglês, estudou liberalismo", "Sociólogo alemão, estudou burocracia"],
+    "correctAnswer": "Geógrafo e sociólogo francês, estudou sociedade e natureza",
+    "category": "sociologia",
+    "explicacao": "Reclus foi um geógrafo anarquista que analisou a interação entre as sociedades humanas e o meio ambiente, defendendo uma relação harmoniosa com a natureza."
+  },
+  {
+    "question": "O que Reclus estudou?",
+    "options": ["Relação entre sociedade e meio ambiente", "Dialética", "Imperativo categórico", "Vontade de poder"],
+    "correctAnswer": "Relação entre sociedade e meio ambiente",
+    "category": "sociologia",
+    "explicacao": "Sua 'geografia social' examinava como o ambiente físico influencia as sociedades e como as sociedades, por sua vez, transformam o ambiente."
+  },
+  {
+    "question": "Quem foi Antonio Labriola?",
+    "options": ["Filósofo italiano, precursor do marxismo filosófico", "Filósofo francês, estudou existencialismo", "Filósofo alemão, estudou idealismo", "Sociólogo inglês, estudou população"],
+    "correctAnswer": "Filósofo italiano, precursor do marxismo filosófico",
+    "category": "filosofia",
+    "explicacao": "Labriola é considerado um dos primeiros a desenvolver uma interpretação filosófica do marxismo, enfatizando o materialismo histórico como uma 'filosofia da práxis'."
+  },
+  {
+    "question": "Qual conceito Labriola destacou?",
+    "options": ["Materialismo histórico", "Contrato social", "Vontade de poder", "Imperativo categórico"],
+    "correctAnswer": "Materialismo histórico",
+    "category": "filosofia",
+    "explicacao": "Ele defendeu o materialismo histórico como uma visão de mundo autônoma, capaz de explicar o desenvolvimento da sociedade a partir de suas condições materiais."
+  },
+  {
+    "question": "Quem foi Vilfredo Pareto?",
+    "options": ["Sociólogo italiano, estudou elite e circulação de elites", "Sociólogo francês, estudou suicídio", "Sociólogo alemão, estudou burocracia", "Filósofo francês, estudou existencialismo"],
+    "correctAnswer": "Sociólogo italiano, estudou elite e circulação de elites",
+    "category": "sociologia",
+    "explicacao": "Pareto é conhecido por sua teoria das elites, argumentando que a sociedade é sempre governada por uma minoria (a elite) e que a história é uma 'circulação de elites'."
+  },
+  {
+    "question": "Qual conceito central de Pareto?",
+    "options": ["Circulação das elites", "Burocracia", "Dialética", "Vontade de poder"],
+    "correctAnswer": "Circulação das elites",
+    "category": "sociologia",
+    "explicacao": "Este conceito descreve o processo pelo qual novas elites ascendentes substituem as elites governantes decadentes, em um ciclo contínuo."
+  },
+  {
+    "question": "Quem foi Georg Lukács?",
+    "options": ["Filósofo e sociólogo húngaro, teórico do marxismo ocidental", "Filósofo francês, estudou existencialismo", "Filósofo inglês, estudou liberalismo", "Sociólogo brasileiro, estudou educação indígena"],
+    "correctAnswer": "Filósofo e sociólogo húngaro, teórico do marxismo ocidental",
+    "category": "sociologia",
+    "explicacao": "Lukács foi um influente teórico marxista, conhecido por sua obra 'História e Consciência de Classe', que explora os conceitos de reificação e consciência de classe."
+  },
+  {
+    "question": "Qual conceito central em Lukács?",
+    "options": ["Consciência de classe e reificação", "Imperativo categórico", "Contrato social", "Vontade de poder"],
+    "correctAnswer": "Consciência de classe e reificação",
+    "category": "sociologia",
+    "explicacao": "A reificação é o processo pelo qual as relações sociais no capitalismo se tornam coisificadas e alienadas. A consciência de classe é a superação dessa alienação pelo proletariado."
+  }
+]

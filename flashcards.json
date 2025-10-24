@@ -1,0 +1,1895 @@
+[
+    {
+        "pergunta": "Quem foi Sócrates?",
+        "resposta": "Um filósofo grego considerado o pai da filosofia ocidental.",
+        "explicacao": "Viveu em Atenas no século V a.C. e influenciou Platão, que registrou seus ensinamentos.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era o método usado por Sócrates?",
+        "resposta": "O método socrático ou maiêutica.",
+        "explicacao": "Consistia em perguntas que levavam o interlocutor a refletir e descobrir o conhecimento por si mesmo.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual frase célebre resume o pensamento de Sócrates?",
+        "resposta": "Só sei que nada sei.",
+        "explicacao": "Ele reconhecia a ignorância como ponto de partida da busca pela verdade.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Por que Sócrates não deixou obras escritas?",
+        "resposta": "Porque acreditava que o conhecimento devia nascer do diálogo.",
+        "explicacao": "Seus discípulos, como Platão e Xenofonte, registraram seus pensamentos.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Sócrates morreu?",
+        "resposta": "Condenado a beber cicuta.",
+        "explicacao": "Acusado de corromper a juventude e desrespeitar os deuses atenienses.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que significa 'maiêutica'?",
+        "resposta": "Dar à luz ideias.",
+        "explicacao": "Método socrático de despertar o conhecimento que já está dentro da pessoa.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a diferença entre Sócrates e os sofistas?",
+        "resposta": "Sócrates buscava a verdade, sofistas ensinavam retórica paga.",
+        "explicacao": "Os sofistas focavam em vencer debates, Sócrates na ética e no autoconhecimento.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era o foco da filosofia de Sócrates?",
+        "resposta": "A ética e a conduta humana.",
+        "explicacao": "Ele priorizava a vida justa em vez de explicações sobre a natureza.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Quem foi o principal discípulo de Sócrates?",
+        "resposta": "Platão.",
+        "explicacao": "Platão preservou e expandiu os ensinamentos socráticos em diálogos.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Sócrates entendia por 'cuidado de si'?",
+        "resposta": "Prática do autoconhecimento.",
+        "explicacao": "Ele defendia que cuidar da alma era mais importante que riquezas materiais.",
+        "category": "filosofia"
+    },
+
+    {
+        "pergunta": "O que é o 'Mito da Caverna' de Platão?",
+        "resposta": "Uma alegoria sobre a busca pelo conhecimento.",
+        "explicacao": "Mostra a passagem do mundo das sombras para o mundo das ideias.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual teoria central Platão defendia sobre a realidade?",
+        "resposta": "A Teoria das Ideias.",
+        "explicacao": "O mundo sensível é uma cópia imperfeita do mundo das ideias.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual obra mais conhecida de Platão?",
+        "resposta": "A República.",
+        "explicacao": "Discute a justiça e descreve a cidade ideal.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Platão concebia a alma?",
+        "resposta": "Tripartida: razão, coragem e desejos.",
+        "explicacao": "Cada parte corresponde a uma virtude essencial.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Quem foi o mestre de Platão?",
+        "resposta": "Sócrates.",
+        "explicacao": "Platão registrou o pensamento socrático em seus diálogos.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Platão defendia sobre política?",
+        "resposta": "Governo de filósofos-reis.",
+        "explicacao": "Apenas os sábios poderiam governar com justiça.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Platão entendia por justiça?",
+        "resposta": "Cada indivíduo cumprir sua função.",
+        "explicacao": "A justiça está na harmonia social entre as classes.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que era o mundo sensível para Platão?",
+        "resposta": "O mundo percebido pelos sentidos.",
+        "explicacao": "É imperfeito em comparação ao mundo das ideias.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era o método usado por Platão?",
+        "resposta": "A dialética.",
+        "explicacao": "Processo de raciocínio que leva da opinião ao conhecimento verdadeiro.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual foi a importância de Platão para a filosofia?",
+        "resposta": "Fundou a Academia.",
+        "explicacao": "Foi a primeira grande escola de filosofia do Ocidente.",
+        "category": "filosofia"
+    },
+
+    {
+        "pergunta": "Qual foi a principal contribuição de Aristóteles?",
+        "resposta": "O desenvolvimento da lógica.",
+        "explicacao": "Ele criou o silogismo e sistematizou o raciocínio formal.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Aristóteles discordava de Platão?",
+        "resposta": "Negava o mundo das ideias separadas.",
+        "explicacao": "Para ele, o conhecimento vem da experiência sensível.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que significa 'ato' e 'potência'?",
+        "resposta": "Potência é possibilidade, ato é realização.",
+        "explicacao": "Exemplo: a semente é potência de árvore.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Aristóteles dizia sobre política?",
+        "resposta": "O homem é um animal político.",
+        "explicacao": "Ele só se realiza plenamente em comunidade.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que é 'eudaimonia' em Aristóteles?",
+        "resposta": "Felicidade ou realização plena.",
+        "explicacao": "É o objetivo da vida alcançado pela prática das virtudes.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual ética Aristóteles defendia?",
+        "resposta": "A ética do meio-termo.",
+        "explicacao": "A virtude está entre os extremos de excesso e falta.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Quem Aristóteles tutorou?",
+        "resposta": "Alexandre, o Grande.",
+        "explicacao": "Ele foi educador do futuro conquistador macedônico.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Aristóteles classificava governos?",
+        "resposta": "Monarquia, aristocracia e politeia (bons); tirania, oligarquia e demagogia (corrompidos).",
+        "explicacao": "Dividia em justos e degenerados conforme o interesse comum ou pessoal.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a contribuição de Aristóteles para a biologia?",
+        "resposta": "Classificação de seres vivos.",
+        "explicacao": "Ele estudou anatomia, reprodução e comportamento animal.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual obra reúne a ética aristotélica?",
+        "resposta": "Ética a Nicômaco.",
+        "explicacao": "Sistematiza a virtude, o meio-termo e a felicidade.",
+        "category": "filosofia"
+    },
+
+    {
+        "pergunta": "Quem foi Epicuro?",
+        "resposta": "Filósofo grego do hedonismo moderado.",
+        "explicacao": "Defendia a busca do prazer equilibrado e da ausência da dor.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era o objetivo da vida para Epicuro?",
+        "resposta": "A ataraxia.",
+        "explicacao": "Um estado de tranquilidade da alma e ausência de sofrimento.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Epicuro pensava sobre os deuses?",
+        "resposta": "Existiam, mas não interferiam na vida humana.",
+        "explicacao": "Rejeitava o medo da punição divina.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Epicuro via a morte?",
+        "resposta": "Não devemos temê-la.",
+        "explicacao": "Quando estamos vivos, a morte não está presente; quando ela chega, não existimos mais.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a escola de Epicuro?",
+        "resposta": "O Jardim.",
+        "explicacao": "Um espaço aberto onde ensinava filosofia a homens, mulheres e escravos.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que significa hedonismo em Epicuro?",
+        "resposta": "A busca do prazer equilibrado.",
+        "explicacao": "Prazer como ausência de dor física e perturbação mental.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a relação entre prazer e sabedoria para Epicuro?",
+        "resposta": "O prazer verdadeiro vem da moderação.",
+        "explicacao": "A sabedoria guia os desejos para evitar sofrimentos.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Quais tipos de desejos Epicuro distinguia?",
+        "resposta": "Naturais e necessários, naturais não necessários, e vãos.",
+        "explicacao": "Somente os naturais e necessários devem ser buscados.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Epicuro entendia a amizade?",
+        "resposta": "Um dos maiores prazeres da vida.",
+        "explicacao": "A amizade traz segurança e felicidade.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual o lema de Epicuro?",
+        "resposta": "Viver de forma simples e tranquila.",
+        "explicacao": "Evitar excessos e viver em harmonia com a natureza.",
+        "category": "filosofia"
+    },
+
+    {
+        "pergunta": "Quem foi Zenão de Cítio?",
+        "resposta": "O fundador do estoicismo.",
+        "explicacao": "Escola que defendia viver em conformidade com a razão e a natureza.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que o estoicismo ensinava sobre as emoções?",
+        "resposta": "Que deviam ser controladas pela razão.",
+        "explicacao": "A virtude é viver de forma racional, não dominado pelas paixões.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a meta da vida para os estóicos?",
+        "resposta": "A apatia (apatheia).",
+        "explicacao": "Um estado de liberdade em relação às paixões destrutivas.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como o estoicismo via o destino?",
+        "resposta": "Determinista.",
+        "explicacao": "Tudo acontece de acordo com a razão universal (logos).",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a relação entre natureza e homem no estoicismo?",
+        "resposta": "O homem deve viver em harmonia com a natureza.",
+        "explicacao": "A natureza é racional e ordenada, e o homem deve seguir essa ordem.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que significa 'cosmopolitismo' estóico?",
+        "resposta": "Todos os homens pertencem à mesma comunidade universal.",
+        "explicacao": "A humanidade forma uma só família regida pela razão.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a visão estóica sobre a virtude?",
+        "resposta": "É o único bem verdadeiro.",
+        "explicacao": "Riqueza, poder ou prazer não garantem a felicidade, apenas a virtude sim.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como o estoicismo influenciou Roma?",
+        "resposta": "Inspirou filósofos como Sêneca, Epicteto e Marco Aurélio.",
+        "explicacao": "Os romanos adaptaram a ética estóica à vida prática.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a prática diária do estoico?",
+        "resposta": "A reflexão sobre a vida e a morte.",
+        "explicacao": "Para viver em paz, é preciso lembrar da fragilidade da vida.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que significa o 'logos' estóico?",
+        "resposta": "A razão universal que governa o mundo.",
+        "explicacao": "O destino é guiado por essa ordem cósmica racional.",
+        "category": "filosofia"
+    },
+
+    {
+        "pergunta": "Quem foi Santo Agostinho?",
+        "resposta": "Um filósofo cristão e teólogo.",
+        "explicacao": "Autor da obra 'Confissões' e um dos maiores pensadores da Idade Média.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a visão de Agostinho sobre a relação fé e razão?",
+        "resposta": "A fé precede a razão.",
+        "explicacao": "Defendia que é preciso crer para compreender.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a obra mais famosa de Santo Agostinho?",
+        "resposta": "A Cidade de Deus.",
+        "explicacao": "Discute a história da humanidade sob a ótica cristã.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Agostinho entendia o mal?",
+        "resposta": "Como ausência do bem.",
+        "explicacao": "O mal não tem existência própria, é falta de bondade.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Agostinho dizia sobre o tempo?",
+        "resposta": "É uma experiência da alma.",
+        "explicacao": "O tempo só existe porque a alma se lembra do passado e espera o futuro.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a visão agostiniana sobre a alma?",
+        "resposta": "É imortal e superior ao corpo.",
+        "explicacao": "Deve buscar a união com Deus.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Agostinho via a liberdade?",
+        "resposta": "Como capacidade de escolher o bem.",
+        "explicacao": "O livre-arbítrio permite optar entre seguir ou se afastar de Deus.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a fonte da verdadeira felicidade para Agostinho?",
+        "resposta": "A união com Deus.",
+        "explicacao": "Nenhum bem terreno satisfaz plenamente o ser humano.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Quem influenciou Agostinho na juventude?",
+        "resposta": "O maniqueísmo e o neoplatonismo.",
+        "explicacao": "Mais tarde ele rompeu com essas doutrinas ao abraçar o cristianismo.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual foi a importância de Santo Agostinho para a Igreja?",
+        "resposta": "Fundou a base da filosofia cristã medieval.",
+        "explicacao": "Suas obras guiaram o pensamento católico por séculos.",
+        "category": "filosofia"
+    },
+
+    {
+        "pergunta": "Quem foi Tomás de Aquino?",
+        "resposta": "Filósofo e teólogo medieval.",
+        "explicacao": "Autor da Suma Teológica, conciliou Aristóteles e cristianismo.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a relação de Tomás de Aquino com Aristóteles?",
+        "resposta": "Usou sua filosofia para explicar o cristianismo.",
+        "explicacao": "Transformou a filosofia aristotélica em ferramenta teológica.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a visão de Tomás de Aquino sobre fé e razão?",
+        "resposta": "São complementares.",
+        "explicacao": "A razão ajuda a compreender melhor a fé.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que são as Cinco Vias de Tomás de Aquino?",
+        "resposta": "Cinco provas racionais da existência de Deus.",
+        "explicacao": "Baseadas no movimento, causa, necessidade, graus de perfeição e finalidade.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a obra principal de Tomás de Aquino?",
+        "resposta": "Suma Teológica.",
+        "explicacao": "Uma das maiores sínteses do pensamento cristão medieval.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Aquino via a lei?",
+        "resposta": "Dividida em eterna, natural e humana.",
+        "explicacao": "A lei humana deve estar de acordo com a lei natural e a lei de Deus.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a concepção de alma em Aquino?",
+        "resposta": "Forma do corpo.",
+        "explicacao": "O ser humano é unidade de corpo e alma, não separação.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Aquino via a ética?",
+        "resposta": "Voltada para a realização do bem supremo em Deus.",
+        "explicacao": "A virtude leva o homem à perfeição e à união com o Criador.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a visão de Aquino sobre a política?",
+        "resposta": "O poder vem de Deus, mas deve buscar o bem comum.",
+        "explicacao": "O governante deve agir com justiça segundo a lei divina.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a importância de Tomás de Aquino?",
+        "resposta": "Fundador da escolástica cristã.",
+        "explicacao": "Conciliação entre filosofia aristotélica e teologia cristã.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Quem foi René Descartes?",
+        "resposta": "Filósofo francês, pai do racionalismo moderno.",
+        "explicacao": "Defendeu que a razão é a base do conhecimento e é famoso por 'Penso, logo existo'.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual é a frase célebre de Descartes e seu significado?",
+        "resposta": "‘Penso, logo existo’ (Cogito, ergo sum).",
+        "explicacao": "A certeza da própria existência vem da consciência do pensamento.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual método Descartes desenvolveu?",
+        "resposta": "O método cartesiano.",
+        "explicacao": "Um processo de dúvida sistemática para chegar à verdade indubitável.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a visão de Descartes sobre o corpo e a mente?",
+        "resposta": "Dualismo cartesiano.",
+        "explicacao": "A mente (res cogitans) é distinta do corpo (res extensa).",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Descartes via a dúvida?",
+        "resposta": "Como ferramenta para alcançar a certeza.",
+        "explicacao": "Questionar tudo permite descobrir verdades indubitáveis.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual obra de Descartes é famosa?",
+        "resposta": "Discurso do Método.",
+        "explicacao": "Apresenta seu método de raciocínio e fundamentação da ciência moderna.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Descartes defendia sobre o conhecimento?",
+        "resposta": "Que deve ser baseado na razão.",
+        "explicacao": "A experiência sensível pode enganar, a razão é segura.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a importância de Descartes para a ciência?",
+        "resposta": "Fundou bases do método científico racional.",
+        "explicacao": "Seus princípios influenciaram o desenvolvimento da ciência moderna.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Descartes via Deus?",
+        "resposta": "Como garantia da verdade e ordem no mundo.",
+        "explicacao": "A existência de Deus assegura que nossas ideias claras e distintas são verdadeiras.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a prioridade de Descartes na filosofia?",
+        "resposta": "Fundamentar o conhecimento com certeza absoluta.",
+        "explicacao": "A razão, não a tradição ou os sentidos, é o caminho para a verdade.",
+        "category": "filosofia"
+    },
+
+    {
+        "pergunta": "Quem foi John Locke?",
+        "resposta": "Filósofo inglês, pai do empirismo e do liberalismo.",
+        "explicacao": "Defendeu que o conhecimento vem da experiência e da observação.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Locke dizia sobre a mente humana?",
+        "resposta": "É uma 'tábula rasa'.",
+        "explicacao": "A mente nasce sem ideias, adquirindo conhecimento pela experiência.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Locke via o contrato social?",
+        "resposta": "Baseado em direitos naturais.",
+        "explicacao": "As pessoas formam governos para proteger vida, liberdade e propriedade.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a influência de Locke na política?",
+        "resposta": "Fundou a ideia de governo limitado e democracia liberal.",
+        "explicacao": "Seus conceitos influenciaram revoluções e constituições modernas.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Locke pensava sobre tolerância religiosa?",
+        "resposta": "Defendia ampla tolerância.",
+        "explicacao": "A religião não deve ser usada para justificar coerção pelo Estado.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual obra de Locke é famosa?",
+        "resposta": "Segundo Tratado sobre o Governo.",
+        "explicacao": "Discute direitos naturais e a legitimidade do governo civil.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Locke via a liberdade individual?",
+        "resposta": "Como direito fundamental.",
+        "explicacao": "Liberdade deve ser protegida pelo governo, desde que não prejudique outros.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a importância de Locke para a educação?",
+        "resposta": "Valorizou a experiência e o desenvolvimento da razão.",
+        "explicacao": "A educação molda a mente através da experiência e do hábito.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual relação Locke estabeleceu entre governo e consentimento?",
+        "resposta": "O governo deve ser consentido pelos governados.",
+        "explicacao": "A autoridade política legítima depende do acordo da sociedade.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Locke influenciou a Revolução Americana?",
+        "resposta": "Seus direitos naturais inspiraram a Declaração de Independência.",
+        "explicacao": "Vida, liberdade e propriedade se tornaram princípios centrais.",
+        "category": "filosofia"
+    },
+
+    {
+        "pergunta": "Quem foi Thomas Hobbes?",
+        "resposta": "Filósofo inglês, autor do Leviatã.",
+        "explicacao": "Defendeu um Estado forte para controlar a natureza humana violenta.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Hobbes via o ser humano?",
+        "resposta": "Como naturalmente egoísta e violento.",
+        "explicacao": "Sem controle, os homens vivem em guerra de todos contra todos.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que é o contrato social em Hobbes?",
+        "resposta": "Um acordo para criar o Estado e garantir a paz.",
+        "explicacao": "Os indivíduos cedem parte da liberdade a um soberano absoluto.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual obra é famosa de Hobbes?",
+        "resposta": "Leviatã.",
+        "explicacao": "Explica a necessidade de um governo forte e centralizado.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Para Hobbes, quem deve governar?",
+        "resposta": "Um soberano absoluto.",
+        "explicacao": "O poder centralizado impede o caos e a guerra civil.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Hobbes via a liberdade?",
+        "resposta": "Liberdade é possível dentro da lei do soberano.",
+        "explicacao": "O indivíduo abre mão de algumas liberdades para ter segurança.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Hobbes entende por estado de natureza?",
+        "resposta": "Situação sem governo e regras.",
+        "explicacao": "É caracterizado por conflito e insegurança constante.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a importância do medo em Hobbes?",
+        "resposta": "Base da obediência ao soberano.",
+        "explicacao": "O temor da punição mantém a ordem e evita o caos.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual relação Hobbes estabeleceu entre direito e lei?",
+        "resposta": "Os direitos naturais são limitados pela lei do soberano.",
+        "explicacao": "A lei garante a paz e impede conflitos individuais.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Hobbes influenciou o pensamento político?",
+        "resposta": "Teoria do Estado e soberania absoluta.",
+        "explicacao": "Sua visão moldou o entendimento moderno de governo e ordem civil.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Quem foi Jean-Jacques Rousseau?",
+        "resposta": "Filósofo francês do Iluminismo e do contrato social.",
+        "explicacao": "Defendia a liberdade natural e a igualdade como base da sociedade.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual é a obra mais famosa de Rousseau?",
+        "resposta": "O Contrato Social.",
+        "explicacao": "Apresenta a ideia de soberania popular e pacto entre governados e governantes.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Rousseau entendia por 'bom selvagem'?",
+        "resposta": "O homem é naturalmente bom, corrompido pela sociedade.",
+        "explicacao": "O progresso social cria desigualdades e vícios.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Rousseau via a educação?",
+        "resposta": "Como desenvolvimento natural e livre da criança.",
+        "explicacao": "A educação deve respeitar o ritmo da criança e aproximá-la da virtude.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a visão de Rousseau sobre a liberdade?",
+        "resposta": "Liberdade verdadeira é obedecer à própria lei.",
+        "explicacao": "O cidadão é livre quando participa do contrato social e da soberania.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era o foco da filosofia política de Rousseau?",
+        "resposta": "Igualdade e participação democrática.",
+        "explicacao": "A justiça social depende de igualdade e responsabilidade coletiva.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual obra literária de Rousseau influenciou a educação?",
+        "resposta": "Emílio, ou Da Educação.",
+        "explicacao": "Trata do desenvolvimento moral e intelectual da criança.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Rousseau via a sociedade moderna?",
+        "resposta": "Como corrompida e desigual.",
+        "explicacao": "O progresso material não garante a felicidade humana.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Rousseau entendia por vontade geral?",
+        "resposta": "A vontade coletiva voltada para o bem comum.",
+        "explicacao": "Deve orientar as leis e decisões políticas da sociedade.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual é a importância de Rousseau para a política moderna?",
+        "resposta": "Fundou conceitos de democracia participativa e direitos civis.",
+        "explicacao": "Sua ideia de contrato social influenciou revoluções e constituições.",
+        "category": "filosofia"
+    },
+
+    {
+        "pergunta": "Quem foi Voltaire?",
+        "resposta": "Filósofo francês do Iluminismo.",
+        "explicacao": "Defendia liberdade de expressão, tolerância religiosa e crítica à Igreja.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual é a frase famosa de Voltaire sobre liberdade?",
+        "resposta": "Não concordo com uma palavra do que dizes, mas defenderei até a morte o teu direito de dizê-lo.",
+        "explicacao": "Síntese de sua defesa da liberdade de expressão e pensamento.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Voltaire via a religião?",
+        "resposta": "Crítica ao fanatismo e à intolerância.",
+        "explicacao": "Defendia deísmo e separação entre Estado e Igreja.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual obra de Voltaire critica a injustiça e o otimismo cego?",
+        "resposta": "Cândido.",
+        "explicacao": "Uma sátira que denuncia guerras, fanatismo e desigualdades.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a visão de Voltaire sobre o governo?",
+        "resposta": "Defendia monarquia esclarecida.",
+        "explicacao": "Um governante instruído poderia garantir justiça e progresso.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Voltaire influenciou o Iluminismo?",
+        "resposta": "Por suas críticas à tirania e defesa da razão.",
+        "explicacao": "Seus escritos ajudaram a moldar os ideais de liberdade e direitos humanos.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a importância da tolerância para Voltaire?",
+        "resposta": "Base da convivência civilizada.",
+        "explicacao": "Sem tolerância, não há liberdade nem justiça.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Voltaire via a educação?",
+        "resposta": "Ferramenta de esclarecimento e combate à ignorância.",
+        "explicacao": "A instrução racional promove progresso e liberdade.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual relação Voltaire estabeleceu entre razão e fé?",
+        "resposta": "Crítica ao dogmatismo, valorização da razão.",
+        "explicacao": "A fé deve ser iluminada pela razão e ética.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Por que Voltaire é considerado um dos maiores pensadores do Iluminismo?",
+        "resposta": "Defendeu liberdade, tolerância e racionalidade.",
+        "explicacao": "Sua obra influenciou revoluções e direitos civis no Ocidente.",
+        "category": "filosofia"
+    },
+
+    {
+        "pergunta": "Quem foi Immanuel Kant?",
+        "resposta": "Filósofo alemão do século XVIII, fundador do criticismo.",
+        "explicacao": "Buscou conciliar racionalismo e empirismo e estruturou a ética deontológica.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual é a obra principal de Kant?",
+        "resposta": "Crítica da Razão Pura.",
+        "explicacao": "Analisa os limites e condições do conhecimento humano.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que é o imperativo categórico?",
+        "resposta": "Princípio ético de ação universal.",
+        "explicacao": "Age apenas segundo a máxima que possas querer que se torne lei universal.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Kant define o conhecimento?",
+        "resposta": "Resultado da experiência sensível e da razão.",
+        "explicacao": "A mente organiza a experiência por conceitos a priori.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a importância da autonomia para Kant?",
+        "resposta": "Capacidade de agir de acordo com a própria razão.",
+        "explicacao": "A moralidade exige decisões conscientes e livres, não apenas obedecer a regras externas.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Kant via a liberdade?",
+        "resposta": "Como agir racionalmente de acordo com a moral.",
+        "explicacao": "Liberdade não é escolha arbitrária, mas seguir a lei moral que a razão reconhece.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a visão de Kant sobre fenômeno e númeno?",
+        "resposta": "Fenômeno é o que percebemos; númeno é a realidade em si.",
+        "explicacao": "Só temos acesso aos fenômenos organizados pela mente.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a relação entre ética e dever em Kant?",
+        "resposta": "A moralidade está no cumprimento do dever.",
+        "explicacao": "O valor moral da ação não depende das consequências, mas da intenção de cumprir o dever.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a importância de Kant para a filosofia moderna?",
+        "resposta": "Estabeleceu fundamentos da ética, epistemologia e estética críticas.",
+        "explicacao": "Influenciou filosofia, ciência e direitos humanos.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Kant relaciona razão teórica e prática?",
+        "resposta": "Teórica: conhecimento; prática: moralidade.",
+        "explicacao": "A razão teórica busca verdade, a prática busca ação moral.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Quem foi Georg Wilhelm Friedrich Hegel?",
+        "resposta": "Filósofo alemão idealista.",
+        "explicacao": "Defendeu que a realidade é racional e se desenvolve por processos dialéticos.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que é a dialética hegeliana?",
+        "resposta": "Processo de tese, antítese e síntese.",
+        "explicacao": "A realidade evolui superando contradições em níveis superiores de desenvolvimento.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual obra é mais conhecida de Hegel?",
+        "resposta": "Fenomenologia do Espírito.",
+        "explicacao": "Analisa o desenvolvimento da consciência e da razão humana.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Hegel via a história?",
+        "resposta": "Como progresso racional da liberdade.",
+        "explicacao": "A história é um processo lógico que leva à realização da liberdade humana.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual é o conceito de Espírito Absoluto?",
+        "resposta": "A realização final da razão e liberdade.",
+        "explicacao": "Corresponde à síntese do desenvolvimento da consciência e cultura humanas.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Hegel concebia a liberdade?",
+        "resposta": "Como a consciência de si dentro da sociedade.",
+        "explicacao": "A liberdade se concretiza através da participação no Estado ético.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Hegel entende por Estado ético?",
+        "resposta": "Estrutura social que realiza a liberdade racional.",
+        "explicacao": "A sociedade organizada permite ao indivíduo expressar e realizar sua liberdade.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a importância de Hegel para a filosofia?",
+        "resposta": "Fundador do idealismo alemão moderno.",
+        "explicacao": "Sua dialética influenciou Marx, Kierkegaard, e a filosofia contemporânea.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Hegel via a relação indivíduo-sociedade?",
+        "resposta": "O indivíduo realiza-se na comunidade.",
+        "explicacao": "A liberdade pessoal depende do reconhecimento e da participação social.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual conceito Hegel introduziu sobre contradição?",
+        "resposta": "A contradição é motor do desenvolvimento.",
+        "explicacao": "O conflito entre ideias gera síntese e progresso histórico.",
+        "category": "filosofia"
+    },
+
+    {
+        "pergunta": "Quem foi Arthur Schopenhauer?",
+        "resposta": "Filósofo alemão do pessimismo.",
+        "explicacao": "Defendeu que a vontade é a essência da realidade e causa sofrimento.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que é a vontade em Schopenhauer?",
+        "resposta": "Força irracional que move o mundo e o homem.",
+        "explicacao": "É a essência metafísica que causa desejos e sofrimento.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual obra é famosa de Schopenhauer?",
+        "resposta": "O Mundo como Vontade e Representação.",
+        "explicacao": "Expõe sua metafísica e visão pessimista da vida.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Schopenhauer via o sofrimento humano?",
+        "resposta": "Como consequência da vontade incessante.",
+        "explicacao": "Desejos não satisfeitos causam dor, satisfeitos causam tédio.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a solução para o sofrimento segundo Schopenhauer?",
+        "resposta": "Negar a vontade através da arte, compaixão e ascetismo.",
+        "explicacao": "A contemplação estética e a ética da compaixão aliviam o sofrimento.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Schopenhauer influenciou Nietzsche?",
+        "resposta": "Inspirou a crítica à resignação e valorização da força vital.",
+        "explicacao": "Nietzsche transformou o pessimismo em filosofia afirmativa.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a visão de Schopenhauer sobre arte?",
+        "resposta": "Forma de escapar da vontade e do sofrimento.",
+        "explicacao": "A música, por exemplo, revela a essência da vontade e proporciona alívio.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Schopenhauer via o egoísmo humano?",
+        "resposta": "Como expressão da vontade individual.",
+        "explicacao": "O egoísmo é inevitável, mas a compaixão pode mitigá-lo.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a importância de Schopenhauer para a filosofia?",
+        "resposta": "Influenciou existencialismo, psicanálise e estética.",
+        "explicacao": "Seu pessimismo e metafísica da vontade moldaram pensamento moderno.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Schopenhauer distingue mundo e representação?",
+        "resposta": "O mundo percebido é representação; a essência é a vontade.",
+        "explicacao": "Fenômeno versus realidade metafísica.",
+        "category": "filosofia"
+    },
+
+    {
+        "pergunta": "Quem foi Søren Kierkegaard?",
+        "resposta": "Filósofo dinamarquês, precursor do existencialismo.",
+        "explicacao": "Focava na subjetividade, fé e angústia individual.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Kierkegaard via a fé?",
+        "resposta": "Como salto subjetivo para o indivíduo.",
+        "explicacao": "A fé exige decisão pessoal e não pode ser racionalmente provada.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que é a angústia em Kierkegaard?",
+        "resposta": "Sentimento diante da liberdade e responsabilidade.",
+        "explicacao": "Angústia surge quando o indivíduo percebe sua possibilidade de escolha.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual obra é famosa de Kierkegaard?",
+        "resposta": "O Desespero Humano.",
+        "explicacao": "Analisa o desespero como afastamento de si mesmo e de Deus.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Kierkegaard diferencia ética e estética?",
+        "resposta": "Estética: prazer; ética: responsabilidade.",
+        "explicacao": "A vida ética exige compromisso com valores e escolhas conscientes.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a importância da subjetividade em Kierkegaard?",
+        "resposta": "É a verdade do indivíduo.",
+        "explicacao": "A existência autêntica depende da consciência e da escolha pessoal.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Kierkegaard influencia o existencialismo?",
+        "resposta": "Valorização da existência concreta e liberdade individual.",
+        "explicacao": "Inspirou filósofos como Sartre e Heidegger.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a visão de Kierkegaard sobre o desespero?",
+        "resposta": "Desespero é ignorar a própria essência e Deus.",
+        "explicacao": "Superar o desespero requer aceitação da fé e da responsabilidade.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Kierkegaard vê o papel da escolha?",
+        "resposta": "Escolher é assumir a própria existência.",
+        "explicacao": "Toda decisão revela o caráter e o compromisso do indivíduo.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Por que Kierkegaard critica a igreja?",
+        "resposta": "Por tornar a fé impessoal e superficial.",
+        "explicacao": "A religião institucional muitas vezes nega a subjetividade e compromisso do indivíduo.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Quem foi Friedrich Nietzsche?",
+        "resposta": "Filósofo alemão do século XIX, crítico da moral tradicional.",
+        "explicacao": "Defendia a transvaloração de valores e a superação do homem comum pelo Übermensch.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Nietzsche entende por 'vontade de poder'?",
+        "resposta": "Força que move os seres humanos a se afirmarem e superarem limites.",
+        "explicacao": "É o princípio fundamental da vida e da ação humana.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que significa o conceito de 'Übermensch'?",
+        "resposta": "Homem superior que cria seus próprios valores.",
+        "explicacao": "Supera a moralidade tradicional e vive de acordo com sua própria vontade.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual obra de Nietzsche critica a moralidade cristã?",
+        "resposta": "Genealogia da Moral.",
+        "explicacao": "Analisa como os valores de ressentimento e culpa moldaram a moral ocidental.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que é o 'eterno retorno' em Nietzsche?",
+        "resposta": "Ideia de que a vida se repete infinitamente.",
+        "explicacao": "Incentiva viver de forma plena, como se cada momento se repetisse eternamente.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Nietzsche via a religião?",
+        "resposta": "Como instrumento de dominação e negação da vida.",
+        "explicacao": "Criticava o cristianismo por valorizar fraqueza e renúncia.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a importância do niilismo em Nietzsche?",
+        "resposta": "É a perda de sentido e valores absolutos.",
+        "explicacao": "O niilismo é um desafio que o homem deve superar criando novos valores.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Nietzsche influenciou o existencialismo?",
+        "resposta": "Valorizando liberdade, responsabilidade e criação de valores.",
+        "explicacao": "Inspirou Sartre e outros pensadores modernos.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual era a visão de Nietzsche sobre a cultura?",
+        "resposta": "A cultura deve afirmar a vida e a criatividade humana.",
+        "explicacao": "Criticava moralidades que sufocam a vitalidade e a expressão individual.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Por que Nietzsche é considerado revolucionário na filosofia?",
+        "resposta": "Desafiou valores tradicionais e propôs nova ética afirmativa.",
+        "explicacao": "Incentiva autonomia e superação do homem comum em direção ao potencial humano máximo.",
+        "category": "filosofia"
+    },
+
+    {
+        "pergunta": "Quem foi Martin Heidegger?",
+        "resposta": "Filósofo alemão do século XX, fundador da fenomenologia existencial.",
+        "explicacao": "Focou no sentido do ser e na existência autêntica do indivíduo.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que significa 'Dasein' em Heidegger?",
+        "resposta": "Ser-aí, ou existência concreta do ser humano.",
+        "explicacao": "Refere-se à experiência de estar no mundo de forma consciente e finita.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual obra é famosa de Heidegger?",
+        "resposta": "Ser e Tempo.",
+        "explicacao": "Analisa a existência humana, o tempo e a autenticidade.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Heidegger concebe a autenticidade?",
+        "resposta": "Viver de acordo com a própria existência e consciência do ser.",
+        "explicacao": "Evitar o 'eles', ou seja, conformar-se às convenções sem reflexão própria.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a visão de Heidegger sobre o tempo?",
+        "resposta": "O tempo é essencial à existência humana.",
+        "explicacao": "A consciência da finitude molda escolhas autênticas.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Heidegger entende a morte?",
+        "resposta": "Como possibilidade que dá sentido à vida.",
+        "explicacao": "A consciência da morte leva o Dasein à autenticidade.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a relação entre ser e mundo em Heidegger?",
+        "resposta": "O ser existe sempre inserido em um contexto.",
+        "explicacao": "A existência é sempre uma experiência no mundo, interativa e concreta.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Heidegger vê a tecnologia?",
+        "resposta": "Como modo de revelar o mundo, mas que pode alienar o ser.",
+        "explicacao": "A tecnologia pode reduzir a existência a recursos, distanciando o homem de si mesmo.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual influência Heidegger teve no existencialismo?",
+        "resposta": "Inspirou Sartre e outros filósofos modernos.",
+        "explicacao": "Seus conceitos de Dasein e autenticidade foram base para a reflexão existencial.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Por que Heidegger é relevante hoje?",
+        "resposta": "Por sua análise da existência e crítica à modernidade.",
+        "explicacao": "Ajuda a compreender a relação do ser humano com o mundo contemporâneo.",
+        "category": "filosofia"
+    },
+
+    {
+        "pergunta": "Quem foi Jean-Paul Sartre?",
+        "resposta": "Filósofo francês existencialista.",
+        "explicacao": "Defendia liberdade radical e responsabilidade individual.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual é a frase famosa de Sartre sobre a liberdade?",
+        "resposta": "O homem está condenado a ser livre.",
+        "explicacao": "Não escolher é impossível; somos responsáveis por todas as escolhas.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual obra é famosa de Sartre?",
+        "resposta": "O Ser e o Nada.",
+        "explicacao": "Analisa a existência humana, a liberdade e a má-fé.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Sartre entende por má-fé?",
+        "resposta": "Negar a própria liberdade e responsabilidade.",
+        "explicacao": "Agir como se fosse determinado ou como se não tivesse escolha.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Sartre concebe a existência e essência?",
+        "resposta": "Existência precede essência.",
+        "explicacao": "O ser humano primeiro existe e depois cria sua essência através de escolhas.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual relação Sartre estabelece entre liberdade e angústia?",
+        "resposta": "A consciência da liberdade gera angústia.",
+        "explicacao": "Responsabilidade total pelo próprio destino pode gerar medo e ansiedade.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Sartre vê o outro?",
+        "resposta": "O outro é condição da experiência do eu e da liberdade.",
+        "explicacao": "A relação com outros influencia a percepção de si mesmo e constrangimentos sociais.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a importância do engajamento em Sartre?",
+        "resposta": "A ação ética exige compromisso com a liberdade.",
+        "explicacao": "O ser humano deve assumir consequências de suas escolhas no mundo.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Sartre influencia o existencialismo contemporâneo?",
+        "resposta": "Defendendo autonomia e responsabilidade individual.",
+        "explicacao": "Seus conceitos são aplicados em ética, literatura e filosofia política.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Por que Sartre é considerado um filósofo do século XX?",
+        "resposta": "Por sua análise da existência concreta e crítica à alienação.",
+        "explicacao": "Abordou liberdade, política e consciência de forma inovadora.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Quem foi Simone de Beauvoir?",
+        "resposta": "Filósofa francesa, escritora e feminista.",
+        "explicacao": "Defendeu a igualdade de gênero e a libertação da mulher.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual obra é famosa de Beauvoir?",
+        "resposta": "O Segundo Sexo.",
+        "explicacao": "Analisa a opressão das mulheres e a construção social do gênero.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Beauvoir entende por 'outra'?",
+        "resposta": "A mulher como 'outro' em relação ao homem.",
+        "explicacao": "A identidade feminina é definida em oposição à masculina na sociedade patriarcal.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Beauvoir vê a liberdade feminina?",
+        "resposta": "Como conquista e luta contra opressões sociais.",
+        "explicacao": "A liberdade exige autonomia econômica, social e existencial.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a relação de Beauvoir com Sartre?",
+        "resposta": "Parceira intelectual e existencialista.",
+        "explicacao": "Integrou o existencialismo à análise da condição feminina.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Beauvoir critica a educação das mulheres?",
+        "resposta": "Reforça papéis sociais e limita potencial.",
+        "explicacao": "Educação tradicional molda a mulher como dependente e submissa.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Beauvoir propõe para a emancipação?",
+        "resposta": "Autonomia, trabalho e participação social plena.",
+        "explicacao": "A mulher deve criar sua própria identidade sem imposições externas.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a importância de Beauvoir para o feminismo?",
+        "resposta": "Fundou a base teórica do feminismo contemporâneo.",
+        "explicacao": "Seus conceitos ainda influenciam movimentos de igualdade de gênero.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Beauvoir relaciona existencialismo e gênero?",
+        "resposta": "A condição feminina é resultado de escolhas e limitações sociais.",
+        "explicacao": "A existência precede a essência, mas a sociedade impõe restrições à mulher.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Por que 'O Segundo Sexo' é um marco?",
+        "resposta": "Questiona a opressão histórica das mulheres.",
+        "explicacao": "Aborda gênero, sexualidade e desigualdade social de forma crítica e pioneira.",
+        "category": "filosofia"
+    },
+
+    {
+        "pergunta": "Quem foi Michel Foucault?",
+        "resposta": "Filósofo francês, estudou poder, conhecimento e sociedade.",
+        "explicacao": "Defendeu que o poder está presente em todas as relações sociais.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual obra de Foucault aborda prisão e disciplina?",
+        "resposta": "Vigiar e Punir.",
+        "explicacao": "Analisa como instituições moldam comportamentos e consolidam poder.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Foucault entende por 'biopoder'?",
+        "resposta": "Controle da vida e corpo pelas instituições.",
+        "explicacao": "Governos regulam população, saúde, sexualidade e comportamento.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Foucault vê o saber e o poder?",
+        "resposta": "Saber e poder estão interligados.",
+        "explicacao": "O conhecimento legitima o poder, e o poder organiza o conhecimento.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Foucault entende por discurso?",
+        "resposta": "Forma de produção de sentido que molda a sociedade.",
+        "explicacao": "Discursos definem o que é verdade e regulam comportamentos.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Foucault estuda a loucura?",
+        "resposta": "Como construção social e histórica.",
+        "explicacao": "O que consideramos loucura depende das normas e do poder vigente.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual importância de Foucault para ciências humanas?",
+        "resposta": "Mudou a compreensão sobre poder, instituições e subjetividade.",
+        "explicacao": "Influenciou sociologia, filosofia, história e estudos culturais.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Foucault relaciona vigilância e sociedade?",
+        "resposta": "Instituições controlam comportamentos através de normas e observação.",
+        "explicacao": "Ex.: escolas, prisões, hospitais disciplinam indivíduos para manter ordem.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que Foucault entende por normalização?",
+        "resposta": "Processo de tornar comportamentos padrão e aceitáveis.",
+        "explicacao": "Instituições e discursos definem normas e punem desvios.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Por que Foucault é considerado pós-moderno?",
+        "resposta": "Critica verdades universais e hierarquias fixas.",
+        "explicacao": "Mostra que conhecimento e poder são históricos e contextuais.",
+        "category": "filosofia"
+    },
+
+    {
+        "pergunta": "Quem foi Jürgen Habermas?",
+        "resposta": "Filósofo alemão contemporâneo, teórico da comunicação e democracia.",
+        "explicacao": "Defende que a comunicação racional é base da ética e política.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual teoria é central em Habermas?",
+        "resposta": "Teoria da Ação Comunicativa.",
+        "explicacao": "Sociedade se organiza racionalmente através do diálogo e consenso.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Habermas vê a democracia?",
+        "resposta": "Como processo de deliberação racional.",
+        "explicacao": "Participação cidadã e diálogo crítico são essenciais para legitimidade.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que é a esfera pública em Habermas?",
+        "resposta": "Espaço de debate e crítica social.",
+        "explicacao": "Cidadãos discutem livremente problemas e decisões políticas.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Habermas relaciona ética e comunicação?",
+        "resposta": "A ética nasce do consenso racional entre indivíduos.",
+        "explicacao": "Diálogo livre e argumentos válidos definem ações moralmente corretas.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a relação de Habermas com modernidade?",
+        "resposta": "Defende a modernidade racional e democrática.",
+        "explicacao": "Acredita que razão e comunicação podem resolver conflitos sociais.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Habermas vê o poder?",
+        "resposta": "Deve ser legitimado pelo consenso comunicativo.",
+        "explicacao": "A autoridade política é válida quando aceita através de diálogo e argumentação.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "O que é ação comunicativa?",
+        "resposta": "Interação baseada em entendimento e consenso.",
+        "explicacao": "Objetivo é coordenar ações de forma racional, evitando imposições.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Qual a importância de Habermas hoje?",
+        "resposta": "Contribui para democracia, ética e teoria social.",
+        "explicacao": "Seus conceitos ajudam a analisar comunicação, poder e participação cidadã.",
+        "category": "filosofia"
+    },
+    {
+        "pergunta": "Como Habermas influencia políticas públicas?",
+        "resposta": "Através de participação, diálogo e deliberação democrática.",
+        "explicacao": "Planos e decisões ganham legitimidade com envolvimento racional da sociedade.",
+        "category": "filosofia"
+    },
+
+
+
+
+
+
+
+
+
+    {
+        "pergunta": "Quem foi Karl Marx?",
+        "resposta": "Filósofo e sociólogo alemão, fundador do socialismo científico.",
+        "explicacao": "Analisa a sociedade a partir da luta de classes e das relações econômicas.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual é a obra mais conhecida de Marx?",
+        "resposta": "O Capital.",
+        "explicacao": "Analisa o capitalismo, produção, mais-valia e exploração do trabalho.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que é luta de classes em Marx?",
+        "resposta": "Conflito entre explorados (proletariado) e exploradores (burguesia).",
+        "explicacao": "Motor da história, gerando mudanças sociais e políticas.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que Marx entende por mais-valia?",
+        "resposta": "Valor produzido pelo trabalhador além do que recebe como salário.",
+        "explicacao": "É a fonte de lucro da burguesia no capitalismo.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Marx vê o capitalismo?",
+        "resposta": "Sistema baseado na exploração do trabalho e desigualdade.",
+        "explicacao": "Produz crises periódicas e concentra riqueza na burguesia.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que é alienação em Marx?",
+        "resposta": "Separação do trabalhador do produto, do processo e de si mesmo.",
+        "explicacao": "O trabalho se torna fonte de sofrimento e perda de liberdade.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual a visão de Marx sobre a história?",
+        "resposta": "Materialista: a economia e produção moldam a sociedade.",
+        "explicacao": "A história é determinada por condições materiais e relações de produção.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que Marx propõe como solução para a exploração?",
+        "resposta": "Revolução do proletariado e sociedade sem classes.",
+        "explicacao": "O comunismo é a etapa final, com igualdade e propriedade coletiva.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual a importância de Marx para a sociologia?",
+        "resposta": "Fundamentou análise crítica do capitalismo e desigualdades.",
+        "explicacao": "Influenciou teoria social, política e movimentos sociais.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Marx entende o Estado?",
+        "resposta": "Como instrumento da classe dominante.",
+        "explicacao": "O Estado mantém a ordem e interesses da burguesia sobre o proletariado.",
+        "category": "sociologia"
+    },
+
+    {
+        "pergunta": "Quem foi Émile Durkheim?",
+        "resposta": "Sociólogo francês, fundador da sociologia moderna.",
+        "explicacao": "Estudou a sociedade como fato social e suas regras.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual obra de Durkheim estuda o suicídio?",
+        "resposta": "O Suicídio.",
+        "explicacao": "Analisa fatores sociais que influenciam a taxa de suicídio.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que Durkheim entende por fato social?",
+        "resposta": "Maneira de agir, pensar ou sentir que existe independentemente do indivíduo.",
+        "explicacao": "Exerce coerção sobre os indivíduos e molda comportamento coletivo.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual a diferença entre solidariedade mecânica e orgânica?",
+        "resposta": "Mecânica: sociedade tradicional; Orgânica: sociedade moderna.",
+        "explicacao": "Na mecânica, coesão vem da semelhança; na orgânica, da interdependência.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Durkheim entende a religião?",
+        "resposta": "Como força social que une e dá sentido à sociedade.",
+        "explicacao": "A religião reforça valores coletivos e coesão social.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que é anomia para Durkheim?",
+        "resposta": "Ausência ou enfraquecimento das normas sociais.",
+        "explicacao": "Leva a desorientação, comportamentos desviantes e crises sociais.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Durkheim vê a educação?",
+        "resposta": "Como meio de transmitir normas e valores sociais.",
+        "explicacao": "Educação socializa os indivíduos e mantém coesão da sociedade.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual a importância da sociologia para Durkheim?",
+        "resposta": "Estudo científico da sociedade e suas regras.",
+        "explicacao": "Permite compreender comportamento coletivo e prevenir desorganização social.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Durkheim define solidariedade?",
+        "resposta": "Força que mantém união e coesão social.",
+        "explicacao": "Pode ser mecânica (semelhança) ou orgânica (interdependência).",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Por que Durkheim é considerado fundador da sociologia moderna?",
+        "resposta": "Por sistematizar estudo científico da sociedade.",
+        "explicacao": "Estabeleceu métodos de pesquisa e análise de fatos sociais.",
+        "category": "sociologia"
+    },
+
+    {
+        "pergunta": "Quem foi Max Weber?",
+        "resposta": "Sociólogo alemão, estudou burocracia, economia e poder.",
+        "explicacao": "Defendeu análise compreensiva da ação social e racionalização da sociedade.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual obra famosa de Weber analisa a ética protestante e o capitalismo?",
+        "resposta": "A Ética Protestante e o Espírito do Capitalismo.",
+        "explicacao": "Mostra como valores religiosos influenciaram desenvolvimento econômico.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que Weber entende por ação social?",
+        "resposta": "Ação orientada ao comportamento de outros indivíduos.",
+        "explicacao": "O sentido da ação depende da compreensão do contexto social.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Weber define racionalização?",
+        "resposta": "Processo de organização eficiente, calculável e previsível.",
+        "explicacao": "Caracteriza sociedades modernas e burocráticas.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que Weber entende por autoridade legítima?",
+        "resposta": "Autoridade aceita como justa pelos subordinados.",
+        "explicacao": "Pode ser tradicional, carismática ou racional-legal.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual é a visão de Weber sobre burocracia?",
+        "resposta": "Forma eficiente de organização social.",
+        "explicacao": "Baseada em regras, hierarquia e especialização do trabalho.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que Weber entende por poder?",
+        "resposta": "Capacidade de impor a própria vontade mesmo contra resistência.",
+        "explicacao": "Pode se manifestar em economia, política e instituições.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Weber diferencia tipos de dominação?",
+        "resposta": "Tradicional, carismática e racional-legal.",
+        "explicacao": "Cada tipo define a legitimidade do poder na sociedade.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual a importância de Weber para sociologia?",
+        "resposta": "Estudo de ação social, racionalização e burocracia.",
+        "explicacao": "Seus conceitos ajudam a compreender organização social e economia.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Weber analisa relação entre religião e economia?",
+        "resposta": "Valores religiosos influenciam comportamento econômico.",
+        "explicacao": "Ex.: ética protestante contribuiu para espírito capitalista.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Quem foi Georg Simmel?",
+        "resposta": "Sociólogo alemão, estudou interações sociais e cultura urbana.",
+        "explicacao": "Analisava como relações e formas sociais moldam comportamento.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que Simmel entende por forma e conteúdo social?",
+        "resposta": "Forma: tipo de relação; Conteúdo: assunto da relação.",
+        "explicacao": "Ex.: amizade é uma forma; troca de ideias é o conteúdo.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual obra de Simmel analisa a vida urbana?",
+        "resposta": "A Metropolise e a Vida Mental.",
+        "explicacao": "Estuda efeitos da cidade moderna na percepção e comportamento humano.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Simmel vê o conflito social?",
+        "resposta": "Como forma de integração e coesão social.",
+        "explicacao": "O conflito pode fortalecer laços dentro de um grupo ou sociedade.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que Simmel entende por interação social?",
+        "resposta": "Processo dinâmico de relações entre indivíduos.",
+        "explicacao": "O estudo da sociedade deve focar nas interações, não apenas na estrutura.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual a importância da sociologia para Simmel?",
+        "resposta": "Compreender formas e padrões das relações sociais.",
+        "explicacao": "Ajuda a entender sociedade e cultura de forma dinâmica.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Simmel analisa a individualidade na cidade?",
+        "resposta": "A cidade aumenta liberdade, mas também impessoalidade.",
+        "explicacao": "Vida urbana exige adaptação, protegendo o indivíduo e limitando afetos.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que é distância social em Simmel?",
+        "resposta": "Nível de aproximação ou afastamento entre indivíduos.",
+        "explicacao": "Determina intimidade, cooperação ou conflito em interações.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Simmel estuda grupos sociais?",
+        "resposta": "A partir de tamanhos, relações e funções.",
+        "explicacao": "Diferença entre dois, três ou mais influencia comportamento e dinâmica.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Por que Simmel é importante para sociologia?",
+        "resposta": "Introduziu análise de formas e interações sociais.",
+        "explicacao": "Complementa estudo estrutural com abordagem dinâmica e cultural.",
+        "category": "sociologia"
+    },
+
+    {
+        "pergunta": "Quem foi Auguste Comte?",
+        "resposta": "Filósofo francês, pai da sociologia.",
+        "explicacao": "Defendeu que sociedade deve ser estudada cientificamente.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que é positivismo em Comte?",
+        "resposta": "Método científico aplicado à sociedade.",
+        "explicacao": "Conhecimento verdadeiro só vem de fatos observáveis e verificáveis.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual obra famosa de Comte?",
+        "resposta": "Curso de Filosofia Positiva.",
+        "explicacao": "Defende ciência como base de organização social e progresso.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Comte entende a lei dos três estados?",
+        "resposta": "Teológico, metafísico e positivo.",
+        "explicacao": "Sociedade evolui de explicações religiosas para filosóficas e finalmente científicas.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual a importância da ordem e progresso para Comte?",
+        "resposta": "Base da estabilidade social e desenvolvimento.",
+        "explicacao": "Sociedade precisa equilibrar normas (ordem) e mudanças (progresso).",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que Comte propõe para governar a sociedade?",
+        "resposta": "Sociedade guiada por ciência e especialistas.",
+        "explicacao": "Decisões políticas e sociais devem ser baseadas em conhecimento científico.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Comte vê a religião?",
+        "resposta": "Função social importante, mas evolui para ciência.",
+        "explicacao": "Deve ser substituída por moral científica e racional.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual a contribuição de Comte para sociologia?",
+        "resposta": "Sistematização científica da sociedade.",
+        "explicacao": "Introduziu métodos e conceitos básicos da disciplina.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que é ciência social para Comte?",
+        "resposta": "Estudo da sociedade com métodos científicos.",
+        "explicacao": "Busca leis que regem comportamento e organização social.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Por que Comte é considerado fundador da sociologia?",
+        "resposta": "Primeiro a definir disciplina e método científico social.",
+        "explicacao": "Criou bases teóricas e práticas para estudar a sociedade.",
+        "category": "sociologia"
+    },
+
+    {
+        "pergunta": "Quem foi Herbert Spencer?",
+        "resposta": "Filósofo e sociólogo inglês, defensor do evolucionismo social.",
+        "explicacao": "Aplicou conceitos biológicos à sociedade, como 'sobrevivência do mais apto'.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que é evolucionismo social em Spencer?",
+        "resposta": "Sociedades evoluem de simples para complexas.",
+        "explicacao": "Processo natural de adaptação e diferenciação social.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Spencer entende a sociedade?",
+        "resposta": "Como organismo vivo.",
+        "explicacao": "Cada parte cumpre função, similar a órgãos em um corpo.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que significa 'sobrevivência do mais apto'?",
+        "resposta": "Indivíduos ou grupos mais adaptados prosperam.",
+        "explicacao": "Aplicação de seleção natural à organização social.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual a visão de Spencer sobre intervenção do Estado?",
+        "resposta": "Deve ser mínima, sociedade se regula naturalmente.",
+        "explicacao": "Políticas sociais podem interferir no 'curso natural' da evolução social.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Spencer classifica sociedades?",
+        "resposta": "Militar e industrial.",
+        "explicacao": "Sociedades simples e centralizadas versus complexas e diferenciadas.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual a importância de Spencer?",
+        "resposta": "Introduziu conceitos de evolução e funcionalismo social.",
+        "explicacao": "Influenciou sociologia estrutural e teoria funcionalista.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Spencer entende desigualdade social?",
+        "resposta": "Resultado natural da evolução social.",
+        "explicacao": "Diferentes habilidades e adaptação levam à hierarquia social.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual crítica é feita a Spencer?",
+        "resposta": "Justificou desigualdades e determinismo social.",
+        "explicacao": "Aplicar biologia diretamente à sociedade ignora fatores históricos e políticos.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Por que Spencer é importante para sociologia?",
+        "resposta": "Fundamentos de sociologia funcionalista e estudo evolutivo.",
+        "explicacao": "Sua visão de sociedade como organismo ainda é estudada e debatida.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Quem foi Antonio Gramsci?",
+        "resposta": "Filósofo e sociólogo italiano, teórico do marxismo.",
+        "explicacao": "Estudou poder, cultura e hegemonia na sociedade.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que Gramsci entende por hegemonia?",
+        "resposta": "Domínio cultural e ideológico de uma classe sobre as demais.",
+        "explicacao": "Poder se mantém não só pela força, mas pelo consenso cultural.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual a importância dos intelectuais segundo Gramsci?",
+        "resposta": "Criam e difundem ideias que mantêm ou desafiam hegemonia.",
+        "explicacao": "Intelectuais orgânicos representam interesses de classes sociais.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Gramsci vê a luta política?",
+        "resposta": "Não só econômica, mas também cultural e ideológica.",
+        "explicacao": "Mudanças sociais exigem transformação de valores e consciência.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que é sociedade civil em Gramsci?",
+        "resposta": "Espaço de instituições que mantém consenso social.",
+        "explicacao": "Escolas, igrejas e mídia reforçam valores da classe dominante.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Gramsci entende cultura?",
+        "resposta": "Ferramenta de poder e transformação social.",
+        "explicacao": "Cultura legitima hegemonia ou pode ser instrumento de resistência.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual a visão de Gramsci sobre Estado?",
+        "resposta": "Combinação de coerção e consenso cultural.",
+        "explicacao": "Poder político deve ser analisado junto com dominação ideológica.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Gramsci propõe mudança social?",
+        "resposta": "Através da educação, cultura e criação de nova hegemonia.",
+        "explicacao": "Transformar consciência é essencial para revolução efetiva.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual a importância de Gramsci?",
+        "resposta": "Influenciou teoria crítica, sociologia política e estudos culturais.",
+        "explicacao": "Seus conceitos ajudam a entender poder, ideologia e sociedade.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Por que Gramsci escreveu na prisão?",
+        "resposta": "Foi preso pelo regime fascista italiano.",
+        "explicacao": "Desenvolveu suas ideias sobre hegemonia e intelectuais mesmo em cativeiro.",
+        "category": "sociologia"
+    },
+
+    {
+        "pergunta": "Quem foi Pierre Bourdieu?",
+        "resposta": "Sociólogo francês, estudou poder, cultura e desigualdade.",
+        "explicacao": "Definiu conceitos como habitus, capital cultural e campo social.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que é habitus em Bourdieu?",
+        "resposta": "Sistema de disposições e hábitos adquiridos na vida social.",
+        "explicacao": "Influenciam comportamento, gosto e percepção do mundo.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que Bourdieu entende por capital cultural?",
+        "resposta": "Conhecimento, educação e habilidades valorizadas socialmente.",
+        "explicacao": "Afeta mobilidade social e posição em campos sociais.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Bourdieu define campo social?",
+        "resposta": "Espaço de relações e disputa por poder e recursos específicos.",
+        "explicacao": "Cada campo tem regras próprias e formas de capital específicas.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que é capital simbólico?",
+        "resposta": "Prestígio, reconhecimento e legitimidade social.",
+        "explicacao": "Pode ser convertido em poder ou influência em campos sociais.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Bourdieu vê desigualdade?",
+        "resposta": "Reforçada por capital econômico, cultural e social.",
+        "explicacao": "Estrutura social reproduz privilégios e limita mobilidade.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual a importância da educação para Bourdieu?",
+        "resposta": "Reproduz desigualdades e valores de classe.",
+        "explicacao": "Sistema educacional favorece quem já possui capital cultural.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Bourdieu relaciona poder e cultura?",
+        "resposta": "Poder é mantido através de valores e normas culturais.",
+        "explicacao": "Dominação simbólica atua silenciosamente na sociedade.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que Bourdieu entende por reprodução social?",
+        "resposta": "Processo que mantém desigualdades entre gerações.",
+        "explicacao": "Estrutura social e educação reproduzem posições de classe.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Por que Bourdieu é relevante hoje?",
+        "resposta": "Estudo de poder, cultura e desigualdade ainda é aplicável.",
+        "explicacao": "Seus conceitos ajudam a analisar mídia, educação e estratificação social.",
+        "category": "sociologia"
+    },
+
+    {
+        "pergunta": "Quem foi Jürgen Habermas?",
+        "resposta": "Filósofo e sociólogo alemão contemporâneo.",
+        "explicacao": "Estudou comunicação, democracia e ética, defendendo diálogo racional.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que Habermas entende por ação comunicativa?",
+        "resposta": "Interação baseada em entendimento e consenso.",
+        "explicacao": "Objetivo é coordenar ações de forma racional, sem coerção.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que é esfera pública em Habermas?",
+        "resposta": "Espaço de debate e crítica social.",
+        "explicacao": "Cidadãos discutem livremente problemas e decisões políticas.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Habermas vê a democracia?",
+        "resposta": "Processo de deliberação racional e participação cidadã.",
+        "explicacao": "Decisões legítimas surgem de diálogo crítico e argumentação válida.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Habermas relaciona ética e comunicação?",
+        "resposta": "Ética nasce do consenso racional entre indivíduos.",
+        "explicacao": "Diálogo livre define ações moralmente corretas.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual a importância do consenso em Habermas?",
+        "resposta": "Base da legitimidade política e social.",
+        "explicacao": "Decisões e normas devem ser aceitas racionalmente.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Habermas vê poder e dominação?",
+        "resposta": "Poder legítimo é baseado em consenso, não coerção.",
+        "explicacao": "Autoridade é válida quando aceita via diálogo racional.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Qual a relevância de Habermas hoje?",
+        "resposta": "Analisa comunicação, democracia e participação cidadã.",
+        "explicacao": "Seus conceitos ajudam a entender decisões políticas e sociedade civil.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "O que Habermas entende por modernidade?",
+        "resposta": "Racionalidade e comunicação são chaves para progresso social.",
+        "explicacao": "Acredita que diálogo e razão podem resolver conflitos sociais.",
+        "category": "sociologia"
+    },
+    {
+        "pergunta": "Como Habermas influencia políticas públicas?",
+        "resposta": "Através de deliberação, diálogo e participação cidadã.",
+        "explicacao": "Decisões ganham legitimidade com envolvimento racional da sociedade.",
+        "category": "sociologia"
+    }
+]
+
+
