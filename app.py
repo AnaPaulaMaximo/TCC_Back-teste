@@ -14,14 +14,20 @@ from auth_routes import auth_bp
 from freemium_routes import freemium_bp
 from premium_routes import premium_bp
 
+
 # --- Configurações Iniciais ---
 load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "uma-chave-secreta-padrao-muito-forte")
 
 # --- CORREÇÃO CORS ---
+# CORS(app,
+#      origins=["http://127.0.0.1:500", "http://localhost:5501"], # Seu frontend
+#      supports_credentials=True)
+
 CORS(app,
-     origins=["http://127.0.0.1:5501", "http://localhost:5501"], # Seu frontend
+     # Usa regex para aceitar 'http://localhost' ou 'http://127.0.0.1' em QUALQUER porta
+     origins="*",
      supports_credentials=True)
 
 socketio = SocketIO(app, cors_allowed_origins=["http://127.0.0.1:5501", "http://localhost:5501"])
@@ -151,4 +157,4 @@ def handle_disconnect():
 if __name__ == "__main__":
     print("Iniciando servidor Flask com SocketIO...")
     # Use allow_unsafe_werkzeug=True apenas para desenvolvimento com debug reloader
-    socketio.run(app, host="0.0.0.0", port=5002, debug=True, allow_unsafe_werkzeug=True)
+    socketio.run(app, host="0.0.0.0", debug=True, allow_unsafe_werkzeug=True)
