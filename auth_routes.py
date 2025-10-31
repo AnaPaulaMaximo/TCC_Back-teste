@@ -18,18 +18,53 @@ def login():
     if not cursor:
         return jsonify({'error': 'Erro de conexão com o banco de dados.'}), 500
 
-    cursor.execute('SELECT id_aluno, nome, email, plano, url_foto FROM Aluno WHERE email = %s AND senha = %s', (email, senha))
-    usuario = cursor.fetchone()
+    # --- INÍCIO DA LÓGICA DE LOGIN UNIFICADO ---
+    
+    # 1. Tenta fazer login como Administrador primeiro
+    cursor.execute('SELECT id_admin, nome, email FROM Admin WHERE email = %s AND senha = %s', (email, senha))
+    admin = cursor.fetchone()
+    
+    if admin:
+        # É um admin! Limpa qualquer sessão de aluno antiga
+        session.pop('id_aluno', None)
+        session.pop('plano', None)
+        
+        # Cria a sessão de admin
+        session['admin_id'] = admin['id_admin']
+        session['admin_nome'] = admin['nome']
+        
+        # Retorna a 'role' (função) para o frontend saber para onde redirecionar
+        return jsonify({
+            'message': 'Login de admin realizado com sucesso!', 
+            'role': 'admin', 
+            'user': admin # Envia os dados do admin
+        }), 200
 
-    if usuario:
-        # Armazena dados na sessão para uso futuro (ex: chatbot)
-        session['id_aluno'] = usuario['id_aluno']
-        session['plano'] = usuario['plano']
-        # Retorna o usuário completo, incluindo o 'plano'
-        # O front-end deve ler 'user.plano' para decidir quais rotas chamar
-        return jsonify({'message': 'Login realizado com sucesso!', 'user': usuario}), 200
-    else:
-        return jsonify({'error': 'Email ou senha inválidos.'}), 401
+    # 2. Se não for admin, tenta fazer login como Aluno
+    cursor.execute('SELECT id_aluno, nome, email, plano, url_foto FROM Aluno WHERE email = %s AND senha = %s', (email, senha))
+    aluno = cursor.fetchone()
+
+    if aluno:
+        # É um aluno! Limpa qualquer sessão de admin antiga
+        session.pop('admin_id', None)
+        session.pop('admin_nome', None)
+
+        # Cria a sessão de aluno
+        session['id_aluno'] = aluno['id_aluno']
+        session['plano'] = aluno['plano']
+        
+        # Retorna a 'role' (função) para o frontend
+        return jsonify({
+            'message': 'Login realizado com sucesso!', 
+            'role': 'aluno', 
+            'user': aluno # Envia os dados do aluno (incluindo plano)
+        }), 200
+
+    # 3. Se não for nenhum dos dois, retorna erro
+    return jsonify({'error': 'Email ou senha inválidos.'}), 401
+    
+    # --- FIM DA LÓGICA DE LOGIN UNIFICADO ---
+
 
 @auth_bp.route('/cadastrar_usuario', methods=['POST'])
 def cadastrar_usuario():

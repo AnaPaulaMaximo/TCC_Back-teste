@@ -21,16 +21,11 @@ app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "uma-chave-secreta-padrao-muito-forte")
 
 # --- CORREÇÃO CORS ---
-# CORS(app,
-#      origins=["http://127.0.0.1:500", "http://localhost:5501"], # Seu frontend
-#      supports_credentials=True)
-
 CORS(app,
-     # Usa regex para aceitar 'http://localhost' ou 'http://127.0.0.1' em QUALQUER porta
      origins="*",
      supports_credentials=True)
 
-socketio = SocketIO(app, cors_allowed_origins=["http://127.0.0.1:5501", "http://localhost:5501"])
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 # --- Configuração Google GenAI ---
 API_KEY = os.getenv("GOOGLE_API_KEY")
@@ -38,10 +33,8 @@ if not API_KEY:
     print("ERRO: GOOGLE_API_KEY não encontrada no .env")
 else:
     try:
-        # ----> ADICIONE ESTA LINHA <----
         genai.configure(api_key=API_KEY)
         print("Google GenAI configurado com sucesso.")
-        # ----> FIM DA ADIÇÃO <----
     except Exception as e:
         print(f"ERRO ao configurar Google GenAI: {e}")
 
@@ -60,7 +53,16 @@ def index():
 # ===================================
 # Chatbot com SocketIO
 # ===================================
-instrucoes = """Você é um assistente de IA focado em ajudar estudantes com temas de filosofia e sociologia, de maneira didática e interativa."""
+
+# =====> INSTRUÇÕES DO CHAT ALTERADAS AQUI <=====
+instrucoes = """Você é um tutor de Filosofia e Sociologia. Seu objetivo não é dar respostas prontas, mas sim gerar uma conversa real que faça o usuário pensar. Aja como um parceiro de debate. 
+
+Em vez de simplesmente responder, faça perguntas de volta, desafie as premissas do usuário e incentive-o a explorar diferentes ângulos de um mesmo tema. Conduza a conversa para fora da zona de conforto, estimulando o pensamento crítico e a reflexão profunda. 
+
+Use uma linguagem natural e acessível, como se fosse uma pessoa conversando. O objetivo é que o usuário sinta que está em um diálogo genuíno, não em um interrogatório.
+"""
+# ================================================
+
 active_chats = {}
 
 def get_user_chat():
@@ -77,7 +79,7 @@ def get_user_chat():
             model = genai.GenerativeModel(MODEL_NAME)
             chat_session = model.start_chat(history=[
                 {"role": "user", "parts": [{"text": instrucoes}]},
-                {"role": "model", "parts": [{"text": "Olá! Sou seu assistente de estudos em Filosofia e Sociologia. Como posso ajudar você hoje?"}]}
+                {"role": "model", "parts": [{"text": "Olá! Estou aqui para bater um papo sobre filosofia e sociologia. Sobre o que você gostaria de conversar hoje?"}]}
             ])
             active_chats[session_id] = chat_session
             print(f"Novo chat iniciado para sessão: {session_id}")
@@ -100,7 +102,7 @@ def handle_connect():
      user_chat = get_user_chat() # Tenta obter/criar o chat
      if user_chat and user_chat.history: # Verifica se o chat e o histórico existem
         # Pega a última mensagem (que deve ser a de boas-vindas do bot)
-        welcome_message = "Olá! Sou seu assistente de estudos em Filosofia e Sociologia. Como posso ajudar você hoje?"
+        welcome_message = "Olá! Estou aqui para bater um papo sobre filosofia e sociologia. Sobre o que você gostaria de conversar hoje?"
         if user_chat.history and len(user_chat.history) > 1 and user_chat.history[-1].role == 'model':
              welcome_message = user_chat.history[-1].parts[0].text
         elif user_chat.history and user_chat.history[1].role == 'model': # Fallback para a segunda mensagem (após instrução)

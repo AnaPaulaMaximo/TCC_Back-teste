@@ -40,8 +40,20 @@ def quiz_freemium():
     else:
         perguntas_filtradas = [p for p in todas_as_perguntas if p.get('category') == categoria]
 
+    # Embaralha a ordem das perguntas
     random.shuffle(perguntas_filtradas)
-    return jsonify(perguntas_filtradas[:10])
+    
+    # Seleciona as 10 perguntas
+    perguntas_selecionadas = perguntas_filtradas[:10]
+    
+    # =====> ALTERAÇÃO AQUI <=====
+    # Agora, embaralha as opções DENTRO de cada pergunta selecionada
+    for pergunta in perguntas_selecionadas:
+        if 'options' in pergunta:
+            random.shuffle(pergunta['options'])
+    # ============================
+            
+    return jsonify(perguntas_selecionadas)
 
 
 @freemium_bp.route('/flashcard', methods=['POST'])
@@ -71,10 +83,10 @@ def flashcard_freemium():
         flashcards_sociologia = [f for f in todos_flashcards if f.get('category') == 'sociologia']
         random.shuffle(flashcards_filosofia)
         random.shuffle(flashcards_sociologia)
-        flashcards_filtrados.extend(flashcards_filosofia[:4])
-        flashcards_filtrados.extend(flashcards_sociologia[:4])
+        flashcards_filtrados.extend(flashcards_filosofia[:3])
+        flashcards_filtrados.extend(flashcards_sociologia[:3])
     else:
         flashcards_filtrados = [f for f in todos_flashcards if f.get('category') == categoria]
     
     random.shuffle(flashcards_filtrados)
-    return jsonify(flashcards_filtrados[:8])
+    return jsonify(flashcards_filtrados[:6])
