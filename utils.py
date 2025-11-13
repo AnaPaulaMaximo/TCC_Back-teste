@@ -21,9 +21,11 @@ def get_user_plan(id_aluno):
         return 'freemium'
         
     try:
-        cursor.execute('SELECT plano FROM Aluno WHERE id_aluno = %s', (id_aluno,))
+        cursor.execute('SELECT plano FROM Aluno WHERE id_aluno = ?', (id_aluno,))
         resultado = cursor.fetchone()
-        if resultado and resultado.get('plano'):
+        
+        # sqlite3.Row já suporta acesso por nome de coluna (como .get())
+        if resultado and resultado['plano']: # Acesso direto por chave
             return resultado['plano']
     except Exception as e:
         print(f"Erro ao buscar plano do usuário: {e}")

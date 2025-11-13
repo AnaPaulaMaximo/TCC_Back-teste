@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify, session
-from mysql.connector import IntegrityError
+from mysql.connector import IntegrityError # Pode manter, mas o erro do SQLite é sqlite3.IntegrityError
 from config import conn, cursor
+import sqlite3 # Importe para capturar o erro específico
 
 # Cria um Blueprint para rotas de autenticação
 # O front-end chamará, por exemplo, /auth/login
@@ -21,7 +22,8 @@ def login():
     # --- INÍCIO DA LÓGICA DE LOGIN UNIFICADO ---
     
     # 1. Tenta fazer login como Administrador primeiro
-    cursor.execute('SELECT id_admin, nome, email FROM Admin WHERE email = %s AND senha = %s', (email, senha))
+    # MySQL usava %s, SQLite usa ?
+    cursor.execute('SELECT id_admin, nome, email FROM Admin WHERE email = ? AND senha = ?', (email, senha))
     admin = cursor.fetchone()
     
     if admin:
@@ -33,15 +35,14 @@ def login():
         session['admin_id'] = admin['id_admin']
         session['admin_nome'] = admin['nome']
         
-        # Retorna a 'role' (função) para o frontend saber para onde redirecionar
         return jsonify({
             'message': 'Login de admin realizado com sucesso!', 
             'role': 'admin', 
-            'user': admin # Envia os dados do admin
+            'user': dict(admin) # Converte a Row para dict
         }), 200
 
     # 2. Se não for admin, tenta fazer login como Aluno
-    cursor.execute('SELECT id_aluno, nome, email, plano, url_foto FROM Aluno WHERE email = %s AND senha = %s', (email, senha))
+    cursor.execute('SELECT id_aluno, nome, email, plano, url_foto FROM Aluno WHERE email = ? AND senha = ?', (email, senha))
     aluno = cursor.fetchone()
 
     if aluno:
@@ -53,11 +54,10 @@ def login():
         session['id_aluno'] = aluno['id_aluno']
         session['plano'] = aluno['plano']
         
-        # Retorna a 'role' (função) para o frontend
         return jsonify({
             'message': 'Login realizado com sucesso!', 
             'role': 'aluno', 
-            'user': aluno # Envia os dados do aluno (incluindo plano)
+            'user': dict(aluno) # Converte a Row para dict
         }), 200
 
     # 3. Se não for nenhum dos dois, retorna erro
@@ -80,11 +80,11 @@ def cadastrar_usuario():
         return jsonify({'error': 'Erro de conexão com o banco de dados.'}), 500
 
     try:
-        # Novos usuários começam como 'freemium' por padrão (conforme seu DB)
-        cursor.execute('INSERT INTO Aluno (nome, email, senha) VALUES (%s, %s, %s)', (nome, email, senha))
+        # Novos usuários começam como 'freemium' por padrão (definido no CHECK do SQLite)
+        cursor.execute('INSERT INTO Aluno (nome, email, senha) VALUES (?, ?, ?)', (nome, email, senha))
         conn.commit()
         return jsonify({'message': 'Usuário cadastrado com sucesso.'}), 201
-    except IntegrityError:
+    except (IntegrityError, sqlite3.IntegrityError): # Captura o erro do MySQL ou SQLite
         return jsonify({'error': 'Email já cadastrado.'}), 400
 
 @auth_bp.route('/editar_usuario/<int:id_aluno>', methods=['PUT'])
@@ -102,22 +102,23 @@ def editar_usuario(id_aluno):
     valores = []
 
     if nome:
-        campos.append("nome=%s")
+        campos.append("nome=?")
         valores.append(nome)
     if email:
-        campos.append("email=%s")
+        campos.append("email=?")
         valores.append(email)
     if senha:
-        campos.append("senha=%s")
+        campos.append("senha=?")
         valores.append(senha)
     if url_foto is not None:
-        campos.append("url_foto=%s")
+        campos.append("url_foto=?")
         valores.append(url_foto)
 
     if not campos:
         return jsonify({'error': 'Nenhum campo para atualizar.'}), 400
 
-    query = f"UPDATE Aluno SET {', '.join(campos)} WHERE id_aluno=%s"
+    # O placeholder do id_aluno também muda para ?
+    query = f"UPDATE Aluno SET {', '.join(campos)} WHERE id_aluno=?"
     valores.append(id_aluno)
 
     cursor.execute(query, tuple(valores))
@@ -133,7 +134,7 @@ def excluir_usuario(id_aluno):
     if not cursor:
         return jsonify({'error': 'Erro de conexão com o banco de dados.'}), 500
         
-    cursor.execute('DELETE FROM Aluno WHERE id_aluno=%s', (id_aluno,))
+    cursor.execute('DELETE FROM Aluno WHERE id_aluno=?', (id_aluno,))
     conn.commit()
     if cursor.rowcount == 0:
         return jsonify({'error': 'Usuário não encontrado.'}), 404
@@ -146,4 +147,5 @@ def listar_usuarios():
         
     cursor.execute('SELECT id_aluno, nome, email, url_foto, plano FROM Aluno')
     usuarios = cursor.fetchall()
-    return jsonify(usuarios)
+    # Converte lista de Rows para lista de dicts
+    return jsonify([dict(u) for u in usuarios])

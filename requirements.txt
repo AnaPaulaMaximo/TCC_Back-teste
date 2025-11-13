@@ -1,7 +1,6 @@
 flask
 flask_cors
 flask_socketio
-mysql-connector-python
 google-generativeai
 python-dotenv
 uuid
