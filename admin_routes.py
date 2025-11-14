@@ -160,30 +160,36 @@ def get_stats():
         alunos_por_plano = [dict(r) for r in cursor.fetchall()] # Formato: [{'plano': 'freemium', 'count': 10}, ...]
 
         # Stat 3: Média de Acertos Geral (pode ser um card)
-        cursor.execute('SELECT AVG(acertos / total_perguntas) as media_geral FROM QuizResultado')
+        # --- CORREÇÃO AQUI ---
+        # Multiplicamos por 1.0 para forçar a divisão de ponto flutuante (float)
+        # E adicionamos WHERE para evitar divisão por zero
+        cursor.execute('SELECT AVG(acertos * 1.0 / total_perguntas) as media_geral FROM quiz_resultado WHERE total_perguntas > 0')
+        # --- FIM DA CORREÇÃO ---
+        
         media_geral_result = cursor.fetchone()
         media_geral = media_geral_result['media_geral'] if media_geral_result else None
         
         # Stat 4: Novos Alunos nos Últimos 7 Dias (Gráfico de Linha)
+        # Esta consulta agora funcionará, pois a coluna id_aluno existe
         today = datetime.date.today()
         seven_days_ago = today - datetime.timedelta(days=7)
         
         cursor.execute("""
             SELECT DATE(data_criacao) as dia, COUNT(DISTINCT id_aluno) as novos_quizzes
-            FROM QuizResultado
+            FROM quiz_resultado
             WHERE data_criacao >= ?
             GROUP BY DATE(data_criacao)
             ORDER BY dia ASC
         """, (seven_days_ago,)) # SQLite usa ?
         
-        quizzes_ultimos_dias = [dict(r) for r in cursor.fetchall()]
+        quizzes_ultimos_dios = [dict(r) for r in cursor.fetchall()]
         
         # Formatando para o gráfico
         labels_dias = []
         data_dias = []
         
         # Converte as datas de string (SQLite) para objeto date
-        quizzes_map = {datetime.date.fromisoformat(item['dia']): item['novos_quizzes'] for item in quizzes_ultimos_dias}
+        quizzes_map = {datetime.date.fromisoformat(item['dia']): item['novos_quizzes'] for item in quizzes_ultimos_dios}
 
         # Preenche os últimos 7 dias
         for i in range(7):
@@ -220,7 +226,7 @@ def get_resultados_aluno(id_aluno):
     
     cursor.execute("""
         SELECT tema, acertos, total_perguntas, data_criacao 
-        FROM QuizResultado 
+        FROM quiz_resultado
         WHERE id_aluno = ?
         ORDER BY data_criacao DESC
     """, (id_aluno,))

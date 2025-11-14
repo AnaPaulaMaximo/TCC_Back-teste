@@ -21,10 +21,12 @@ CREATE TABLE aluno (
 
 CREATE TABLE quiz_resultado (
     id_resultado INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_aluno INTEGER NOT NULL, -- <--- ADICIONE ESTA LINHA
     tema TEXT NOT NULL,
     acertos INTEGER NOT NULL,
     total_perguntas INTEGER NOT NULL,
-    data_criacao DATE NOT NULL
+    data_criacao DATE NOT NULL,
+    FOREIGN KEY(id_aluno) REFERENCES aluno(id_aluno) ON DELETE CASCADE 
 );
 
 /* Tabela Admin que estava faltando */

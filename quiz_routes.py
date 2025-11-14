@@ -27,7 +27,7 @@ def salvar_resultado():
     try:
         # CORREÇÃO DE BUG: Adicionado data_criacao ao INSERT
         cursor.execute(
-            'INSERT INTO QuizResultado (id_aluno, tema, acertos, total_perguntas, data_criacao) VALUES (?, ?, ?, ?, ?)',
+            'INSERT INTO quiz_resultado (id_aluno, tema, acertos, total_perguntas, data_criacao) VALUES (?, ?, ?, ?, ?)',
             (id_aluno, tema, acertos, total_perguntas, data_hoje) # Passa a data
         )
         conn.commit()

@@ -13,7 +13,7 @@ from config import conn, cursor # Assuming config.py is correctly set up
 from auth_routes import auth_bp
 from freemium_routes import freemium_bp
 from premium_routes import premium_bp
-
+from admin_routes import admin_bp # <--- ADICIONE ESTA LINHA
 
 # --- Configurações Iniciais ---
 load_dotenv()
@@ -22,7 +22,7 @@ app.secret_key = os.getenv("SECRET_KEY", "uma-chave-secreta-padrao-muito-forte")
 
 # --- CORREÇÃO CORS ---
 CORS(app,
-     origins="*",
+     origins="*",  # Em produção, restrinja isso ao seu domínio frontend
      supports_credentials=True)
 
 socketio = SocketIO(app, cors_allowed_origins="*")
@@ -44,6 +44,7 @@ MODEL_NAME = "gemini-2.5-flash"
 app.register_blueprint(auth_bp)
 app.register_blueprint(freemium_bp)
 app.register_blueprint(premium_bp)
+app.register_blueprint(admin_bp) # <--- ADICIONE ESTA LINHA
 
 # --- Rota Principal (Teste) ---
 @app.route('/')
