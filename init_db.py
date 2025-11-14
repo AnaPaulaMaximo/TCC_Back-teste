@@ -1,3 +1,4 @@
+# comando para iniciar o banco: python init_db.py
 import sqlite3
 import datetime
 
