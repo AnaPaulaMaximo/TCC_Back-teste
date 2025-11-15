@@ -1,6 +1,6 @@
 """
 Script de Configuração Inicial das Chaves API
-Execute este arquivo para configurar suas chaves pela primeira vez
+Execute este arquivo para configurar suas chaves pela primeira vez  (python setup_keys.py)
 """
 from api_key_manager import APIKeyManager
 
