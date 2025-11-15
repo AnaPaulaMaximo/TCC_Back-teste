@@ -9,7 +9,8 @@ DB_NAME = "repensei.db"
 SQL_SCRIPT = """
 DROP TABLE IF EXISTS aluno;
 DROP TABLE IF EXISTS quiz_resultado;
-DROP TABLE IF EXISTS Admin; /* Adicionado */
+DROP TABLE IF EXISTS Admin;
+DROP TABLE IF EXISTS historico_premium;
 
 CREATE TABLE aluno (
     id_aluno INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -36,6 +37,25 @@ CREATE TABLE Admin (
     nome TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
     senha TEXT NOT NULL
+);
+
+/* Tabela para salvar o CONTEÚDO das atividades premium */
+CREATE TABLE historico_premium (
+    id_historico INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_aluno INTEGER NOT NULL,
+    tipo_atividade TEXT NOT NULL CHECK(tipo_atividade IN ('quiz', 'flashcard', 'resumo', 'correcao')),
+    tema TEXT NOT NULL,
+    conteudo_gerado TEXT,
+    texto_original TEXT, /* Usado para salvar o texto do aluno em 'correcao' */
+    
+    /* === NOVAS COLUNAS PARA QUIZZES === */
+    acertos INTEGER, 
+    total_perguntas INTEGER,
+    respostas_usuario TEXT, /* JSON string com as respostas do usuário */
+    /* ================================== */
+
+    data_criacao DATETIME NOT NULL DEFAULT (datetime('now','localtime')),
+    FOREIGN KEY(id_aluno) REFERENCES aluno(id_aluno) ON DELETE CASCADE
 );
 
 
@@ -67,7 +87,7 @@ def initialize_database():
         conn.close()
         
         print(f"Banco de dados '{DB_NAME}' inicializado com sucesso.")
-        print("Tabelas 'aluno', 'quiz_resultado' e 'Admin' criadas.")
+        print("Tabelas 'aluno', 'quiz_resultado', 'Admin' e 'historico_premium' criadas.")
         print("Usuários e Admin de teste inseridos.")
 
     except sqlite3.Error as e:
