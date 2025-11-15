@@ -1,19 +1,16 @@
-from flask import Blueprint, request, jsonify, session
+from flask import Blueprint, request, jsonify, session, current_app
 from utils import get_user_plan
+from api_key_manager import generate_with_retry
 import google.generativeai as genai
 import os
-import datetime # Importado
-from config import conn, cursor # Importado
-import json # Importado para salvar as respostas do usuário
+import datetime
+from config import conn, cursor
+import json
 
-# Cria um Blueprint para rotas premium
-# O front-end chamará, por exemplo, /premium/quiz
 premium_bp = Blueprint('premium_bp', __name__, url_prefix='/premium')
 
-# O modelo é configurado no app.py principal, aqui apenas usamos
-MODEL_NAME = "gemini-2.5-flash" 
+MODEL_NAME = "gemini-2.5-flash"
 
-# Função de verificação de segurança
 def check_premium_access(id_aluno):
     if not id_aluno:
         return jsonify({'error': 'ID do aluno é obrigatório.'}), 400
@@ -21,7 +18,6 @@ def check_premium_access(id_aluno):
         return jsonify({'error': 'Esta funcionalidade é exclusiva para usuários Premium.'}), 403
     return None
 
-# Nova função de verificação de sessão (para endpoints GET)
 def check_premium_session():
     if 'id_aluno' not in session:
         return jsonify({'error': 'Usuário não logado.'}), 401
@@ -34,12 +30,10 @@ def quiz_premium():
     data = request.get_json()
     id_aluno = data.get('id_aluno')
     
-    # Verifica se o usuário é premium
     auth_error = check_premium_access(id_aluno)
     if auth_error:
         return auth_error
 
-    # Lógica específica do Premium (usando IA)
     if 'tema' not in data:
         return jsonify({'error': 'O campo "tema" é obrigatório para usuários Premium.'}), 400
     
@@ -56,15 +50,17 @@ Se o tema for válido, gere um quiz com 10 questões sobre ele. Retorne as quest
 Se o tema for inválido, retorne **APENAS** a mensagem: NÃO É POSSIVEL FORMAR UMA RESPOSTA DEVIDO A INADEQUAÇÃO DO ASSUNTO.
 """
     try:
-        model = genai.GenerativeModel(MODEL_NAME)
-        response = model.generate_content(prompt)
-        texto = response.text.strip()
+        # --- USA O GERENCIADOR DE CHAVES ---
+        key_manager = current_app.config['KEY_MANAGER']
+        texto = generate_with_retry(key_manager, prompt, MODEL_NAME)
         
-        # --- REMOVIDO: O quiz não é mais salvo na geração ---
+        if texto is None:
+            return jsonify({"erro": "Não foi possível gerar o quiz após várias tentativas."}), 500
         
-        # Retorna o texto bruto para o front-end processar
         return jsonify({"assunto": tema, "contedo": texto})
+    
     except Exception as e:
+        print(f"Erro ao gerar quiz: {e}")
         return jsonify({"erro": f"Erro ao gerar quiz com IA: {str(e)}"}), 500
 
 
@@ -77,7 +73,6 @@ def flashcard_premium():
     if auth_error:
         return auth_error
 
-    # Lógica específica do Premium (usando IA)
     if 'tema' not in data:
         return jsonify({'error': 'O campo "tema" é obrigatório para usuários Premium.'}), 400
     
@@ -90,11 +85,14 @@ Se o tema for válido, Gere 12 perguntas para flashcards sobre o tema '{tema}'. 
 Se o tema for inválido, retorne **APENAS** a mensagem: NÃO É POSSIVEL FORMAR UMA RESPOSTA DEVIDO A INADEQUAÇÃO DO ASSUNTO.
 """
     try:
-        model = genai.GenerativeModel(MODEL_NAME)
-        response = model.generate_content(prompt)
-        texto = response.text.strip()
+        # --- USA O GERENCIADOR DE CHAVES ---
+        key_manager = current_app.config['KEY_MANAGER']
+        texto = generate_with_retry(key_manager, prompt, MODEL_NAME)
         
-        # --- NOVO: Salvar no histórico premium ---
+        if texto is None:
+            return jsonify({"erro": "Não foi possível gerar os flashcards após várias tentativas."}), 500
+        
+        # Salva no histórico
         try:
             cursor.execute(
                 'INSERT INTO historico_premium (id_aluno, tipo_atividade, tema, conteudo_gerado, data_criacao) VALUES (?, ?, ?, ?, ?)',
@@ -104,10 +102,11 @@ Se o tema for inválido, retorne **APENAS** a mensagem: NÃO É POSSIVEL FORMAR 
         except Exception as e:
             print(f"Erro ao salvar historico (flashcard): {e}")
             conn.rollback()
-        # --- FIM ---
 
         return jsonify({"assunto": tema, "contedo": texto})
+    
     except Exception as e:
+        print(f"Erro ao gerar flashcards: {e}")
         return jsonify({"erro": f"Erro ao gerar flashcards com IA: {str(e)}"}), 500
 
 
@@ -130,11 +129,14 @@ def resumo():
         Se o tema for inválido, retorne **APENAS** a mensagem: NÃO É POSSIVEL FORMAR UMA RESPOSTA DEVIDO A INADEQUAÇÃO DO ASSUNTO.
     """
     try:
-        model = genai.GenerativeModel(MODEL_NAME)
-        response = model.generate_content(prompt)
-        texto = response.text.strip()
+        # --- USA O GERENCIADOR DE CHAVES ---
+        key_manager = current_app.config['KEY_MANAGER']
+        texto = generate_with_retry(key_manager, prompt, MODEL_NAME)
         
-        # --- NOVO: Salvar no histórico premium ---
+        if texto is None:
+            return jsonify({"erro": "Não foi possível gerar o resumo após várias tentativas."}), 500
+        
+        # Salva no histórico
         try:
             cursor.execute(
                 'INSERT INTO historico_premium (id_aluno, tipo_atividade, tema, conteudo_gerado, data_criacao) VALUES (?, ?, ?, ?, ?)',
@@ -144,10 +146,11 @@ def resumo():
         except Exception as e:
             print(f"Erro ao salvar historico (resumo): {e}")
             conn.rollback()
-        # --- FIM ---
         
         return jsonify({"assunto": tema, "conteudo": texto})
+    
     except Exception as e:
+        print(f"Erro ao gerar resumo: {e}")
         return jsonify({"erro": str(e)}), 500
 
 @premium_bp.route('/correcao', methods=['POST'])
@@ -163,7 +166,7 @@ def correcao():
         return jsonify({'error': 'Os campos "tema" e "texto" são obrigatórios.'}), 400
 
     tema = data['tema']
-    texto = data['texto'] # Texto original do aluno
+    texto = data['texto']
     prompt = f""""
         Você é um professor especializado em Filosofia e Sociologia. Corrija o texto do aluno sobre o tema '{tema}'.
         Texto do aluno: '{texto}'.
@@ -171,11 +174,14 @@ def correcao():
         Avalie se o tema é apropriado. Se não for, retorne **APENAS** a mensagem: NÃO É POSSIVEL FORMAR UMA RESPOSTA DEVIDO A INADEQUAÇÃO DO ASSUNTO.
     """
     try:
-        model = genai.GenerativeModel(MODEL_NAME)
-        response = model.generate_content(prompt)
-        texto_corrigido = response.text.strip() # Conteúdo gerado (a correção)
+        # --- USA O GERENCIADOR DE CHAVES ---
+        key_manager = current_app.config['KEY_MANAGER']
+        texto_corrigido = generate_with_retry(key_manager, prompt, MODEL_NAME)
         
-        # --- NOVO: Salvar no histórico premium ---
+        if texto_corrigido is None:
+            return jsonify({"erro": "Não foi possível gerar a correção após várias tentativas."}), 500
+        
+        # Salva no histórico
         try:
             cursor.execute(
                 'INSERT INTO historico_premium (id_aluno, tipo_atividade, tema, conteudo_gerado, texto_original, data_criacao) VALUES (?, ?, ?, ?, ?, ?)',
@@ -185,15 +191,13 @@ def correcao():
         except Exception as e:
             print(f"Erro ao salvar historico (correcao): {e}")
             conn.rollback()
-        # --- FIM ---
         
         return jsonify({"texto_original": texto, "correcao": texto_corrigido})
+    
     except Exception as e:
+        print(f"Erro ao corrigir texto: {e}")
         return jsonify({"erro": str(e)}), 500
 
-# ===================================
-# NOVO ENDPOINT DE SALVAR QUIZ
-# ===================================
 @premium_bp.route('/quiz/salvar_completo', methods=['POST'])
 def salvar_quiz_premium_completo():
     data = request.get_json()
@@ -207,8 +211,8 @@ def salvar_quiz_premium_completo():
         tema = data.get('tema')
         acertos = data.get('acertos')
         total_perguntas = data.get('total_perguntas')
-        conteudo_gerado = data.get('conteudo_gerado') # O JSON bruto do quiz
-        respostas_usuario = json.dumps(data.get('respostas_usuario')) # O JSON das respostas
+        conteudo_gerado = data.get('conteudo_gerado')
+        respostas_usuario = json.dumps(data.get('respostas_usuario'))
         
         if not all([tema, acertos is not None, total_perguntas, conteudo_gerado, respostas_usuario]):
              return jsonify({'error': 'Dados incompletos para salvar o quiz.'}), 400
@@ -229,24 +233,16 @@ def salvar_quiz_premium_completo():
         conn.rollback()
         return jsonify({"error": f"Erro interno ao salvar quiz: {e}"}), 500
 
-# ===================================
-# ENDPOINTS DE HISTÓRICO (MODIFICADOS)
-# ===================================
-
 @premium_bp.route('/historico/<int:id_aluno>', methods=['GET'])
 def get_historico(id_aluno):
-    # Usar a verificação de sessão
     auth_error = check_premium_session()
     if auth_error:
         return auth_error
     
-    # Garante que o usuário só possa ver seu próprio histórico
     if session['id_aluno'] != id_aluno:
         return jsonify({'error': 'Acesso não autorizado ao histórico de outro usuário.'}), 403
 
     try:
-        # --- MODIFICADO: Busca APENAS na tabela historico_premium ---
-        # Isso remove a duplicata da tabela quiz_resultado
         cursor.execute(
             """
             SELECT 
@@ -279,7 +275,6 @@ def get_historico_item(item_id):
     id_aluno_sessao = session['id_aluno']
     
     try:
-        # Busca o item na tabela de histórico premium
         cursor.execute(
             "SELECT * FROM historico_premium WHERE id_historico = ? AND id_aluno = ?",
             (item_id, id_aluno_sessao)
@@ -289,16 +284,14 @@ def get_historico_item(item_id):
         if not item:
             return jsonify({'error': 'Item de histórico não encontrado ou não pertence a você.'}), 404
         
-        # Converte o sqlite3.Row para um dict para ser serializável
         item_dict = dict(item)
         
-        # Tenta desserializar as respostas do usuário
         try:
             item_dict['respostas_usuario'] = json.loads(item_dict['respostas_usuario'])
         except:
-            item_dict['respostas_usuario'] = {} # Retorna um objeto vazio se falhar
+            item_dict['respostas_usuario'] = {}
 
-        return jsonify(item_dict) # Retorna o item completo
+        return jsonify(item_dict)
 
     except Exception as e:
         print(f"Erro ao buscar item do historico: {e}")
