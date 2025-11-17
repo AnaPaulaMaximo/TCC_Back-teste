@@ -63,12 +63,12 @@ CREATE TABLE historico_premium (
 
 /* Usuários de teste */
 INSERT INTO aluno (nome, email, senha, plano) VALUES
-('Aluno Teste', 'aluno@email.com', '123', 'premium'),
+('Aluno Teste', 'premium@email.com', '123', 'premium'),
 ('Aluno Freemium', 'freemium@email.com', '123', 'freemium');
 
 /* Administrador de teste (para a tabela Admin) */
 INSERT INTO Admin (nome, email, senha) VALUES
-('Admin', 'admin@email.com', 'admin123');
+('Admin', 'admin@email.com', '123');
 """
 
 def initialize_database():
