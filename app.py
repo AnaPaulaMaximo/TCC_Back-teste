@@ -20,7 +20,7 @@ from quiz_routes import quiz_bp
 # --- Configurações Iniciais ---
 load_dotenv()
 app = Flask(__name__)
-app.secret_key = os.getenv("SECRET_KEY", "uma-chave-secreta-padrao-muito-forte")
+app.secret_key = os.getenv("SECRET_KEY")
 
 CORS(app, origins="*", supports_credentials=True)
 socketio = SocketIO(app, cors_allowed_origins="*")
