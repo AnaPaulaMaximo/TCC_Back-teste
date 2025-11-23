@@ -47,7 +47,7 @@ def quiz_premium():
 
     Retorne APENAS um JSON válido com a seguinte estrutura exata, sem crases ou markdown:
     {{
-        "categoria": "Filosofia" ou "Sociologia",
+        "categoria": "Filosofia" ou "Sociologia - oque o usuário escreveu no tema (ex:aristoteles)",
         "questoes": [
             {{
                 "pergunta": "texto da pergunta",
