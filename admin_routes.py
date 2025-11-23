@@ -160,9 +160,11 @@ def get_stats():
     try:
         # 1. Totais básicos
         cursor.execute("SELECT COUNT(*) as t FROM Aluno")
-        total_alunos = cursor.fetchone()['t']
+        result_total = cursor.fetchone()
+        total_alunos = result_total['t'] if result_total else 0
         
-        cursor.execute("SELECT plano, COUNT(*) as c FROM Aluno GROUP BY plano")
+        # CORREÇÃO AQUI: Mudado de 'as c' para 'as count' para o gráfico funcionar
+        cursor.execute("SELECT plano, COUNT(*) as count FROM Aluno GROUP BY plano")
         alunos_por_plano = [dict(r) for r in cursor.fetchall()]
 
         # 2. Médias (usando a tabela unificada)
@@ -178,12 +180,10 @@ def get_stats():
         res = cursor.fetchone()
         media_socio = res['m'] if res and res['m'] else 0
 
-        # 3. Gráfico de Barras (AQUI ESTAVA O PROBLEMA)
-        # Precisamos pegar todos os quizzes recentes e categorizá-los no Python
+        # 3. Gráfico de Barras (Categorias da IA)
         today = datetime.date.today()
         seven_days_ago = today - datetime.timedelta(days=6)
         
-        # Trazemos TUDO da união e filtramos no Python para garantir classificação correta
         cursor.execute(f"""
             SELECT qr.tema, a.plano
             FROM {UNION_QUIZZES_QUERY} qr
@@ -193,7 +193,7 @@ def get_stats():
         
         rows = cursor.fetchall()
         
-        # Estrutura para contar. Adicionei 'Diversos' para capturar temas Premium
+        # Estrutura para contar
         data_map = {
             'freemium': {'Filosofia': 0, 'Sociologia': 0, 'Diversos': 0},
             'premium':  {'Filosofia': 0, 'Sociologia': 0, 'Diversos': 0}
@@ -205,8 +205,10 @@ def get_stats():
             
             tema_upper = tema.upper()
             
-            # Lógica de Classificação mais robusta
-            categoria = 'Diversos' # Padrão para temas premium (ex: "Platão")
+            # Lógica de Classificação:
+            # Se a IA já salvou como "Filosofia - Platão", vai cair no primeiro IF.
+            # Se for antigo ou sem categoria, cai em Diversos.
+            categoria = 'Diversos' 
             if 'FILOSOFIA' in tema_upper:
                 categoria = 'Filosofia'
             elif 'SOCIOLOGIA' in tema_upper:
