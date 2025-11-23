@@ -1,307 +1,254 @@
 from flask import Blueprint, request, jsonify, session
-from config import conn, cursor
-from mysql.connector import IntegrityError 
+from config import conn 
 import sqlite3 
 import datetime
 
 admin_bp = Blueprint('admin_bp', __name__, url_prefix='/admin')
 
-# Função de Verificação de Admin
+# --- CTE: UNIFICAÇÃO DAS TABELAS ---
+# Padronizamos as colunas para que o Python trate tudo igual
+UNION_QUIZZES_QUERY = """
+    (
+        SELECT id_aluno, tema, acertos, total_perguntas, data_criacao, 'freemium' as origem
+        FROM quiz_resultado
+        UNION ALL
+        SELECT id_aluno, tema, acertos, total_perguntas, data_criacao, 'premium' as origem
+        FROM historico_premium 
+        WHERE tipo_atividade = 'quiz' AND acertos IS NOT NULL
+    )
+"""
+
 def check_admin_session():
-    """Verifica se um admin está logado na sessão."""
     if 'admin_id' not in session:
-        return jsonify({'error': 'Acesso negado. Você não está logado como administrador.'}), 403
+        return jsonify({'error': 'Acesso negado. Admin não logado.'}), 403
     return None
 
-# Rotas de Autenticação do Admin
+# --- ROTAS DE AUTENTICAÇÃO ---
 @admin_bp.route('/login', methods=['POST'])
 def admin_login():
-    data = request.get_json()
-    email = data.get('email')
-    senha = data.get('senha')
-    if not email or not senha:
-        return jsonify({'error': 'Email e senha são obrigatórios.'}), 400
-    
+    cursor = conn.cursor()
     try:
+        data = request.get_json()
+        email = data.get('email')
+        senha = data.get('senha')
+        
         cursor.execute('SELECT id_admin, nome FROM Admin WHERE email = ? AND senha = ?', (email, senha))
         admin = cursor.fetchone()
+        
         if admin:
             session['admin_id'] = admin['id_admin']
             session['admin_nome'] = admin['nome']
-            return jsonify({'message': 'Login de admin realizado com sucesso!', 'admin': dict(admin)}), 200
+            return jsonify({'message': 'Login admin sucesso', 'admin': dict(admin)}), 200
         else:
-            return jsonify({'error': 'Email ou senha de admin inválidos.'}), 401
+            return jsonify({'error': 'Credenciais inválidas.'}), 401
     except Exception as e:
-        print(f"Erro no login admin: {e}")
-        return jsonify({'error': 'Erro interno no servidor.'}), 500
+        return jsonify({'error': str(e)}), 500
+    finally:
+        cursor.close()
 
 @admin_bp.route('/logout', methods=['POST'])
 def admin_logout():
     session.pop('admin_id', None)
     session.pop('admin_nome', None)
-    return jsonify({'message': 'Logout de admin realizado com sucesso.'}), 200
+    return jsonify({'message': 'Logout realizado.'}), 200
 
 @admin_bp.route('/check_session', methods=['GET'])
 def check_admin():
-    auth_error = check_admin_session()
-    if auth_error:
-        return auth_error
-    return jsonify({
-        'message': 'Admin está logado.',
-        'admin': {
-            'id_admin': session['admin_id'],
-            'nome': session['admin_nome']
-        }
-    }), 200
+    error = check_admin_session()
+    if error: return error
+    return jsonify({'admin': {'nome': session['admin_nome']}}), 200
 
-# Rotas de Gerenciamento de Alunos (CRUD)
+# --- ROTAS DE ALUNOS ---
 @admin_bp.route('/alunos', methods=['GET'])
 def get_alunos():
-    auth_error = check_admin_session()
-    if auth_error:
-        return auth_error
-        
-    search = request.args.get('search', None)
-    plano_filter = request.args.get('plano', None)
-
-    base_query = """
-        SELECT 
-            a.id_aluno, a.nome, a.email, a.plano, a.url_foto,
-            COUNT(qr.id_resultado) as total_quizzes, 
-            AVG(CASE WHEN qr.total_perguntas > 0 THEN qr.acertos * 1.0 / qr.total_perguntas ELSE NULL END) as media_geral,
-            AVG(CASE WHEN qr.total_perguntas > 0 AND qr.tema = 'Filosofia' THEN qr.acertos * 1.0 / qr.total_perguntas ELSE NULL END) as media_filosofia,
-            AVG(CASE WHEN qr.total_perguntas > 0 AND qr.tema = 'Sociologia' THEN qr.acertos * 1.0 / qr.total_perguntas ELSE NULL END) as media_sociologia
-        FROM 
-            aluno a
-        LEFT JOIN 
-            quiz_resultado qr ON a.id_aluno = qr.id_aluno
-    """
+    if check_admin_session(): return check_admin_session()
+    cursor = conn.cursor()
     
-    where_clauses = []
-    params = []
+    search = request.args.get('search', '')
+    plano = request.args.get('plano', '')
 
-    if search:
-        where_clauses.append("(a.nome LIKE ? OR a.email LIKE ?)")
-        params.extend([f"%{search}%", f"%{search}%"])
-
-    if plano_filter:
-        where_clauses.append("a.plano = ?")
-        params.append(plano_filter)
-
-    if where_clauses:
-        base_query += " WHERE " + " AND ".join(where_clauses)
-
-    base_query += """
-        GROUP BY 
-            a.id_aluno, a.nome, a.email, a.plano, a.url_foto
-        ORDER BY 
-            a.nome
-    """
-    
+    # Query otimizada: Agrupa primeiro na subquery para evitar duplicação no Join
     try:
-        cursor.execute(base_query, tuple(params))
-        alunos = cursor.fetchall()
-        return jsonify([dict(a) for a in alunos]), 200
+        query = f"""
+            SELECT 
+                a.id_aluno, a.nome, a.email, a.plano, a.url_foto,
+                COUNT(qr.data_criacao) as total_quizzes,
+                AVG(CAST(qr.acertos AS FLOAT) / CAST(qr.total_perguntas AS FLOAT)) as media_geral,
+                
+                /* Médias Condicionais (Case Insensitive para pegar variações) */
+                AVG(CASE WHEN UPPER(qr.tema) LIKE '%FILOSOFIA%' THEN CAST(qr.acertos AS FLOAT)/qr.total_perguntas ELSE NULL END) as media_filosofia,
+                AVG(CASE WHEN UPPER(qr.tema) LIKE '%SOCIOLOGIA%' THEN CAST(qr.acertos AS FLOAT)/qr.total_perguntas ELSE NULL END) as media_sociologia
+            
+            FROM aluno a
+            LEFT JOIN {UNION_QUIZZES_QUERY} qr ON a.id_aluno = qr.id_aluno
+            WHERE (a.nome LIKE ? OR a.email LIKE ?)
+        """
+        params = [f"%{search}%", f"%{search}%"]
+
+        if plano:
+            query += " AND a.plano = ?"
+            params.append(plano)
+
+        query += " GROUP BY a.id_aluno, a.nome, a.email, a.plano, a.url_foto ORDER BY a.nome"
+
+        cursor.execute(query, tuple(params))
+        alunos = [dict(row) for row in cursor.fetchall()]
+        return jsonify(alunos), 200
     except Exception as e:
-        print(f"Erro ao buscar alunos: {e}")
-        return jsonify({'error': 'Erro interno ao buscar alunos.'}), 500
+        print(f"Erro get_alunos: {e}")
+        return jsonify({'error': str(e)}), 500
+    finally:
+        cursor.close()
 
 @admin_bp.route('/alunos', methods=['POST'])
 def create_aluno():
-    auth_error = check_admin_session()
-    if auth_error:
-        return auth_error
-    
-    data = request.get_json()
-    nome = data.get('nome')
-    email = data.get('email')
-    senha = data.get('senha')
-    plano = data.get('plano', 'freemium') 
-
-    if not nome or not email or not senha:
-        return jsonify({'error': 'Nome, email e senha são obrigatórios.'}), 400
-
+    if check_admin_session(): return check_admin_session()
+    cursor = conn.cursor()
     try:
+        d = request.get_json()
         cursor.execute('INSERT INTO Aluno (nome, email, senha, plano) VALUES (?, ?, ?, ?)', 
-                       (nome, email, senha, plano))
+                       (d.get('nome'), d.get('email'), d.get('senha'), d.get('plano', 'freemium')))
         conn.commit()
-        return jsonify({'message': 'Aluno criado com sucesso.'}), 201
-    except (IntegrityError, sqlite3.IntegrityError):
-        return jsonify({'error': 'Email já cadastrado.'}), 400
+        return jsonify({'message': 'Criado com sucesso'}), 201
     except Exception as e:
-        print(f"Erro ao criar aluno: {e}")
-        return jsonify({'error': 'Erro interno ao criar aluno.'}), 500
+        return jsonify({'error': str(e)}), 400
+    finally:
+        cursor.close()
 
 @admin_bp.route('/alunos/<int:id_aluno>', methods=['PUT'])
 def update_aluno(id_aluno):
-    auth_error = check_admin_session()
-    if auth_error:
-        return auth_error
-
-    data = request.get_json()
-    nome = data.get('nome')
-    email = data.get('email')
-    plano = data.get('plano')
-    senha = data.get('senha') 
-
-    campos = []
-    valores = []
-
-    if nome:
-        campos.append("nome=?")
-        valores.append(nome)
-    if email:
-        campos.append("email=?")
-        valores.append(email)
-    if plano:
-        campos.append("plano=?")
-        valores.append(plano)
-    if senha:
-        campos.append("senha=?")
-        valores.append(senha)
-
-    if not campos:
-        return jsonify({'error': 'Nenhum campo para atualizar.'}), 400
-
-    query = f"UPDATE Aluno SET {', '.join(campos)} WHERE id_aluno=?"
-    valores.append(id_aluno)
-
+    if check_admin_session(): return check_admin_session()
+    cursor = conn.cursor()
     try:
-        cursor.execute(query, tuple(valores))
+        d = request.get_json()
+        sets = []
+        vals = []
+        if 'nome' in d: sets.append("nome=?"); vals.append(d['nome'])
+        if 'email' in d: sets.append("email=?"); vals.append(d['email'])
+        if 'plano' in d: sets.append("plano=?"); vals.append(d['plano'])
+        if 'senha' in d and d['senha']: sets.append("senha=?"); vals.append(d['senha'])
+        
+        if not sets: return jsonify({'error': 'Nada a alterar'}), 400
+        
+        vals.append(id_aluno)
+        cursor.execute(f"UPDATE Aluno SET {', '.join(sets)} WHERE id_aluno=?", tuple(vals))
         conn.commit()
-
-        if cursor.rowcount == 0:
-            return jsonify({'error': 'Aluno não encontrado.'}), 404
-        return jsonify({'message': 'Aluno atualizado com sucesso.'}), 200
+        return jsonify({'message': 'Atualizado'}), 200
     except Exception as e:
-        print(f"Erro ao atualizar aluno: {e}")
-        return jsonify({'error': 'Erro interno ao atualizar aluno.'}), 500
+        return jsonify({'error': str(e)}), 500
+    finally:
+        cursor.close()
 
 @admin_bp.route('/alunos/<int:id_aluno>', methods=['DELETE'])
 def delete_aluno(id_aluno):
-    auth_error = check_admin_session()
-    if auth_error:
-        return auth_error
-    
+    if check_admin_session(): return check_admin_session()
+    cursor = conn.cursor()
     try:
-        cursor.execute('DELETE FROM Aluno WHERE id_aluno=?', (id_aluno,))
+        cursor.execute("DELETE FROM Aluno WHERE id_aluno=?", (id_aluno,))
         conn.commit()
-        if cursor.rowcount == 0:
-            return jsonify({'error': 'Aluno não encontrado.'}), 404
-        return jsonify({'message': 'Aluno excluído com sucesso.'}), 200
+        return jsonify({'message': 'Deletado'}), 200
     except Exception as e:
-        print(f"Erro ao excluir aluno: {e}")
-        return jsonify({'error': 'Erro interno ao excluir aluno.'}), 500
+        return jsonify({'error': str(e)}), 500
+    finally:
+        cursor.close()
 
-# Rotas da Dashboard (Gráficos e Stats)
+# --- ROTAS DE STATS (DASHBOARD) ---
 @admin_bp.route('/stats', methods=['GET'])
 def get_stats():
-    auth_error = check_admin_session()
-    if auth_error:
-        return auth_error
-    
+    if check_admin_session(): return check_admin_session()
+    cursor = conn.cursor()
     try:
-        # Stat 1: Total de Alunos
-        cursor.execute('SELECT COUNT(*) as total_alunos FROM Aluno')
-        total_alunos = cursor.fetchone()['total_alunos']
-
-        # Stat 2: Alunos por Plano (Gráfico de Pizza)
-        cursor.execute('SELECT plano, COUNT(*) as count FROM Aluno GROUP BY plano')
+        # 1. Totais básicos
+        cursor.execute("SELECT COUNT(*) as t FROM Aluno")
+        total_alunos = cursor.fetchone()['t']
+        
+        cursor.execute("SELECT plano, COUNT(*) as c FROM Aluno GROUP BY plano")
         alunos_por_plano = [dict(r) for r in cursor.fetchall()]
 
-        # Stat 3: Médias de Acertos (dos cards)
-        cursor.execute('SELECT AVG(acertos * 1.0 / total_perguntas) as media FROM quiz_resultado WHERE total_perguntas > 0')
-        media_geral_result = cursor.fetchone()
-        media_geral = media_geral_result['media'] if media_geral_result and media_geral_result['media'] is not None else 0
+        # 2. Médias (usando a tabela unificada)
+        cursor.execute(f"SELECT AVG(CAST(acertos AS FLOAT)/total_perguntas) as m FROM {UNION_QUIZZES_QUERY} WHERE total_perguntas > 0")
+        res = cursor.fetchone()
+        media_geral = res['m'] if res and res['m'] else 0
 
-        cursor.execute("SELECT AVG(acertos * 1.0 / total_perguntas) as media FROM quiz_resultado WHERE total_perguntas > 0 AND tema = 'Filosofia'")
-        media_filo_result = cursor.fetchone()
-        media_filosofia = media_filo_result['media'] if media_filo_result and media_filo_result['media'] is not None else 0
+        cursor.execute(f"SELECT AVG(CAST(acertos AS FLOAT)/total_perguntas) as m FROM {UNION_QUIZZES_QUERY} WHERE total_perguntas > 0 AND tema LIKE '%Filosofia%'")
+        res = cursor.fetchone()
+        media_filo = res['m'] if res and res['m'] else 0
 
-        cursor.execute("SELECT AVG(acertos * 1.0 / total_perguntas) as media FROM quiz_resultado WHERE total_perguntas > 0 AND tema = 'Sociologia'")
-        media_socio_result = cursor.fetchone()
-        media_sociologia = media_socio_result['media'] if media_socio_result and media_socio_result['media'] is not None else 0
-        
-        # Stat 4: Gráfico Agrupado
+        cursor.execute(f"SELECT AVG(CAST(acertos AS FLOAT)/total_perguntas) as m FROM {UNION_QUIZZES_QUERY} WHERE total_perguntas > 0 AND tema LIKE '%Sociologia%'")
+        res = cursor.fetchone()
+        media_socio = res['m'] if res and res['m'] else 0
+
+        # 3. Gráfico de Barras (AQUI ESTAVA O PROBLEMA)
+        # Precisamos pegar todos os quizzes recentes e categorizá-los no Python
         today = datetime.date.today()
         seven_days_ago = today - datetime.timedelta(days=6)
         
-        cursor.execute("""
-            SELECT 
-                a.plano, 
-                qr.tema,
-                COUNT(qr.id_resultado) as total_quizzes
-            FROM 
-                quiz_resultado qr
-            JOIN 
-                aluno a ON a.id_aluno = qr.id_aluno
-            WHERE 
-                qr.data_criacao >= ? 
-                AND (qr.tema = 'Filosofia' OR qr.tema = 'Sociologia' OR qr.tema = 'Filosofia e Sociologia')
-            GROUP BY 
-                a.plano, qr.tema
+        # Trazemos TUDO da união e filtramos no Python para garantir classificação correta
+        cursor.execute(f"""
+            SELECT qr.tema, a.plano
+            FROM {UNION_QUIZZES_QUERY} qr
+            JOIN aluno a ON a.id_aluno = qr.id_aluno
+            WHERE qr.data_criacao >= ?
         """, (seven_days_ago,))
         
-        query_results = [dict(r) for r in cursor.fetchall()]
+        rows = cursor.fetchall()
         
+        # Estrutura para contar. Adicionei 'Diversos' para capturar temas Premium
         data_map = {
-            'freemium': {'Filosofia': 0, 'Sociologia': 0},
-            'premium': {'Filosofia': 0, 'Sociologia': 0}
+            'freemium': {'Filosofia': 0, 'Sociologia': 0, 'Diversos': 0},
+            'premium':  {'Filosofia': 0, 'Sociologia': 0, 'Diversos': 0}
         }
 
-        for item in query_results:
-            plano = item['plano']
-            tema = item['tema']
-            count = item['total_quizzes']
+        for row in rows:
+            tema = row['tema'] if row['tema'] else 'Desconhecido'
+            plano = row['plano']
+            
+            tema_upper = tema.upper()
+            
+            # Lógica de Classificação mais robusta
+            categoria = 'Diversos' # Padrão para temas premium (ex: "Platão")
+            if 'FILOSOFIA' in tema_upper:
+                categoria = 'Filosofia'
+            elif 'SOCIOLOGIA' in tema_upper:
+                categoria = 'Sociologia'
             
             if plano in data_map:
-                if tema == 'Filosofia':
-                    data_map[plano]['Filosofia'] += count
-                elif tema == 'Sociologia':
-                    data_map[plano]['Sociologia'] += count
-                elif tema == 'Filosofia e Sociologia':
-                    data_map[plano]['Filosofia'] += count
-                    data_map[plano]['Sociologia'] += count
-
-        labels = ['freemium', 'premium']
-        data_filosofia = [data_map['freemium']['Filosofia'], data_map['premium']['Filosofia']]
-        data_sociologia = [data_map['freemium']['Sociologia'], data_map['premium']['Sociologia']]
+                data_map[plano][categoria] += 1
 
         stats = {
             'total_alunos': total_alunos,
             'alunos_por_plano': alunos_por_plano,
-            'media_geral_acertos': f"{media_geral * 100:.2f}%",
-            'media_filosofia': f"{media_filosofia * 100:.2f}%",
-            'media_sociologia': f"{media_sociologia * 100:.2f}%",
-            'quizzes_por_plano_e_tema': { 
-                'labels': labels,
-                'data_filosofia': data_filosofia,
-                'data_sociologia': data_sociologia
+            'media_geral_acertos': f"{media_geral*100:.1f}%",
+            'media_filosofia': f"{media_filo*100:.1f}%",
+            'media_sociologia': f"{media_socio*100:.1f}%",
+            'quizzes_por_plano_e_tema': {
+                'labels': ['Freemium', 'Premium'],
+                'data_filosofia': [data_map['freemium']['Filosofia'], data_map['premium']['Filosofia']],
+                'data_sociologia': [data_map['freemium']['Sociologia'], data_map['premium']['Sociologia']],
+                'data_diversos': [data_map['freemium']['Diversos'], data_map['premium']['Diversos']]
             }
         }
-        
         return jsonify(stats), 200
 
     except Exception as e:
-        print(f"Erro ao buscar stats: {e}")
-        return jsonify({'error': f'Erro interno ao buscar estatísticas: {str(e)}'}), 500
+        print(f"Erro stats: {e}")
+        return jsonify({'error': str(e)}), 500
+    finally:
+        cursor.close()
 
 @admin_bp.route('/alunos/<int:id_aluno>/resultados', methods=['GET'])
 def get_resultados_aluno(id_aluno):
-    auth_error = check_admin_session()
-    if auth_error:
-        return auth_error
-    
+    if check_admin_session(): return check_admin_session()
+    cursor = conn.cursor()
     try:
-        cursor.execute("""
-            SELECT tema, acertos, total_perguntas, data_criacao 
-            FROM quiz_resultado
+        cursor.execute(f"""
+            SELECT tema, acertos, total_perguntas, data_criacao, origem 
+            FROM {UNION_QUIZZES_QUERY}
             WHERE id_aluno = ?
             ORDER BY data_criacao DESC
         """, (id_aluno,))
-        resultados = cursor.fetchall()
-        
-        return jsonify([dict(r) for r in resultados]), 200
+        return jsonify([dict(r) for r in cursor.fetchall()]), 200
     except Exception as e:
-        print(f"Erro ao buscar resultados: {e}")
-        return jsonify({'error': 'Erro interno ao buscar resultados.'}), 500
+        return jsonify({'error': str(e)}), 500
+    finally:
+        cursor.close()

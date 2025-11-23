@@ -38,24 +38,38 @@ def quiz_premium():
         return jsonify({'error': 'O campo "tema" é obrigatório para usuários Premium.'}), 400
     
     tema = data['tema']
-    prompt = f"""Dado o tema '{tema}', primeiro avalie se ele é estritamente relacionado a filosofia ou sociologia e se não contém conteúdo preconceituoso, sexual, violento ou inadequado de qualquer tipo.
+    
+    # MUDANÇA AQUI: O prompt agora pede classificação explicita
+    prompt = f"""Dado o tema '{tema}', atue como um professor especialista.
+    
+    1. Classifique este tema estritamente em uma destas duas categorias: "Filosofia" ou "Sociologia". Escolha a que melhor se encaixa.
+    2. Gere um quiz com 10 questões sobre o tema.
 
-Se o tema for válido, gere um quiz com 10 questões sobre ele. Retorne as questões **APENAS** em formato JSON, sem qualquer texto adicional, formatação Markdown de blocos de código ou outros caracteres fora do JSON. Cada questão deve ser um objeto com as seguintes chaves:
-- "pergunta": (string) O texto da pergunta.
-- "opcoes": (array de strings) Um array com 4 opções de resposta.
-- "resposta_correta": (string) O texto exato de uma das opções.
-- "explicacao": (string) Uma breve explicação (1-2 frases) do porquê a resposta correta está certa.
-**as quetões devem ser variadas de um quiz para outro, evite repetir as mesmas perguntas.
+    Retorne APENAS um JSON válido com a seguinte estrutura exata, sem crases ou markdown:
+    {{
+        "categoria": "Filosofia" ou "Sociologia",
+        "questoes": [
+            {{
+                "pergunta": "texto da pergunta",
+                "opcoes": ["opcao1", "opcao2", "opcao3", "opcao4"],
+                "resposta_correta": "texto da opcao correta",
+                "explicacao": "breve explicacao"
+            }}
+        ]
+    }}
 
-Se o tema for inválido, retorne **APENAS** a mensagem: NÃO É POSSIVEL FORMAR UMA RESPOSTA DEVIDO A INADEQUAÇÃO DO ASSUNTO.
-"""
+    Se o tema for inválido/inadequado, retorne APENAS: {{"erro": "Tema inadequado"}}
+    """
+    
     try:
-        # --- USA O GERENCIADOR DE CHAVES ---
         key_manager = current_app.config['KEY_MANAGER']
         texto = generate_with_retry(key_manager, prompt, MODEL_NAME)
         
         if texto is None:
             return jsonify({"erro": "Não foi possível gerar o quiz após várias tentativas."}), 500
+        
+        # Limpeza básica caso a IA mande markdown
+        texto = texto.replace("```json", "").replace("```", "").strip()
         
         return jsonify({"assunto": tema, "contedo": texto})
     
