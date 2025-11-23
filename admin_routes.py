@@ -6,14 +6,14 @@ import datetime
 
 admin_bp = Blueprint('admin_bp', __name__, url_prefix='/admin')
 
-# --- Função de Verificação de Admin ---
+# Função de Verificação de Admin
 def check_admin_session():
     """Verifica se um admin está logado na sessão."""
     if 'admin_id' not in session:
         return jsonify({'error': 'Acesso negado. Você não está logado como administrador.'}), 403
     return None
 
-# --- Rotas de Autenticação do Admin ---
+# Rotas de Autenticação do Admin
 @admin_bp.route('/login', methods=['POST'])
 def admin_login():
     data = request.get_json()
@@ -21,14 +21,19 @@ def admin_login():
     senha = data.get('senha')
     if not email or not senha:
         return jsonify({'error': 'Email e senha são obrigatórios.'}), 400
-    cursor.execute('SELECT id_admin, nome FROM Admin WHERE email = ? AND senha = ?', (email, senha))
-    admin = cursor.fetchone()
-    if admin:
-        session['admin_id'] = admin['id_admin']
-        session['admin_nome'] = admin['nome']
-        return jsonify({'message': 'Login de admin realizado com sucesso!', 'admin': dict(admin)}), 200
-    else:
-        return jsonify({'error': 'Email ou senha de admin inválidos.'}), 401
+    
+    try:
+        cursor.execute('SELECT id_admin, nome FROM Admin WHERE email = ? AND senha = ?', (email, senha))
+        admin = cursor.fetchone()
+        if admin:
+            session['admin_id'] = admin['id_admin']
+            session['admin_nome'] = admin['nome']
+            return jsonify({'message': 'Login de admin realizado com sucesso!', 'admin': dict(admin)}), 200
+        else:
+            return jsonify({'error': 'Email ou senha de admin inválidos.'}), 401
+    except Exception as e:
+        print(f"Erro no login admin: {e}")
+        return jsonify({'error': 'Erro interno no servidor.'}), 500
 
 @admin_bp.route('/logout', methods=['POST'])
 def admin_logout():
@@ -49,8 +54,7 @@ def check_admin():
         }
     }), 200
 
-# --- Rotas de Gerenciamento de Alunos (CRUD) ---
-
+# Rotas de Gerenciamento de Alunos (CRUD)
 @admin_bp.route('/alunos', methods=['GET'])
 def get_alunos():
     auth_error = check_admin_session()
@@ -60,7 +64,6 @@ def get_alunos():
     search = request.args.get('search', None)
     plano_filter = request.args.get('plano', None)
 
-    # Adicionado COUNT(qr.id_resultado) as total_quizzes
     base_query = """
         SELECT 
             a.id_aluno, a.nome, a.email, a.plano, a.url_foto,
@@ -95,11 +98,13 @@ def get_alunos():
             a.nome
     """
     
-    cursor.execute(base_query, tuple(params))
-    alunos = cursor.fetchall()
-    
-    return jsonify([dict(a) for a in alunos]), 200
-
+    try:
+        cursor.execute(base_query, tuple(params))
+        alunos = cursor.fetchall()
+        return jsonify([dict(a) for a in alunos]), 200
+    except Exception as e:
+        print(f"Erro ao buscar alunos: {e}")
+        return jsonify({'error': 'Erro interno ao buscar alunos.'}), 500
 
 @admin_bp.route('/alunos', methods=['POST'])
 def create_aluno():
@@ -123,6 +128,9 @@ def create_aluno():
         return jsonify({'message': 'Aluno criado com sucesso.'}), 201
     except (IntegrityError, sqlite3.IntegrityError):
         return jsonify({'error': 'Email já cadastrado.'}), 400
+    except Exception as e:
+        print(f"Erro ao criar aluno: {e}")
+        return jsonify({'error': 'Erro interno ao criar aluno.'}), 500
 
 @admin_bp.route('/alunos/<int:id_aluno>', methods=['PUT'])
 def update_aluno(id_aluno):
@@ -158,26 +166,34 @@ def update_aluno(id_aluno):
     query = f"UPDATE Aluno SET {', '.join(campos)} WHERE id_aluno=?"
     valores.append(id_aluno)
 
-    cursor.execute(query, tuple(valores))
-    conn.commit()
+    try:
+        cursor.execute(query, tuple(valores))
+        conn.commit()
 
-    if cursor.rowcount == 0:
-        return jsonify({'error': 'Aluno não encontrado.'}), 404
-    return jsonify({'message': 'Aluno atualizado com sucesso.'}), 200
+        if cursor.rowcount == 0:
+            return jsonify({'error': 'Aluno não encontrado.'}), 404
+        return jsonify({'message': 'Aluno atualizado com sucesso.'}), 200
+    except Exception as e:
+        print(f"Erro ao atualizar aluno: {e}")
+        return jsonify({'error': 'Erro interno ao atualizar aluno.'}), 500
 
 @admin_bp.route('/alunos/<int:id_aluno>', methods=['DELETE'])
 def delete_aluno(id_aluno):
     auth_error = check_admin_session()
     if auth_error:
         return auth_error
-        
-    cursor.execute('DELETE FROM Aluno WHERE id_aluno=?', (id_aluno,))
-    conn.commit()
-    if cursor.rowcount == 0:
-        return jsonify({'error': 'Aluno não encontrado.'}), 404
-    return jsonify({'message': 'Aluno excluído com sucesso.'}), 200
+    
+    try:
+        cursor.execute('DELETE FROM Aluno WHERE id_aluno=?', (id_aluno,))
+        conn.commit()
+        if cursor.rowcount == 0:
+            return jsonify({'error': 'Aluno não encontrado.'}), 404
+        return jsonify({'message': 'Aluno excluído com sucesso.'}), 200
+    except Exception as e:
+        print(f"Erro ao excluir aluno: {e}")
+        return jsonify({'error': 'Erro interno ao excluir aluno.'}), 500
 
-# --- Rotas da Dashboard (Gráficos e Stats) ---
+# Rotas da Dashboard (Gráficos e Stats)
 @admin_bp.route('/stats', methods=['GET'])
 def get_stats():
     auth_error = check_admin_session()
@@ -206,14 +222,10 @@ def get_stats():
         media_socio_result = cursor.fetchone()
         media_sociologia = media_socio_result['media'] if media_socio_result and media_socio_result['media'] is not None else 0
         
-        # =================================================================
-        # --- INÍCIO DA CORREÇÃO (Stat 4: Gráfico Agrupado) ---
-        # =================================================================
-        
+        # Stat 4: Gráfico Agrupado
         today = datetime.date.today()
-        seven_days_ago = today - datetime.timedelta(days=6) # Inclui hoje (total 7 dias)
+        seven_days_ago = today - datetime.timedelta(days=6)
         
-        # ATUALIZADO: Query agora busca 'Filosofia e Sociologia' também
         cursor.execute("""
             SELECT 
                 a.plano, 
@@ -232,7 +244,6 @@ def get_stats():
         
         query_results = [dict(r) for r in cursor.fetchall()]
         
-        # ATUALIZADO: Lógica de processamento
         data_map = {
             'freemium': {'Filosofia': 0, 'Sociologia': 0},
             'premium': {'Filosofia': 0, 'Sociologia': 0}
@@ -249,20 +260,12 @@ def get_stats():
                 elif tema == 'Sociologia':
                     data_map[plano]['Sociologia'] += count
                 elif tema == 'Filosofia e Sociologia':
-                    # Adiciona a contagem para AMBOS os datasets
                     data_map[plano]['Filosofia'] += count
                     data_map[plano]['Sociologia'] += count
-        
-        # (Premium quizzes com temas customizados ainda não são contados aqui,
-        # mas isso resolve o problema principal dos quizzes 'Ambos' do freemium)
 
         labels = ['freemium', 'premium']
         data_filosofia = [data_map['freemium']['Filosofia'], data_map['premium']['Filosofia']]
         data_sociologia = [data_map['freemium']['Sociologia'], data_map['premium']['Sociologia']]
-
-        # =================================================================
-        # --- FIM DA CORREÇÃO ---
-        # =================================================================
 
         stats = {
             'total_alunos': total_alunos,
@@ -281,8 +284,7 @@ def get_stats():
 
     except Exception as e:
         print(f"Erro ao buscar stats: {e}")
-        return jsonify({'error': f'Erro interno ao buscar estatísticas: {e}'}), 500
-
+        return jsonify({'error': f'Erro interno ao buscar estatísticas: {str(e)}'}), 500
 
 @admin_bp.route('/alunos/<int:id_aluno>/resultados', methods=['GET'])
 def get_resultados_aluno(id_aluno):
@@ -290,12 +292,16 @@ def get_resultados_aluno(id_aluno):
     if auth_error:
         return auth_error
     
-    cursor.execute("""
-        SELECT tema, acertos, total_perguntas, data_criacao 
-        FROM quiz_resultado
-        WHERE id_aluno = ?
-        ORDER BY data_criacao DESC
-    """, (id_aluno,))
-    resultados = cursor.fetchall()
-    
-    return jsonify([dict(r) for r in resultados]), 200
+    try:
+        cursor.execute("""
+            SELECT tema, acertos, total_perguntas, data_criacao 
+            FROM quiz_resultado
+            WHERE id_aluno = ?
+            ORDER BY data_criacao DESC
+        """, (id_aluno,))
+        resultados = cursor.fetchall()
+        
+        return jsonify([dict(r) for r in resultados]), 200
+    except Exception as e:
+        print(f"Erro ao buscar resultados: {e}")
+        return jsonify({'error': 'Erro interno ao buscar resultados.'}), 500
