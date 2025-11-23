@@ -94,6 +94,7 @@ def editar_usuario(id_aluno):
     email = data.get('email')
     senha = data.get('senha')
     url_foto = data.get('url_foto')
+    plano = data.get('plano') # Certifique-se que esta linha existe
 
     if not cursor:
         return jsonify({'error': 'Erro de conexão com o banco de dados.'}), 500
@@ -113,22 +114,37 @@ def editar_usuario(id_aluno):
     if url_foto is not None:
         campos.append("url_foto=?")
         valores.append(url_foto)
+    if plano:
+        campos.append("plano=?")
+        valores.append(plano)
 
     if not campos:
         return jsonify({'error': 'Nenhum campo para atualizar.'}), 400
 
-    # O placeholder do id_aluno também muda para ?
     query = f"UPDATE Aluno SET {', '.join(campos)} WHERE id_aluno=?"
     valores.append(id_aluno)
 
-    cursor.execute(query, tuple(valores))
-    conn.commit()
+    try:
+        cursor.execute(query, tuple(valores))
+        conn.commit()
 
-    if cursor.rowcount == 0:
-        return jsonify({'error': 'Usuário não encontrado.'}), 404
+        if cursor.rowcount == 0:
+            return jsonify({'error': 'Usuário não encontrado.'}), 404
 
-    return jsonify({'message': 'Usuário atualizado com sucesso.'})
+        # =====> CORREÇÃO IMPORTANTE AQUI <=====
+        # Atualiza a sessão do Flask imediatamente se o usuário estiver logado
+        # Isso evita o erro 403 no histórico sem precisar relogar
+        if 'id_aluno' in session and session['id_aluno'] == id_aluno:
+            if plano:
+                session['plano'] = plano
+                print(f"✅ Sessão do usuário {id_aluno} atualizada para {plano}")
+        # ======================================
 
+        return jsonify({'message': 'Usuário atualizado com sucesso.'})
+    except Exception as e:
+        return jsonify({'error': f'Erro ao atualizar: {str(e)}'}), 500
+    
+    
 @auth_bp.route('/excluir_usuario/<int:id_aluno>', methods=['DELETE'])
 def excluir_usuario(id_aluno):
     if not cursor:
