@@ -22,7 +22,6 @@ def login():
     # --- INÍCIO DA LÓGICA DE LOGIN UNIFICADO ---
     
     # 1. Tenta fazer login como Administrador primeiro
-    # MySQL usava %s, SQLite usa ?
     cursor.execute('SELECT id_admin, nome, email FROM Admin WHERE email = ? AND senha = ?', (email, senha))
     admin = cursor.fetchone()
     
@@ -38,7 +37,7 @@ def login():
         return jsonify({
             'message': 'Login de admin realizado com sucesso!', 
             'role': 'admin', 
-            'user': dict(admin) # Converte a Row para dict
+            'user': dict(admin)
         }), 200
 
     # 2. Se não for admin, tenta fazer login como Aluno
@@ -57,13 +56,11 @@ def login():
         return jsonify({
             'message': 'Login realizado com sucesso!', 
             'role': 'aluno', 
-            'user': dict(aluno) # Converte a Row para dict
+            'user': dict(aluno)
         }), 200
 
     # 3. Se não for nenhum dos dois, retorna erro
     return jsonify({'error': 'Email ou senha inválidos.'}), 401
-    
-    # --- FIM DA LÓGICA DE LOGIN UNIFICADO ---
 
 
 @auth_bp.route('/cadastrar_usuario', methods=['POST'])
@@ -80,11 +77,11 @@ def cadastrar_usuario():
         return jsonify({'error': 'Erro de conexão com o banco de dados.'}), 500
 
     try:
-        # Novos usuários começam como 'freemium' por padrão (definido no CHECK do SQLite)
+        # Novos usuários começam como 'freemium' por padrão
         cursor.execute('INSERT INTO Aluno (nome, email, senha) VALUES (?, ?, ?)', (nome, email, senha))
         conn.commit()
         return jsonify({'message': 'Usuário cadastrado com sucesso.'}), 201
-    except (IntegrityError, sqlite3.IntegrityError): # Captura o erro do MySQL ou SQLite
+    except (IntegrityError, sqlite3.IntegrityError):
         return jsonify({'error': 'Email já cadastrado.'}), 400
 
 @auth_bp.route('/editar_usuario/<int:id_aluno>', methods=['PUT'])
@@ -94,7 +91,9 @@ def editar_usuario(id_aluno):
     email = data.get('email')
     senha = data.get('senha')
     url_foto = data.get('url_foto')
-    plano = data.get('plano') # Certifique-se que esta linha existe
+    
+    # ===> MUDANÇA 1: Capturar o campo 'plano' <===
+    plano = data.get('plano')
 
     if not cursor:
         return jsonify({'error': 'Erro de conexão com o banco de dados.'}), 500
@@ -114,6 +113,8 @@ def editar_usuario(id_aluno):
     if url_foto is not None:
         campos.append("url_foto=?")
         valores.append(url_foto)
+    
+    # ===> MUDANÇA 2: Adicionar 'plano' na query SQL se ele existir <===
     if plano:
         campos.append("plano=?")
         valores.append(plano)
@@ -131,20 +132,18 @@ def editar_usuario(id_aluno):
         if cursor.rowcount == 0:
             return jsonify({'error': 'Usuário não encontrado.'}), 404
 
-        # =====> CORREÇÃO IMPORTANTE AQUI <=====
-        # Atualiza a sessão do Flask imediatamente se o usuário estiver logado
-        # Isso evita o erro 403 no histórico sem precisar relogar
+        # ===> MUDANÇA 3: Atualizar a sessão IMEDIATAMENTE <===
+        # Isso conserta o erro de "Acesso Negado" no histórico sem precisar relogar
         if 'id_aluno' in session and session['id_aluno'] == id_aluno:
             if plano:
                 session['plano'] = plano
                 print(f"✅ Sessão do usuário {id_aluno} atualizada para {plano}")
-        # ======================================
 
         return jsonify({'message': 'Usuário atualizado com sucesso.'})
+    
     except Exception as e:
         return jsonify({'error': f'Erro ao atualizar: {str(e)}'}), 500
-    
-    
+
 @auth_bp.route('/excluir_usuario/<int:id_aluno>', methods=['DELETE'])
 def excluir_usuario(id_aluno):
     if not cursor:
@@ -163,5 +162,4 @@ def listar_usuarios():
         
     cursor.execute('SELECT id_aluno, nome, email, url_foto, plano FROM Aluno')
     usuarios = cursor.fetchall()
-    # Converte lista de Rows para lista de dicts
     return jsonify([dict(u) for u in usuarios])
