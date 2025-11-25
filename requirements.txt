@@ -4,3 +4,5 @@ flask_socketio
 google-generativeai
 python-dotenv
 uuid
+gunicorn
+eventlet
