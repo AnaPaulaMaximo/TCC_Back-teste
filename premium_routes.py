@@ -41,6 +41,8 @@ def quiz_premium():
     
     # MUDANÇA AQUI: O prompt agora pede classificação explicita
     prompt = f"""Dado o tema '{tema}', atue como um professor especialista.
+
+    Dado o tema '{tema}', primeiro avalie se ele é estritamente relacionado a filosofia ou sociologia e se não contém conteúdo inadequado.Se o tema for válido:
     
     1. Classifique este tema estritamente em uma destas duas categorias: "Filosofia" ou "Sociologia". Escolha a que melhor se encaixa.
     2. Gere um quiz com 10 questões sobre o tema.
