@@ -39,29 +39,28 @@ def quiz_premium():
     
     tema = data['tema']
     
-    # MUDANÇA AQUI: O prompt agora pede classificação explicita
     prompt = f"""Dado o tema '{tema}', atue como um professor especialista.
 
-    Dado o tema '{tema}', primeiro avalie se ele é estritamente relacionado a filosofia ou sociologia e se não contém conteúdo inadequado.Se o tema for válido:
-    
-    1. Classifique este tema estritamente em uma destas duas categorias: "Filosofia" ou "Sociologia". Escolha a que melhor se encaixa.
-    2. Gere um quiz com 10 questões sobre o tema.
+ATENÇÃO: Este quiz deve abordar o tema *exclusivamente* sob as perspectivas de **Filosofia** ou **Sociologia**. Se o tema for inerentemente de outra área principal (como Biologia, Química, Física, Matemática, etc.) e não tiver uma conexão forte e direta com Filosofia ou Sociologia, ele deve ser considerado inadequado.
 
-    Retorne APENAS um JSON válido com a seguinte estrutura exata, sem crases ou markdown:
-    {{
-        "categoria": "Filosofia" ou "Sociologia - oque o usuário escreveu no tema (ex:aristoteles)",
-        "questoes": [
-            {{
-                "pergunta": "texto da pergunta",
-                "opcoes": ["opcao1", "opcao2", "opcao3", "opcao4"],
-                "resposta_correta": "texto da opcao correta",
-                "explicacao": "breve explicacao"
-            }}
-        ]
-    }}
+1. Classifique este tema estritamente em uma destas duas categorias: "Filosofia" ou "Sociologia". Escolha a que melhor se encaixa.
+2. Gere um quiz com 10 questões sobre o tema.
 
-    Se o tema for inválido/inadequado, retorne APENAS: {{"erro": "Tema inadequado"}}
-    """
+Retorne APENAS um JSON válido com a seguinte estrutura exata, sem crases ou markdown:
+{{
+    "categoria": "Filosofia" ou "Sociologia - oque o usuário escreveu no tema (ex:aristoteles)",
+    "questoes": [
+        {{
+            "pergunta": "texto da pergunta",
+            "opcoes": ["opcao1", "opcao2", "opcao3", "opcao4"],
+            "resposta_correta": "texto da opcao correta",
+            "explicacao": "breve explicacao"
+        }}
+    ]
+}}
+
+Se o tema for inválido/inadequado, retorne APENAS: {{"erro": "Tema inadequado"}}
+"""
     
     try:
         key_manager = current_app.config['KEY_MANAGER']
@@ -94,11 +93,21 @@ def flashcard_premium():
     
     tema = data['tema']
     prompt = f"""
-Dado o tema '{tema}', primeiro avalie se ele é estritamente relacionado a filosofia ou sociologia e se não contém conteúdo inadequado.
+Dado o tema '{tema}', atue como um especialista e siga as instruções abaixo:
 
-Se o tema for válido, Gere 12 perguntas para flashcards sobre o tema '{tema}'. Retorne a pergunta e a resposta correta, a resposta deve ser breve e acertiva. Estrutura: Pergunta: [pergunta] Resposta: [resposta]
+1. AVALIAÇÃO DE TEMA:
+   - Verifique se o tema é *estritamente* de **Filosofia** ou **Sociologia**.
+   - **MUITO IMPORTANTE:** Se o tema for predominantemente de outras áreas (EXEMPLOS: Biologia, Química, Física, Matemática, História não-sociológica, Literatura não-filosófica/sociológica, etc.), ele deve ser considerado inválido/inadequado para o propósito deste prompt.
+   - Verifique se o tema não contém conteúdo inadequado em geral.
 
-Se o tema for inválido, retorne **APENAS** a mensagem: NÃO É POSSIVEL FORMAR UMA RESPOSTA DEVIDO A INADEQUAÇÃO DO ASSUNTO.
+2. GERAÇÃO DE FLASHCARDS:
+   - Se o tema for válido, gere **12 perguntas** para flashcards sobre o tema '{tema}'.
+   - Para cada flashcard, retorne a pergunta e a resposta correta. A resposta deve ser breve e assertiva.
+   - Utilize a estrutura exata: Pergunta: [pergunta] Resposta: [resposta]
+
+3. SAÍDA FINAL (Obrigatória):
+   - Se o tema for válido, retorne **APENAS** a lista das 12 perguntas e respostas no formato especificado.
+   - Se o tema for inválido (por não ser Filosofia/Sociologia ou por inadequação), retorne **APENAS** a mensagem: NÃO É POSSIVEL FORMAR UMA RESPOSTA DEVIDO A INADEQUAÇÃO DO ASSUNTO.
 """
     try:
         # --- USA O GERENCIADOR DE CHAVES ---
@@ -140,10 +149,20 @@ def resumo():
     
     tema = data['tema']
     prompt = f"""
-        Dado o tema '{tema}', avalie se ele é estritamente relacionado a filosofia ou sociologia e não contém conteúdo inadequado.
-        O resumo deve ser focado nos principais tópicos do tema.
-        Se o tema for inválido, retorne **APENAS** a mensagem: NÃO É POSSIVEL FORMAR UMA RESPOSTA DEVIDO A INADEQUAÇÃO DO ASSUNTO.
-    """
+Dado o tema '{tema}', atue como um especialista em Filosofia e Sociologia e siga as instruções abaixo:
+
+1. AVALIAÇÃO DE TEMA:
+   - Verifique se o tema é *estritamente* de **Filosofia** ou **Sociologia**.
+   - **IMPORTANTE:** Se o tema for predominantemente de outras áreas (EXEMPLOS: Biologia, Química, Física, Matemática, etc.), ele é considerado inválido/inadequado.
+   - Verifique se o tema não contém conteúdo inadequado em geral.
+
+2. GERAÇÃO DO RESUMO:
+   - Se o tema for válido, gere um resumo focado nos **principais tópicos** do tema '{tema}'. O resumo deve ter entre 4 a 6 parágrafos.
+
+3. SAÍDA FINAL (Obrigatória):
+   - Se o tema for válido, retorne **APENAS** o resumo.
+   - Se o tema for inválido (por não ser Filosofia/Sociologia ou por inadequação), retorne **APENAS** a mensagem: NÃO É POSSIVEL FORMAR UMA RESPOSTA DEVIDO A INADEQUAÇÃO DO ASSUNTO.
+"""
     try:
         # --- USA O GERENCIADOR DE CHAVES ---
         key_manager = current_app.config['KEY_MANAGER']
@@ -183,12 +202,21 @@ def correcao():
 
     tema = data['tema']
     texto = data['texto']
-    prompt = f""""
-        Você é um professor especializado em Filosofia e Sociologia. Corrija o texto do aluno sobre o tema '{tema}'.
-        Texto do aluno: '{texto}'.
-        Seu feedback deve ser resumido e focado no conteúdo, não na gramática.
-        Avalie se o tema é apropriado. Se não for, retorne **APENAS** a mensagem: NÃO É POSSIVEL FORMAR UMA RESPOSTA DEVIDO A INADEQUAÇÃO DO ASSUNTO.
-    """
+    prompt = f"""
+Atue estritamente como um **professor especializado em Filosofia e Sociologia**. Sua única tarefa é fornecer um feedback conciso e focado no conteúdo do texto do aluno, corrigindo eventuais erros conceituais no âmbito dessas duas disciplinas.
+
+1. AVALIAÇÃO DE TEMA E CONTEXTO:
+   - Verifique se o tema '{tema}' e o conteúdo do texto do aluno '{texto}' são *estritamente* de **Filosofia** ou **Sociologia**.
+   - **MUITO IMPORTANTE:** Se o tema ou o texto for predominantemente de outras áreas (EXEMPLOS: Biologia, Química, Física, Matemática, etc.), ou se contiver conteúdo inadequado, ele deve ser considerado inválido.
+
+2. GERAÇÃO DE FEEDBACK:
+   - Se o tema for válido, gere um feedback que deve ser **resumido** (máximo de 3 parágrafos) e **focado exclusivamente na correção de conteúdo** (conceitos, argumentos e precisão temática).
+   - Não corrija erros de gramática, ortografia ou estilo.
+
+3. SAÍDA FINAL (Obrigatória):
+   - Se o tema for válido, retorne **APENAS** o feedback.
+   - Se o tema for inválido (por não ser Filosofia/Sociologia ou por inadequação), retorne **APENAS** a mensagem: NÃO É POSSIVEL FORMAR UMA RESPOSTA DEVIDO A INADEQUAÇÃO DO ASSUNTO.
+"""
     try:
         # --- USA O GERENCIADOR DE CHAVES ---
         key_manager = current_app.config['KEY_MANAGER']
