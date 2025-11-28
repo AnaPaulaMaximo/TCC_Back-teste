@@ -173,6 +173,8 @@ def validar_cadastro():
 
 @auth_bp.route('/login', methods=['POST'])
 def login():
+    # 1. Limpa qualquer sessão anterior imediatamente
+    session.clear() 
     data = request.get_json()
     email = data.get('email')
     senha = data.get('senha')
@@ -386,3 +388,9 @@ def listar_usuarios():
     cursor.execute('SELECT id_aluno, nome, email, url_foto, plano FROM Aluno')
     usuarios = cursor.fetchall()
     return jsonify([dict(u) for u in usuarios])
+
+
+@auth_bp.route('/logout', methods=['POST'])
+def logout():
+    session.clear()  # Limpa todos os dados da sessão (id_aluno, plano, etc)
+    return jsonify({'message': 'Logout realizado com sucesso.'}), 200
