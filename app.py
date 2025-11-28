@@ -26,29 +26,24 @@ app.secret_key = os.getenv("SECRET_KEY", "sua_chave_secreta_super_segura")
 app.config['SESSION_COOKIE_SAMESITE'] = 'None'  # Permite cookies entre sites
 app.config['SESSION_COOKIE_SECURE'] = True      # Exige HTTPS
 
-# 2. Configuração do CORS para aceitar credenciais (Cookies)
+# 2. Configuração do CORS
 CORS(app, supports_credentials=True, resources={
     r"/*": {
         "origins": [
-            "https://tcc-frontend-nine.vercel.app",     
-            "https://tcc-frontend-repensei.vercel.app", 
+            # A URL principal SEM barra no final
+            "https://tcc-frontend-nine.vercel.app", 
+            
+            # Mantenha as outras URLs de desenvolvimento/oficiais
+            "https://tcc-frontend-repensei.vercel.app",
             "http://localhost:5500",
             "http://127.0.0.1:5500",
-            "http://localhost:5501",                     
+            "http://localhost:5501",
             "http://127.0.0.1:5501"
         ],
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         "allow_headers": ["Content-Type", "Authorization"]
     }
 })
-
-# 3. Inicialização do SocketIO
-socketio = SocketIO(app, cors_allowed_origins=[
-    "https://tcc-frontend-nine.vercel.app",
-    "https://tcc-frontend-repensei.vercel.app",
-    "http://localhost:5500",
-    "http://127.0.0.1:5500"
-])
 
 # --- INICIALIZA O GERENCIADOR DE CHAVES ---
 print("\n🔐 Inicializando Gerenciador de Chaves API...")
