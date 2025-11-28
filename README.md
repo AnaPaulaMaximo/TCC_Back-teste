@@ -1,11 +1,3 @@
-Aqui está o seu texto transformado em Markdown profissional, pronto para ser usado como um arquivo `README.md` no GitHub ou GitLab.
-
-Organizei os comandos em blocos de código, criei uma tabela para os usuários de teste e formatei a estrutura de arquivos para melhor visualização.
-
------
-
-# Repensei - Backend API (TCC)
-
 Este repositório contém o código-fonte do Backend da aplicação **Repensei**, um projeto de TCC focado no ensino de Filosofia e Sociologia. A aplicação utiliza inteligência artificial para gerar conteúdo personalizado e opera sob um modelo de negócios Freemium.
 
 O sistema é construído em Python com Flask e integra-se à API do Google Gemini para geração de conteúdo dinâmico.
@@ -14,116 +6,113 @@ O sistema é construído em Python com Flask e integra-se à API do Google Gemin
 
 O sistema divide-se em três níveis de acesso principais:
 
-### 1\. Aluno Freemium (Gratuito)
+### 1. Aluno Freemium (Gratuito)
 
-  * **Acesso a conteúdo estático:** Banco de questões e flashcards pré-definidos (curadoria).
-  * **Foco:** Conteúdo para revisão geral de Filosofia e Sociologia.
+* **Acesso a conteúdo estático:** Banco de questões e flashcards pré-definidos (curadoria).
+* **Foco:** Conteúdo para revisão geral de Filosofia e Sociologia.
 
-### 2\. Aluno Premium (Pago)
+### 2. Aluno Premium (Pago)
 
-  * **Geração de Conteúdo via IA:** Criação de Quizzes, Flashcards e Resumos inéditos sobre qualquer tema solicitado.
-  * **Correção de Redação:** Envio de textos para análise e feedback detalhado da IA.
-  * **Histórico de Atividades:** Salvamento automático de todo conteúdo gerado e resultados de quizzes.
-  * **Chatbot Tutor:** Assistente virtual em tempo real para debates filosóficos.
+* **Geração de Conteúdo via IA:** Criação de Quizzes, Flashcards e Resumos inéditos sobre qualquer tema solicitado.
+* **Correção de Redação:** Envio de textos para análise e feedback detalhado da IA.
+* **Histórico de Atividades:** Salvamento automático de todo conteúdo gerado e resultados de quizzes.
+* **Chatbot Tutor:** Assistente virtual em tempo real para debates filosóficos.
 
-### 3\. Administrador
+### 3. Administrador
 
-  * **Dashboard:** Visualização de estatísticas (total de alunos, distribuição por plano, médias de acertos).
-  * **Gestão de Usuários:** CRUD completo de alunos.
-  * **Monitoramento:** Acompanhamento do uso da plataforma.
+* **Dashboard:** Visualização de estatísticas (total de alunos, distribuição por plano, médias de acertos).
+* **Gestão de Usuários:** CRUD completo de alunos.
+* **Monitoramento:** Acompanhamento do uso da plataforma.
 
------
+---
 
 ## 🛠️ Tecnologias Utilizadas
 
-  * **Linguagem:** Python 3.x
-  * **Framework Web:** Flask
-  * **Banco de Dados:** SQLite (`repensei.db`)
-  * **IA Generativa:** Google Gemini (Modelo `gemini-2.5-flash`)
-  * **Real-time:** Flask-SocketIO (para o Chatbot)
-  * **Gerenciamento de Chaves:** Sistema proprietário de rotação de chaves API (`api_key_manager.py`) para contornar limites de quota.
+* **Linguagem:** Python 3.x
+* **Framework Web:** Flask
+* **Banco de Dados:** SQLite (repensei.db)
+* **IA Generativa:** Google Gemini (Modelo `gemini-2.5-flash`)
+* **Real-time:** Flask-SocketIO (para o Chatbot)
+* **Gerenciamento de Chaves:** Sistema proprietário de rotação de chaves API (api_key_manager.py) para contornar limites de quota.
 
------
+---
 
 ## 🚀 Instalação e Configuração
 
 Siga os passos abaixo para rodar o projeto localmente.
 
-### 1\. Pré-requisitos
+### 1. Pré-requisitos
 
-  * Python 3.8 ou superior instalado.
-  * Git instalado.
+* Python 3.8 ou superior instalado.
+* Git instalado.
+* Chaves da API Google Gemini.
 
-### 2\. Clonar o Repositório
+### 2. Clonar o Repositório
 
-```bash
+````bash
 git clone <url-do-seu-repositorio>
 cd TCC_Backend
-```
+````
 
-### 3\. Criar e Ativar Ambiente Virtual
+### 3. Criar e Ativar Ambiente Virtual
 
 Recomendado para isolar as dependências do projeto.
 
-  * **Windows:**
-    ```bash
-    python -m venv venv
-    .\venv\Scripts\activate
-    ```
-  * **Linux/Mac:**
-    ```bash
-    python3 -m venv venv
-    source venv/bin/activate
-    ```
+**Windows:**
+````bash
+python -m venv venv
+.\venv\Scripts\activate
+````
 
-### 4\. Instalar Dependências
+**Linux/Mac:**
+````bash
+python3 -m venv venv
+source venv/bin/activate
+````
 
-```bash
+### 4. Instalar Dependências
+
+````bash
 pip install -r requirements.txt
-```
+````
 
-### 5\. Configurar Variáveis de Ambiente
+### 5. Configurar Variáveis de Ambiente
 
-Crie um arquivo `.env` na raiz do projeto e defina uma chave secreta para as sessões do Flask:
+Crie um arquivo `.env` na raiz do projeto:
 
-```env
+````env
 SECRET_KEY=sua_chave_secreta_super_segura
-```
+GEMINI_API_KEY=sua_chave_do_google_gemini
+````
 
-### 6\. Inicializar o Banco de Dados
+### 6. Inicializar o Banco de Dados
 
-O projeto inclui um script para criar as tabelas e popular com dados de teste.
-
-```bash
+````bash
 python init_db.py
-```
+````
 
-*Isso criará o arquivo `repensei.db` com usuários padrão (veja a seção abaixo).*
+*Isso criará o arquivo repensei.db com usuários padrão.*
 
-### 7\. Configurar Chaves da API Google Gemini
+### 7. Configurar Chaves da API Google Gemini
 
-O projeto possui um gerenciador inteligente de chaves. Para configurá-lo:
+1. Obtenha suas chaves em [Google AI Studio](https://aistudio.google.com/).
+2. Execute o script de configuração:
+   ````bash
+   python setup_keys.py
+   ````
+3. Siga as instruções para salvar as chaves em `api_keys.json`.
 
-1.  Obtenha suas chaves em [Google AI Studio](https://aistudio.google.com/).
-2.  Execute o script de configuração interativo:
-    ```bash
-    python setup_keys.py
-    ```
-3.  Siga as instruções no terminal para colar suas chaves. Elas serão salvas em `api_keys.json`.
+### 8. Executar o Servidor
 
-### 8\. Executar o Servidor
-
-```bash
+````bash
 python app.py
-```
+````
 
 O servidor estará rodando em: `http://localhost:5000`
 
------
+---
 
 ## 🔑 Usuários de Teste
-
-*(Gerados pelo `init_db.py`)*
 
 | Perfil | Email | Senha |
 | :--- | :--- | :--- |
@@ -131,67 +120,91 @@ O servidor estará rodando em: `http://localhost:5000`
 | **Premium** | premium@email.com | 123 |
 | **Freemium** | freemium@email.com | 123 |
 
------
+---
 
 ## 📚 Documentação da API
 
 ### 🔐 Autenticação (`/auth`)
 
-  * `POST /auth/login`: Login unificado para Alunos e Admins.
-  * `POST /auth/cadastrar_usuario`: Cadastro de novos alunos (padrão Freemium).
-  * `PUT /auth/editar_usuario/<id>`: Atualiza dados do perfil.
-  * `DELETE /auth/excluir_usuario/<id>`: Remove conta.
+* `POST /auth/login` - Login unificado para Alunos e Admins.
+* `POST /auth/cadastrar_usuario` - Cadastro de novos alunos.
+* `PUT /auth/editar_usuario/<id>` - Atualiza dados do perfil.
+* `DELETE /auth/excluir_usuario/<id>` - Remove conta.
 
 ### 💎 Rotas Premium (`/premium`)
 
-*Requer plano Premium e utiliza IA.*
-
-  * `POST /premium/quiz`: Gera quiz sobre tema específico.
-  * `POST /premium/flashcard`: Gera flashcards sobre tema específico.
-  * `POST /premium/resumo`: Gera resumo de estudo.
-  * `POST /premium/correcao`: Corrige texto enviado pelo aluno.
-  * `POST /premium/quiz/salvar_completo`: Salva quiz gerado e respostas.
-  * `GET /premium/historico/<id_aluno>`: Lista histórico de atividades.
+* `POST /premium/quiz` - Gera quiz via IA.
+* `POST /premium/flashcard` - Gera flashcards via IA.
+* `POST /premium/resumo` - Gera resumo de estudo.
+* `POST /premium/correcao` - Corrige texto enviado.
+* `POST /premium/quiz/salvar_completo` - Salva quiz e respostas.
+* `GET /premium/historico/<id_aluno>` - Lista histórico de atividades.
 
 ### 🆓 Rotas Freemium (`/freemium`)
 
-*Acessa conteúdo estático dos arquivos JSON.*
-
-  * `POST /freemium/quiz`: Retorna perguntas aleatórias do banco fixo.
-  * `POST /freemium/flashcard`: Retorna flashcards aleatórios do banco fixo.
+* `POST /freemium/quiz` - Retorna perguntas aleatórias.
+* `POST /freemium/flashcard` - Retorna flashcards aleatórios.
 
 ### ⚙️ Admin (`/admin`)
 
-  * `GET /admin/stats`: Estatísticas gerais para dashboard.
-  * `GET /admin/alunos`: Lista todos os alunos.
-  * `POST /admin/alunos`: Cria aluno manualmente.
+* `GET /admin/stats` - Estatísticas do dashboard.
+* `GET /admin/alunos` - Lista todos os alunos.
+* `POST /admin/alunos` - Cria aluno manualmente.
 
------
+---
 
 ## 🧠 Gerenciador de Chaves (API Key Manager)
 
-Um dos diferenciais deste backend é o `api_key_manager.py`. Ele implementa um sistema de **Rotação de Chaves (Round-Robin)** com tratamento de erros.
+O api_key_manager.py implementa um sistema de **Rotação de Chaves (Round-Robin)**. Se uma chave atingir o limite de requisições (429 Rate Limit), o sistema automaticamente bloqueia a chave e tenta novamente com a próxima chave disponível, garantindo alta disponibilidade.
 
-**Como funciona:** Se uma chave da API do Google atingir o limite de requisições (*Rate Limit 429*), o sistema automaticamente captura o erro, bloqueia a chave temporariamente e tenta a requisição novamente com a próxima chave disponível na lista, garantindo alta disponibilidade para os usuários Premium.
+---
 
------
+## 📁 Estrutura do Projeto
 
-## 📄 Estrutura do Projeto
-
-```text
+````text
 TCC_Backend/
-├── app.py              # Ponto de entrada da aplicação (SocketIO + Flask)
-├── config.py           # Configuração de conexão com banco de dados
-├── init_db.py          # Script de inicialização do SQLite
-├── setup_keys.py       # Script CLI para adicionar chaves API
-├── api_key_manager.py  # Lógica de rotação de chaves Gemini
-├── utils.py            # Funções auxiliares
-├── requirements.txt    # Dependências
-├── banco.sql           # Referência SQL
-├── flashcards.json     # Dados estáticos para Freemium
-├── questions.json      # Dados estáticos para Freemium
-└── *_routes.py         # Blueprints das rotas (Controllers)
-```
+├── app.py                   # Ponto de entrada da aplicação
+├── config.py                # Configuração do banco de dados
+├── init_db.py               # Script de inicialização
+├── setup_keys.py            # Script para configurar chaves API
+├── api_key_manager.py       # Lógica de rotação de chaves
+├── utils.py                 # Funções auxiliares
+├── requirements.txt         # Dependências do projeto
+├── banco.sql                # Referência SQL
+├── flashcards.json          # Dados estáticos (Freemium)
+├── questions.json           # Dados estáticos (Freemium)
+├── auth_routes.py           # Rotas de autenticação
+├── premium_routes.py        # Rotas Premium
+├── freemium_routes.py       # Rotas Freemium
+├── admin_routes.py          # Rotas Administrativas
+├── .env.example             # Exemplo de variáveis de ambiente
+└── README.md                # Este arquivo
+````
 
------
+---
+
+## 🔗 Projeto Frontend
+
+O frontend desta aplicação pode ser encontrado em:
+
+**[🌐 Link do Repositório Frontend](https://github.com/AnaPaulaMaximo/TCC_frontend.git)**
+
+*Substitua o link acima pelo endereço do repositório do frontend do Repensei.*
+
+---
+
+## 📝 Licença
+
+Este projeto está sob a licença **MIT**. Consulte o arquivo [LICENSE](./LICENSE) para mais detalhes.
+
+---
+
+## 👥 Contribuidores
+
+* **Desenvolvedores:** 
+  - [Ana Paula Máximo](https://github.com/AnaPaulaMaximo)
+  - [Luis Gustavo](https://github.com/Luisglm7)
+  - [Pedro Henrique](https://github.com/Pedrao345)
+  - [Thimótio Araujo](https://github.com/Thimo08)
+* **Orientadores:** João Paulo e Rafael Ribas
 
