@@ -30,19 +30,25 @@ app.config['SESSION_COOKIE_SECURE'] = True      # Exige HTTPS
 CORS(app, supports_credentials=True, resources={
     r"/*": {
         "origins": [
-            "https://tcc-frontend-repensei.vercel.app", # SEU FRONTEND (VERCEL)
-            "http://localhost:5500",                  # SEU TESTE LOCAL
-            "http://127.0.0.1:5500"
+            "https://tcc-frontend-nine.vercel.app",     
+            "https://tcc-frontend-repensei.vercel.app", 
+            "http://localhost:5500",
+            "http://127.0.0.1:5500",
+            "http://localhost:5501",                     
+            "http://127.0.0.1:5501"
         ],
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         "allow_headers": ["Content-Type", "Authorization"]
     }
 })
 
-# 3. Inicialização do SocketIO (A LINHA QUE ESTAVA FALTANDO)
-# cors_allowed_origins="*" permite conexão de qualquer lugar, 
-# mas para cookies funcionarem 100% no chat, idealmente coloque a url da Vercel também.
-socketio = SocketIO(app, cors_allowed_origins="*") 
+# 3. Inicialização do SocketIO
+socketio = SocketIO(app, cors_allowed_origins=[
+    "https://tcc-frontend-nine.vercel.app",
+    "https://tcc-frontend-repensei.vercel.app",
+    "http://localhost:5500",
+    "http://127.0.0.1:5500"
+])
 
 # --- INICIALIZA O GERENCIADOR DE CHAVES ---
 print("\n🔐 Inicializando Gerenciador de Chaves API...")
