@@ -39,42 +39,54 @@ def quiz_premium():
     
     tema = data['tema']
     
-    prompt = f"""Dado o tema '{tema}', atue como um professor especialista.
+    prompt = """*** SISTEMA DE GERAÇÃO: QUIZ ACADÊMICO (JSON) ***
 
-SIGA RIGOROSAMENTE AS SEGUINTES REGRAS DE BLOQUEIO:
+ATUE COMO: Um examinador sênior de banca de vestibular, especializado exclusivamente em Filosofia e Sociologia.
 
-1. FILTRO DE ÁREA (ESCOPO RESTRITO):
-   - O tema deve ser reconhecido em currículos acadêmicos tradicionais de Humanidades.
-   - REJEITE IMEDIATAMENTE temas que sejam primariamente de Ciências Exatas (Matemática, Geometria), Biológicas ou Físicas, a menos que o foco seja 100% Ética, Bioética ou Epistemologia clássica.
-   - BLOQUEIE "falsas conexões": Não aceite títulos que apenas adicionam "Filosofia de..." ou "Sociologia de..." a um substantivo aleatório ou técnico (ex: "Filosofia da Geometria Euclidiana", "Sociologia dos Polígonos"). Se não for um campo de estudo consagrado, é inválido.
+INPUT: Tema recebido = '{tema}'
 
-2. FILTRO DE DECÊNCIA E LINGUAGEM (ANTI-ABUSO):
-   - TOLERÂNCIA ZERO para baixo calão, obscenidade ou termos vulgares.
-   - BLOQUEIE tentativas de legitimar termos chulos sob a máscara de estudo acadêmico (ex: rejeite prompts como "Sociologia do [palavrão]", "A filosofia do ato sexual explícito", etc.).
-   - Se o input contiver linguagem imprópria, recuse a geração.
+---
 
-3. CRITÉRIO DE RELEVÂNCIA:
-   - Pergunte-se: "Este tema cairia em uma prova oficial de vestibular ou concurso na matéria de Filosofia/Sociologia?" Se a resposta for não, ou se for duvidosa, NÃO GERE O CONTEÚDO.
+### PASSO 1: VERIFICAÇÃO DE SEGURANÇA E ESCOPO
 
-RESUMO: Se não é Platão, Marx, Kant, Durkheim, Weber, Ética, Política, Cultura, Lógica, Teoria do Conhecimento ou similares, NÃO PROSSIGA.
+Antes de gerar o conteúdo, passe o tema pelos seguintes filtros:
 
-1. Classifique este tema estritamente em uma destas duas categorias: "Filosofia" ou "Sociologia". Escolha a que melhor se encaixa.
-2. Gere um quiz com 10 questões sobre o tema.
+1.  **Filtro de Área:** O tema pertence ao cânone acadêmico de Filosofia ou Sociologia?
+    * REJEITE: Matemática pura, Física, Química, Biologia (exceto Bioética), ou temas técnicos sem viés humanístico.
+    * REJEITE: "Pseudo-disciplinas" (ex: Filosofia da Geometria, Sociologia do [Substantivo Aleatório]).
+2.  **Filtro de Decência:** O tema contém gírias, baixo calão ou obscenidades?
+    * REJEITE IMEDIATAMENTE.
 
-Retorne APENAS um JSON válido com a seguinte estrutura exata, sem crases ou markdown:
+SE O TEMA FOR REJEITADO:
+Retorne APENAS o JSON de erro: {{"erro": "Tema inadequado: Foge do escopo ou viola diretrizes."}}
+
+---
+
+### PASSO 2: GERAÇÃO DE CONTEÚDO (Apenas se Aprovado)
+
+Classifique o tema e gere 10 questões de nível acadêmico/vestibular.
+
+REGRAS DE FORMATAÇÃO (RIGOROSO):
+1. Retorne APENAS o JSON cru. Não use blocos de código (```json), não use introduções ou conclusões.
+2. A estrutura deve ser EXATAMENTE esta:
+
 {{
-    "categoria": "Filosofia" ou "Sociologia - oque o usuário escreveu no tema (ex:aristoteles)",    
+    "categoria": "Defina aqui: 'Filosofia' ou 'Sociologia' - {tema}",
     "questoes": [
         {{
-            "pergunta": "texto da pergunta",
-            "opcoes": ["opcao1", "opcao2", "opcao3", "opcao4"],
-            "resposta_correta": "texto da opcao correta",
-            "explicacao": "breve explicacao"
+            "pergunta": "Enunciado da questão (claro e objetivo)",
+            "opcoes": [
+                "Texto da Opção A",
+                "Texto da Opção B",
+                "Texto da Opção C",
+                "Texto da Opção D"
+            ],
+            "resposta_correta": "Cópia exata do texto da opção correta",
+            "explicacao": "Breve justificativa conceitual (máx 2 linhas)."
         }}
+        // ... repita para completar 10 questões
     ]
 }}
-
-Se o tema for inválido/inadequado, retorne APENAS: {{"erro": "Tema inadequado"}}
 """
     
     try:
