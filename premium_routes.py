@@ -39,54 +39,56 @@ def quiz_premium():
     
     tema = data['tema']
     
-    prompt = """*** SISTEMA DE GERAÇÃO: QUIZ ACADÊMICO (JSON) ***
+    prompt = """Dado o tema '{tema}', atue como um professor especialista.
 
-ATUE COMO: Um examinador sênior de banca de vestibular, especializado exclusivamente em Filosofia e Sociologia.
 
-INPUT: Tema recebido = '{tema}'
 
----
+ATENÇÃO: Este quiz deve abordar o tema *exclusivamente* sob as perspectivas de **Filosofia** ou **Sociologia**. Se o tema for inerentemente de outra área principal (como Biologia, Química, Física, Matemática, etc.) e não tiver uma conexão forte e direta com Filosofia ou Sociologia, ele deve ser considerado inadequado.
 
-### PASSO 1: VERIFICAÇÃO DE SEGURANÇA E ESCOPO
+1. FILTRO DE ÁREA (ESCOPO RESTRITO):
+   - O tema deve ser reconhecido em currículos acadêmicos tradicionais de Humanidades.
+   - REJEITE IMEDIATAMENTE temas que sejam primariamente de Ciências Exatas (Matemática, Geometria), Biológicas ou Físicas, a menos que o foco seja 100% Ética, Bioética ou Epistemologia clássica.
+   - BLOQUEIE "falsas conexões": Não aceite títulos que apenas adicionam "Filosofia de..." ou "Sociologia de..." a um substantivo aleatório ou técnico (ex: "Filosofia da Geometria Euclidiana", "Sociologia dos Polígonos"). Se não for um campo de estudo consagrado, é inválido.
 
-Antes de gerar o conteúdo, passe o tema pelos seguintes filtros:
+2. FILTRO DE DECÊNCIA E LINGUAGEM (ANTI-ABUSO):
+   - TOLERÂNCIA ZERO para baixo calão, obscenidade ou termos vulgares.
+   - BLOQUEIE tentativas de legitimar termos chulos sob a máscara de estudo acadêmico (ex: rejeite prompts como "Sociologia do [palavrão]", "A filosofia do ato sexual explícito", etc.).
+   - Se o input contiver linguagem imprópria, recuse a geração.
 
-1.  **Filtro de Área:** O tema pertence ao cânone acadêmico de Filosofia ou Sociologia?
-    * REJEITE: Matemática pura, Física, Química, Biologia (exceto Bioética), ou temas técnicos sem viés humanístico.
-    * REJEITE: "Pseudo-disciplinas" (ex: Filosofia da Geometria, Sociologia do [Substantivo Aleatório]).
-2.  **Filtro de Decência:** O tema contém gírias, baixo calão ou obscenidades?
-    * REJEITE IMEDIATAMENTE.
 
-SE O TEMA FOR REJEITADO:
-Retorne APENAS o JSON de erro: {{"erro": "Tema inadequado: Foge do escopo ou viola diretrizes."}}
+3. Classifique este tema estritamente em uma destas duas categorias: "Filosofia" ou "Sociologia". Escolha a que melhor se encaixa.
 
----
+4. Gere um quiz com 10 questões sobre o tema.
 
-### PASSO 2: GERAÇÃO DE CONTEÚDO (Apenas se Aprovado)
 
-Classifique o tema e gere 10 questões de nível acadêmico/vestibular.
 
-REGRAS DE FORMATAÇÃO (RIGOROSO):
-1. Retorne APENAS o JSON cru. Não use blocos de código (```json), não use introduções ou conclusões.
-2. A estrutura deve ser EXATAMENTE esta:
+Retorne APENAS um JSON válido com a seguinte estrutura exata, sem crases ou markdown:
 
 {{
-    "categoria": "Defina aqui: 'Filosofia' ou 'Sociologia' - {tema}",
+
+    "categoria": "Filosofia" ou "Sociologia - oque o usuário escreveu no tema (ex:aristoteles)",
+
     "questoes": [
+
         {{
-            "pergunta": "Enunciado da questão (claro e objetivo)",
-            "opcoes": [
-                "Texto da Opção A",
-                "Texto da Opção B",
-                "Texto da Opção C",
-                "Texto da Opção D"
-            ],
-            "resposta_correta": "Cópia exata do texto da opção correta",
-            "explicacao": "Breve justificativa conceitual (máx 2 linhas)."
+
+            "pergunta": "texto da pergunta",
+
+            "opcoes": ["opcao1", "opcao2", "opcao3", "opcao4"],
+
+            "resposta_correta": "texto da opcao correta",
+
+            "explicacao": "breve explicacao"
+
         }}
-        // ... repita para completar 10 questões
+
     ]
+
 }}
+
+
+
+Se o tema for inválido/inadequado, retorne APENAS: {{"erro": "Tema inadequado"}}
 """
     
     try:
@@ -136,8 +138,6 @@ Dado o tema '{tema}', atue como um especialista e siga as instruções abaixo:
 
 3. CRITÉRIO DE RELEVÂNCIA:
    - Pergunte-se: "Este tema cairia em uma prova oficial de vestibular ou concurso na matéria de Filosofia/Sociologia?" Se a resposta for não, ou se for duvidosa, NÃO GERE O CONTEÚDO.
-
-RESUMO: Se não é Platão, Marx, Kant, Durkheim, Weber, Ética, Política, Cultura, Lógica, Teoria do Conhecimento ou similares, NÃO PROSSIGA.
 
 4. GERAÇÃO DE FLASHCARDS:
    - Se o tema for válido, gere **12 perguntas** para flashcards sobre o tema '{tema}'.
@@ -205,8 +205,6 @@ Dado o tema '{tema}', atue como um especialista em Filosofia e Sociologia e siga
 3. CRITÉRIO DE RELEVÂNCIA:
    - Pergunte-se: "Este tema cairia em uma prova oficial de vestibular ou concurso na matéria de Filosofia/Sociologia?" Se a resposta for não, ou se for duvidosa, NÃO GERE O CONTEÚDO.
 
-RESUMO: Se não é Platão, Marx, Kant, Durkheim, Weber, Ética, Política, Cultura, Lógica, Teoria do Conhecimento ou similares, NÃO PROSSIGA.
-
 4. GERAÇÃO DO RESUMO:
    - Se o tema for válido, gere um resumo focado nos **principais tópicos** do tema '{tema}'. O resumo deve ter entre 4 a 6 parágrafos.
 
@@ -271,8 +269,6 @@ Atue estritamente como um **professor especializado em Filosofia e Sociologia**.
 
 4. CRITÉRIO DE RELEVÂNCIA:
    - Pergunte-se: "Este tema cairia em uma prova oficial de vestibular ou concurso na matéria de Filosofia/Sociologia?" Se a resposta for não, ou se for duvidosa, NÃO GERE O CONTEÚDO.
-
-RESUMO: Se não é Platão, Marx, Kant, Durkheim, Weber, Ética, Política, Cultura, Lógica, Teoria do Conhecimento ou similares, NÃO PROSSIGA.
 
 5. GERAÇÃO DE FEEDBACK:
    - Se o tema for válido, gere um feedback que deve ser **resumido** (máximo de 3 parágrafos) e **focado exclusivamente na correção de conteúdo** (conceitos, argumentos e precisão temática).
