@@ -20,10 +20,22 @@ from quiz_routes import quiz_bp
 # --- Configurações Iniciais ---
 load_dotenv()
 app = Flask(__name__)
-app.secret_key = os.getenv("SECRET_KEY")
+# 1. Configuração SUPER IMPORTANTE da Sessão para funcionar na Nuvem
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'sua_chave_secreta_aqui')
+app.config['SESSION_COOKIE_SAMESITE'] = 'None'  
+app.config['SESSION_COOKIE_SECURE'] = True      
 
-CORS(app, origins="*", supports_credentials=True)
-socketio = SocketIO(app, cors_allowed_origins="*")
+CORS(app, supports_credentials=True, resources={
+    r"/*": {
+        "origins": [
+            "https://tcc-frontend-nine.vercel.app", # Coloque AQUI o link do seu Frontend na Vercel
+            "http://localhost:5500",                  # Para funcionar nos seus testes locais
+            "http://127.0.0.1:5500"
+        ],
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"]
+    }
+})
 
 # --- INICIALIZA O GERENCIADOR DE CHAVES ---
 print("\n🔐 Inicializando Gerenciador de Chaves API...")
