@@ -35,9 +35,9 @@ app.config['SESSION_REFRESH_EACH_REQUEST'] = True  # Renova a sessão a cada req
 
 # 2. Configuração do CORS (Atualizada com suas URLs)
 ALLOWED_ORIGINS = [
-    "https://tcc-frontend-nine.vercel.app",
-    "https://tcc-frontend-repensei.vercel.app",
-    "https://tcc-frontend-git-main-anas-projects-d45e7b2d.vercel.app",
+    "https://repensei.onrender.com",
+    "https://repensei.onrender.com",
+    "https://repensei.onrender.com",
     "http://localhost:5500",
     "http://127.0.0.1:5500",
     "http://localhost:5501",
