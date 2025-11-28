@@ -5,6 +5,7 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 import os
 from uuid import uuid4
+from datetime import timedelta
 
 # --- IMPORTAÇÃO DO GERENCIADOR DE CHAVES ---
 from api_key_manager import APIKeyManager, generate_with_retry
@@ -23,35 +24,41 @@ app = Flask(__name__)
 
 # 1. Configuração DE SESSÃO para funcionar na Nuvem
 app.secret_key = os.getenv("SECRET_KEY", "sua_chave_secreta_super_segura")
-app.config['SESSION_COOKIE_SAMESITE'] = 'None' 
-app.config['SESSION_COOKIE_SECURE'] = True      
+
+# ===== CONFIGURAÇÕES IMPORTANTES DE SESSÃO =====
+app.config['SESSION_COOKIE_SAMESITE'] = 'None'  # Permite cookies cross-site
+app.config['SESSION_COOKIE_SECURE'] = True       # HTTPS obrigatório
+app.config['SESSION_COOKIE_HTTPONLY'] = True     # Proteção contra XSS
+app.config['SESSION_COOKIE_PATH'] = '/'          # Disponível em toda a aplicação
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)  # Sessão dura 7 dias
+app.config['SESSION_REFRESH_EACH_REQUEST'] = True  # Renova a sessão a cada request
 
 # 2. Configuração do CORS (Atualizada com suas URLs)
-CORS(app, supports_credentials=True, resources={
-    r"/*": {
-        "origins": [
-            "https://tcc-frontend-nine.vercel.app", 
-            "https://tcc-frontend-repensei.vercel.app",
-            "https://tcc-frontend-git-main-anas-projects-d45e7b2d.vercel.app",
-            "http://localhost:5500",
-            "http://127.0.0.1:5500",
-            "http://localhost:5501",
-            "http://127.0.0.1:5501"
-        ],
-        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        "allow_headers": ["Content-Type", "Authorization"]
-    }
-})
-
-# 3. Inicialização do SocketIO (ESSENCIAL PARA O CHAT E PARA O SERVER NÃO CAIR)
-# Adicionei suas origens aqui também por segurança
-socketio = SocketIO(app, cors_allowed_origins=[
-    "https://tcc-frontend-nine.vercel.app", 
+ALLOWED_ORIGINS = [
+    "https://tcc-frontend-nine.vercel.app",
     "https://tcc-frontend-repensei.vercel.app",
     "https://tcc-frontend-git-main-anas-projects-d45e7b2d.vercel.app",
     "http://localhost:5500",
-    "http://127.0.0.1:5500"
-], ping_timeout=60) # ping_timeout ajuda na estabilidade
+    "http://127.0.0.1:5500",
+    "http://localhost:5501",
+    "http://127.0.0.1:5501"
+]
+
+CORS(app, 
+     supports_credentials=True,
+     origins=ALLOWED_ORIGINS,
+     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+     allow_headers=["Content-Type", "Authorization", "X-Requested-With"],
+     expose_headers=["Content-Type", "Authorization"],
+     max_age=3600  # Cache preflight por 1 hora
+)
+
+# 3. Inicialização do SocketIO
+socketio = SocketIO(app, 
+                    cors_allowed_origins=ALLOWED_ORIGINS,
+                    ping_timeout=60,
+                    ping_interval=25,
+                    async_mode='eventlet')
 
 # --- INICIALIZA O GERENCIADOR DE CHAVES ---
 print("\n🔐 Inicializando Gerenciador de Chaves API...")
@@ -73,10 +80,41 @@ app.register_blueprint(premium_bp)
 app.register_blueprint(admin_bp)
 app.register_blueprint(quiz_bp)
 
+# --- Middleware para debug de sessão (remover em produção) ---
+@app.before_request
+def log_session():
+    """Log da sessão para debug"""
+    if request.endpoint and not request.endpoint.startswith('static'):
+        print(f"🔍 Request: {request.method} {request.path}")
+        print(f"   Sessão ativa: {bool(session)}")
+        if session:
+            print(f"   Conteúdo: {dict(session)}")
+
 # --- Rota Principal ---
 @app.route('/')
 def index():
-    return 'API ON - TCC Backend Rodando com SocketIO', 200
+    return jsonify({
+        'status': 'online',
+        'message': 'API TCC Backend Rodando com SocketIO',
+        'version': '2.0',
+        'endpoints': {
+            'auth': '/auth/*',
+            'freemium': '/freemium/*',
+            'premium': '/premium/*',
+            'admin': '/admin/*',
+            'quiz': '/quiz/*'
+        }
+    }), 200
+
+# --- Rota de Health Check ---
+@app.route('/health')
+def health_check():
+    """Health check para monitoramento"""
+    return jsonify({
+        'status': 'healthy',
+        'database': 'connected' if conn else 'disconnected',
+        'keys_configured': len(key_manager.keys_data.get('keys', []))
+    }), 200
 
 # --- Rota para verificar status das chaves (Admin) ---
 @app.route('/api/keys/status', methods=['GET'])
@@ -121,16 +159,16 @@ def get_user_chat():
                 {"role": "model", "parts": [{"text": "Olá! Estou aqui para bater um papo sobre filosofia e sociologia. Sobre o que você gostaria de conversar hoje?"}]}
             ])
             active_chats[session_id] = chat_session
-            print(f"Novo chat iniciado para sessão: {session_id}")
+            print(f"✅ Novo chat iniciado para sessão: {session_id}")
         except Exception as e:
-            print(f"Erro ao iniciar chat da IA para sessão {session_id}: {e}")
+            print(f"❌ Erro ao iniciar chat da IA para sessão {session_id}: {e}")
             return None
 
     return active_chats.get(session_id)
 
 @socketio.on('connect')
 def handle_connect():
-    print(f"Cliente conectado: {request.sid}")
+    print(f"🔌 Cliente conectado: {request.sid}")
     if 'session_id' not in session:
         session['session_id'] = str(uuid4())
     
@@ -151,7 +189,7 @@ def handle_connect():
 @socketio.on('enviar_mensagem')
 def handle_enviar_mensagem(data):
     mensagem_usuario = data.get("mensagem")
-    print(f"Mensagem recebida: {mensagem_usuario}")
+    print(f"📨 Mensagem recebida: {mensagem_usuario}")
     
     if not mensagem_usuario:
         return
@@ -165,7 +203,7 @@ def handle_enviar_mensagem(data):
         resposta = user_chat.send_message(mensagem_usuario)
         emit('nova_mensagem', {"remetente": "bot", "texto": resposta.text})
     except Exception as e:
-        print(f"Erro GenAI: {e}")
+        print(f"❌ Erro GenAI: {e}")
         if key_manager.handle_api_error(e):
              emit('erro', {'erro': 'Limite atingido, trocando chave... Tente novamente em alguns segundos.'})
         else:
@@ -173,7 +211,16 @@ def handle_enviar_mensagem(data):
 
 @socketio.on('disconnect')
 def handle_disconnect():
-    print(f"Cliente desconectado: {request.sid}")
+    print(f"🔌 Cliente desconectado: {request.sid}")
+
+# --- Error Handlers ---
+@app.errorhandler(404)
+def not_found(e):
+    return jsonify({'error': 'Endpoint não encontrado'}), 404
+
+@app.errorhandler(500)
+def internal_error(e):
+    return jsonify({'error': 'Erro interno do servidor', 'details': str(e)}), 500
 
 if __name__ == "__main__":
     socketio.run(app, host="0.0.0.0", debug=True, allow_unsafe_werkzeug=True)
