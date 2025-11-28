@@ -1,487 +1,364 @@
-from flask import Blueprint, request, jsonify, session, make_response
+from flask import Blueprint, request, jsonify, session
 from config import conn, cursor
+from datetime import datetime, timedelta
 import sqlite3
-import re
 
-auth_bp = Blueprint('auth_bp', __name__, url_prefix='/auth')
-
-# ===================================================================
-# FUNÇÕES DE VALIDAÇÃO
-# ===================================================================
-
-def validar_email(email):
-    """
-    Valida formato do e-mail
-    Retorna: (bool, str) - (valido, mensagem_erro)
-    """
-    if not email or len(email.strip()) == 0:
-        return False, "E-mail é obrigatório"
-    
-    email = email.strip().lower()
-    
-    # Regex para validar formato básico do e-mail
-    regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-    
-    if not re.match(regex, email):
-        return False, "Formato de e-mail inválido"
-    
-    if len(email) > 100:
-        return False, "E-mail muito longo (máximo 100 caracteres)"
-    
-    return True, None
-
-
-def email_ja_existe(email):
-    """
-    Verifica se o e-mail já está cadastrado
-    """
-    try:
-        cursor.execute('SELECT id_aluno FROM Aluno WHERE email = ?', (email.lower(),))
-        return cursor.fetchone() is not None
-    except Exception as e:
-        print(f"Erro ao verificar e-mail: {e}")
-        return False
-
-
-def validar_senha(senha):
-    """
-    Valida complexidade da senha
-    Retorna: (bool, list) - (valida, lista_de_erros)
-    """
-    erros = []
-    
-    if not senha:
-        return False, ["Senha é obrigatória"]
-    
-    # Comprimento
-    if len(senha) < 8:
-        erros.append("A senha deve ter no mínimo 8 caracteres")
-    
-    if len(senha) > 128:
-        erros.append("A senha deve ter no máximo 128 caracteres")
-    
-    # Complexidade
-    if not re.search(r'[A-Z]', senha):
-        erros.append("Deve conter pelo menos uma letra maiúscula")
-    
-    if not re.search(r'[a-z]', senha):
-        erros.append("Deve conter pelo menos uma letra minúscula")
-    
-    if not re.search(r'[0-9]', senha):
-        erros.append("Deve conter pelo menos um número")
-    
-    if not re.search(r'[!@#$%^&*()_+\-=\[\]{};\':"\\|,.<>\/?]', senha):
-        erros.append("Deve conter pelo menos um caractere especial (!@#$%&*)")
-    
-    # Senhas comuns bloqueadas
-    senhas_comuns = [
-        '123456', '123456789', 'qwerty', 'password', '12345678',
-        '111111', '123123', '1234567890', '1234567', 'senha',
-        'senha123', 'admin', 'admin123', 'root', '12345',
-        'password123', 'abc123', '1q2w3e4r', 'qwerty123', 'letmein'
-    ]
-    
-    if senha.lower() in senhas_comuns:
-        erros.append("Esta senha é muito comum. Escolha uma senha mais segura")
-    
-    # Verificar repetição excessiva
-    if re.search(r'(.)\1{2,}', senha):
-        erros.append("Evite repetir o mesmo caractere mais de 2 vezes seguidas")
-    
-    return len(erros) == 0, erros
-
-
-def validar_nome(nome):
-    """
-    Valida nome completo
-    Retorna: (bool, str, str) - (valido, nome_formatado, mensagem_erro)
-    """
-    if not nome or len(nome.strip()) == 0:
-        return False, None, "Nome é obrigatório"
-    
-    nome = nome.strip()
-    
-    # Comprimento
-    if len(nome) < 3:
-        return False, None, "O nome deve ter no mínimo 3 caracteres"
-    
-    if len(nome) > 100:
-        return False, None, "O nome deve ter no máximo 100 caracteres"
-    
-    # Verificar se tem pelo menos nome e sobrenome
-    partes = [p for p in nome.split(' ') if len(p) > 0]
-    if len(partes) < 2:
-        return False, None, "Por favor, digite nome e sobrenome completos"
-    
-    # Verificar caracteres válidos (letras, espaços e acentos)
-    if not re.match(r'^[a-zA-ZÀ-ÿ\s]+$', nome):
-        return False, None, "O nome deve conter apenas letras"
-    
-    # Formatar nome (primeira letra maiúscula em cada palavra)
-    nome_formatado = ' '.join([p.capitalize() for p in partes])
-    
-    return True, nome_formatado, None
-
+# ✅ CORRIGIDO: Nome correto do Blueprint
+admin_bp = Blueprint('admin_bp', __name__, url_prefix='/admin')
 
 # ===================================================================
-# ROTA DE VALIDAÇÃO PRÉVIA
+# ROTA PARA VERIFICAR SESSÃO DE ADMIN
 # ===================================================================
 
-@auth_bp.route('/validar_cadastro', methods=['POST'])
-def validar_cadastro():
-    """
-    Endpoint para validar dados antes do cadastro
-    Útil para feedback em tempo real
-    """
-    data = request.get_json()
-    
-    nome = data.get('nome')
-    email = data.get('email')
-    senha = data.get('senha')
-    
-    erros = {}
-    
-    # Validar nome
-    if nome:
-        valido_nome, nome_formatado, erro_nome = validar_nome(nome)
-        if not valido_nome:
-            erros['nome'] = [erro_nome]
-    
-    # Validar e-mail
-    if email:
-        valido_email, erro_email = validar_email(email)
-        if not valido_email:
-            erros['email'] = [erro_email]
-        elif email_ja_existe(email):
-            erros['email'] = ["Este e-mail já está cadastrado"]
-    
-    # Validar senha
-    if senha:
-        valido_senha, erros_senha = validar_senha(senha)
-        if not valido_senha:
-            erros['senha'] = erros_senha
-    
-    if erros:
-        return jsonify({'valido': False, 'erros': erros}), 400
-    
-    return jsonify({'valido': True, 'nome_formatado': nome_formatado if nome else None}), 200
-
-
-# ===================================================================
-# ROTAS DE AUTENTICAÇÃO (ATUALIZADAS COM VALIDAÇÕES)
-# ===================================================================
-
-@auth_bp.route('/login', methods=['POST'])
-def login():
-    data = request.get_json()
-    email = data.get('email')
-    senha = data.get('senha')
-
-    if not email or not senha:
-        return jsonify({'error': 'Email e senha são obrigatórios.'}), 400
-
-    if not cursor:
-        return jsonify({'error': 'Erro de conexão com o banco de dados.'}), 500
-
-    # Normalizar e-mail
-    email = email.strip().lower()
-
-    # Tenta fazer login como Administrador primeiro
-    cursor.execute('SELECT id_admin, nome, email FROM Admin WHERE email = ? AND senha = ?', (email, senha))
-    admin = cursor.fetchone()
-    
-    if admin:
-        # LIMPA COMPLETAMENTE A SESSÃO ANTES
-        session.clear()
-        
-        session['admin_id'] = admin['id_admin']
-        session['admin_nome'] = admin['nome']
-        session.permanent = True  # Torna a sessão permanente
-        
-        return jsonify({
-            'message': 'Login de admin realizado com sucesso!', 
-            'role': 'admin', 
-            'user': dict(admin)
-        }), 200
-
-    # Tenta fazer login como Aluno
-    cursor.execute('SELECT id_aluno, nome, email, plano, url_foto FROM Aluno WHERE email = ? AND senha = ?', (email, senha))
-    aluno = cursor.fetchone()
-
-    if aluno:
-        # LIMPA COMPLETAMENTE A SESSÃO ANTES
-        session.clear()
-
-        session['id_aluno'] = aluno['id_aluno']
-        session['plano'] = aluno['plano']
-        session.permanent = True  # Torna a sessão permanente
-        
-        return jsonify({
-            'message': 'Login realizado com sucesso!', 
-            'role': 'aluno', 
-            'user': dict(aluno)
-        }), 200
-
-    return jsonify({'error': 'Email ou senha inválidos.'}), 401
-
-
-# ===================================================================
-# ROTA DE LOGOUT CORRIGIDA
-# ===================================================================
-
-@auth_bp.route('/logout', methods=['POST', 'OPTIONS'])
-def logout():
-    """Logout com limpeza completa de sessão e cookies"""
-    
-    # Handle preflight CORS
-    if request.method == 'OPTIONS':
-        response = make_response('', 204)
-        response.headers['Access-Control-Allow-Origin'] = request.headers.get('Origin', '*')
-        response.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
-        response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
-        response.headers['Access-Control-Allow-Credentials'] = 'true'
-        return response
-    
-    try:
-        # Limpa COMPLETAMENTE a sessão
-        session.clear()
-        
-        # Cria resposta
-        response = make_response(jsonify({
-            'message': 'Logout realizado com sucesso.',
-            'success': True
-        }), 200)
-        
-        # FORÇA a remoção dos cookies de sessão
-        response.set_cookie(
-            'session', 
-            '', 
-            expires=0,
-            secure=True,
-            httponly=True,
-            samesite='None',
-            domain=None  # Remove o domínio para limpar cookies locais também
-        )
-        
-        # Headers CORS explícitos
-        origin = request.headers.get('Origin')
-        if origin:
-            response.headers['Access-Control-Allow-Origin'] = origin
-        response.headers['Access-Control-Allow-Credentials'] = 'true'
-        
-        print(f"✅ Logout realizado - Sessão limpa")
-        return response
-        
-    except Exception as e:
-        print(f"❌ Erro no logout: {e}")
-        return jsonify({'error': 'Erro ao fazer logout', 'details': str(e)}), 500
-
-
-# ===================================================================
-# ROTA PARA VERIFICAR SESSÃO
-# ===================================================================
-
-@auth_bp.route('/check_session', methods=['GET'])
+@admin_bp.route('/check_session', methods=['GET'])
 def check_session():
-    """Verifica se há uma sessão ativa"""
+    """Verifica se há uma sessão de admin ativa"""
     
-    # Verifica se é admin
-    if 'admin_id' in session:
+    if 'admin_id' not in session:
         return jsonify({
-            'logged_in': True,
-            'role': 'admin',
-            'user': {
-                'id': session['admin_id'],
-                'nome': session.get('admin_nome', 'Admin')
-            }
-        }), 200
+            'logged_in': False,
+            'message': 'Nenhuma sessão de admin ativa'
+        }), 401
     
-    # Verifica se é aluno
-    if 'id_aluno' in session:
-        # Busca dados atualizados do aluno
-        try:
-            cursor.execute(
-                'SELECT id_aluno, nome, email, plano, url_foto FROM Aluno WHERE id_aluno = ?',
-                (session['id_aluno'],)
-            )
-            aluno = cursor.fetchone()
-            
-            if aluno:
-                return jsonify({
-                    'logged_in': True,
-                    'role': 'aluno',
-                    'user': dict(aluno)
-                }), 200
-        except Exception as e:
-            print(f"Erro ao buscar dados do aluno: {e}")
-    
-    # Não há sessão ativa
     return jsonify({
-        'logged_in': False,
-        'message': 'Nenhuma sessão ativa'
-    }), 401
+        'logged_in': True,
+        'admin': {
+            'id': session['admin_id'],
+            'nome': session.get('admin_nome', 'Admin')
+        }
+    }), 200
 
 
-@auth_bp.route('/cadastrar_usuario', methods=['POST'])
-def cadastrar_usuario():
-    data = request.get_json()
-    nome = data.get('nome')
-    email = data.get('email')
-    senha = data.get('senha')
+# ===================================================================
+# ROTA DE LOGOUT DO ADMIN
+# ===================================================================
 
-    # ===== VALIDAÇÃO COMPLETA =====
-    
-    # 1. Validar nome
-    valido_nome, nome_formatado, erro_nome = validar_nome(nome)
-    if not valido_nome:
-        return jsonify({'error': erro_nome}), 400
-    
-    # 2. Validar e-mail
-    valido_email, erro_email = validar_email(email)
-    if not valido_email:
-        return jsonify({'error': erro_email}), 400
-    
-    email = email.strip().lower()
-    
-    # 3. Verificar se e-mail já existe
-    if email_ja_existe(email):
-        return jsonify({'error': 'Este e-mail já está cadastrado.'}), 400
-    
-    # 4. Validar senha
-    valido_senha, erros_senha = validar_senha(senha)
-    if not valido_senha:
-        return jsonify({
-            'error': 'Senha não atende aos requisitos de segurança.',
-            'detalhes': erros_senha
-        }), 400
-
-    if not cursor:
-        return jsonify({'error': 'Erro de conexão com o banco de dados.'}), 500
-
+@admin_bp.route('/logout', methods=['POST'])
+def logout():
+    """Logout de admin"""
     try:
-        # Inserir com nome formatado e email normalizado
-        cursor.execute(
-            'INSERT INTO Aluno (nome, email, senha) VALUES (?, ?, ?)', 
-            (nome_formatado, email, senha)
-        )
-        conn.commit()
-        return jsonify({
-            'message': 'Usuário cadastrado com sucesso.',
-            'nome': nome_formatado
-        }), 201
-        
-    except (IntegrityError, sqlite3.IntegrityError):
-        return jsonify({'error': 'Email já cadastrado (erro no banco de dados).'}), 400
+        session.clear()
+        return jsonify({'message': 'Logout realizado com sucesso.'}), 200
     except Exception as e:
-        print(f"Erro ao cadastrar usuário: {e}")
-        return jsonify({'error': 'Erro ao processar cadastro. Tente novamente.'}), 500
+        print(f"Erro no logout: {e}")
+        return jsonify({'error': 'Erro ao fazer logout'}), 500
 
 
-@auth_bp.route('/editar_usuario/<int:id_aluno>', methods=['PUT'])
-def editar_usuario(id_aluno):
-    data = request.get_json()
-    nome = data.get('nome')
-    email = data.get('email')
-    senha = data.get('senha')
-    url_foto = data.get('url_foto')
-    plano = data.get('plano')
+# ===================================================================
+# DASHBOARD: ESTATÍSTICAS GERAIS
+# ===================================================================
 
-    if not cursor:
-        return jsonify({'error': 'Erro de conexão com o banco de dados.'}), 500
-
-    campos = []
-    valores = []
-
-    # Validar e adicionar nome
-    if nome:
-        valido_nome, nome_formatado, erro_nome = validar_nome(nome)
-        if not valido_nome:
-            return jsonify({'error': erro_nome}), 400
-        campos.append("nome=?")
-        valores.append(nome_formatado)
+@admin_bp.route('/stats', methods=['GET'])
+def get_admin_stats():
+    """Retorna estatísticas para o dashboard do admin"""
     
-    # Validar e adicionar e-mail
-    if email:
-        valido_email, erro_email = validar_email(email)
-        if not valido_email:
-            return jsonify({'error': erro_email}), 400
-        
-        email = email.strip().lower()
-        
-        # Verificar se e-mail já existe (exceto o próprio usuário)
-        cursor.execute(
-            'SELECT id_aluno FROM Aluno WHERE email = ? AND id_aluno != ?', 
-            (email, id_aluno)
-        )
-        if cursor.fetchone():
-            return jsonify({'error': 'Este e-mail já está em uso por outro usuário.'}), 400
-        
-        campos.append("email=?")
-        valores.append(email)
+    # Verifica sessão
+    if 'admin_id' not in session:
+        return jsonify({'error': 'Não autorizado'}), 401
     
-    # Validar e adicionar senha
-    if senha:
-        valido_senha, erros_senha = validar_senha(senha)
-        if not valido_senha:
-            return jsonify({
-                'error': 'Nova senha não atende aos requisitos de segurança.',
-                'detalhes': erros_senha
-            }), 400
-        campos.append("senha=?")
-        valores.append(senha)
+    try:
+        # 1. Total de alunos
+        cursor.execute('SELECT COUNT(*) as total FROM Aluno')
+        total_alunos = cursor.fetchone()['total']
+        
+        # 2. Alunos por plano
+        cursor.execute('''
+            SELECT plano, COUNT(*) as count 
+            FROM Aluno 
+            GROUP BY plano
+        ''')
+        alunos_por_plano = [dict(row) for row in cursor.fetchall()]
+        
+        # 3. Média geral de acertos
+        cursor.execute('''
+            SELECT AVG(CAST(acertos AS FLOAT) / total_perguntas) as media 
+            FROM quiz_resultado
+            WHERE total_perguntas > 0
+        ''')
+        result = cursor.fetchone()
+        media_geral = result['media'] if result['media'] else 0
+        media_geral_formatada = f"{media_geral * 100:.1f}%"
+        
+        # 4. Média por matéria (Filosofia e Sociologia)
+        # Assumindo que o tema contém "Filosofia" ou "Sociologia"
+        
+        # Filosofia
+        cursor.execute('''
+            SELECT AVG(CAST(acertos AS FLOAT) / total_perguntas) as media 
+            FROM quiz_resultado
+            WHERE total_perguntas > 0 
+            AND LOWER(tema) LIKE '%filosofia%'
+        ''')
+        result = cursor.fetchone()
+        media_filo = result['media'] if result['media'] else 0
+        media_filosofia = f"{media_filo * 100:.1f}%"
+        
+        # Sociologia
+        cursor.execute('''
+            SELECT AVG(CAST(acertos AS FLOAT) / total_perguntas) as media 
+            FROM quiz_resultado
+            WHERE total_perguntas > 0 
+            AND LOWER(tema) LIKE '%sociologia%'
+        ''')
+        result = cursor.fetchone()
+        media_socio = result['media'] if result['media'] else 0
+        media_sociologia = f"{media_socio * 100:.1f}%"
+        
+        # 5. Quizzes por plano e tema (últimos 7 dias)
+        sete_dias_atras = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
+        
+        cursor.execute('''
+            SELECT 
+                a.plano,
+                CASE 
+                    WHEN LOWER(q.tema) LIKE '%filosofia%' THEN 'Filosofia'
+                    WHEN LOWER(q.tema) LIKE '%sociologia%' THEN 'Sociologia'
+                    ELSE 'Outros'
+                END as tema,
+                COUNT(*) as count
+            FROM quiz_resultado q
+            JOIN Aluno a ON q.id_aluno = a.id_aluno
+            WHERE q.data_criacao >= ?
+            GROUP BY a.plano, tema
+            ORDER BY a.plano, tema
+        ''', (sete_dias_atras,))
+        
+        quizzes_agrupados = cursor.fetchall()
+        
+        # Formatar dados para o gráfico
+        labels = []
+        data_filosofia = []
+        data_sociologia = []
+        
+        planos = ['freemium', 'premium']
+        for plano in planos:
+            labels.append(plano.capitalize())
+            
+            filo_count = 0
+            socio_count = 0
+            
+            for row in quizzes_agrupados:
+                if row['plano'] == plano:
+                    if row['tema'] == 'Filosofia':
+                        filo_count = row['count']
+                    elif row['tema'] == 'Sociologia':
+                        socio_count = row['count']
+            
+            data_filosofia.append(filo_count)
+            data_sociologia.append(socio_count)
+        
+        return jsonify({
+            'total_alunos': total_alunos,
+            'alunos_por_plano': alunos_por_plano,
+            'media_geral_acertos': media_geral_formatada,
+            'media_filosofia': media_filosofia,
+            'media_sociologia': media_sociologia,
+            'quizzes_por_plano_e_tema': {
+                'labels': labels,
+                'data_filosofia': data_filosofia,
+                'data_sociologia': data_sociologia
+            }
+        })
     
-    if url_foto is not None:
-        campos.append("url_foto=?")
-        valores.append(url_foto)
+    except Exception as e:
+        print(f"Erro ao buscar estatísticas: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# ===================================================================
+# GERENCIAR ALUNOS: LISTAR, CRIAR, EDITAR, EXCLUIR
+# ===================================================================
+
+@admin_bp.route('/alunos', methods=['GET'])
+def get_alunos():
+    """Lista todos os alunos com filtros opcionais"""
+    
+    if 'admin_id' not in session:
+        return jsonify({'error': 'Não autorizado'}), 401
+    
+    search = request.args.get('search', '').strip()
+    plano = request.args.get('plano', '').strip()
+    
+    query = '''
+        SELECT 
+            a.id_aluno,
+            a.nome,
+            a.email,
+            a.plano,
+            a.url_foto,
+            COUNT(DISTINCT q.id_resultado) as total_quizzes,
+            AVG(CASE WHEN LOWER(q.tema) LIKE '%filosofia%' THEN CAST(q.acertos AS FLOAT) / q.total_perguntas END) as media_filosofia,
+            AVG(CASE WHEN LOWER(q.tema) LIKE '%sociologia%' THEN CAST(q.acertos AS FLOAT) / q.total_perguntas END) as media_sociologia,
+            AVG(CAST(q.acertos AS FLOAT) / q.total_perguntas) as media_geral
+        FROM Aluno a
+        LEFT JOIN quiz_resultado q ON a.id_aluno = q.id_aluno
+        WHERE 1=1
+    '''
+    
+    params = []
+    
+    if search:
+        query += ' AND (a.nome LIKE ? OR a.email LIKE ?)'
+        params.extend([f'%{search}%', f'%{search}%'])
     
     if plano:
-        if plano not in ['freemium', 'premium']:
-            return jsonify({'error': 'Plano inválido. Use "freemium" ou "premium".'}), 400
-        campos.append("plano=?")
-        valores.append(plano)
-
-    if not campos:
-        return jsonify({'error': 'Nenhum campo para atualizar.'}), 400
-
-    query = f"UPDATE Aluno SET {', '.join(campos)} WHERE id_aluno=?"
-    valores.append(id_aluno)
-
+        query += ' AND a.plano = ?'
+        params.append(plano)
+    
+    query += ' GROUP BY a.id_aluno ORDER BY a.nome'
+    
     try:
-        cursor.execute(query, tuple(valores))
-        conn.commit()
-
-        if cursor.rowcount == 0:
-            return jsonify({'error': 'Usuário não encontrado.'}), 404
-
-        # Atualizar sessão se necessário
-        if 'id_aluno' in session and session['id_aluno'] == id_aluno:
-            if plano:
-                session['plano'] = plano
-
-        return jsonify({'message': 'Usuário atualizado com sucesso.'})
+        cursor.execute(query, params)
+        alunos = [dict(row) for row in cursor.fetchall()]
+        
+        # Formatar médias
+        for aluno in alunos:
+            if aluno['media_filosofia']:
+                aluno['media_filosofia'] = aluno['media_filosofia']
+            if aluno['media_sociologia']:
+                aluno['media_sociologia'] = aluno['media_sociologia']
+            if aluno['media_geral']:
+                aluno['media_geral'] = aluno['media_geral']
+        
+        return jsonify(alunos)
     
     except Exception as e:
-        print(f"Erro ao atualizar usuário: {e}")
-        return jsonify({'error': f'Erro ao atualizar: {str(e)}'}), 500
+        print(f"Erro ao listar alunos: {e}")
+        return jsonify({'error': str(e)}), 500
 
 
-@auth_bp.route('/excluir_usuario/<int:id_aluno>', methods=['DELETE'])
-def excluir_usuario(id_aluno):
-    if not cursor:
-        return jsonify({'error': 'Erro de conexão com o banco de dados.'}), 500
+@admin_bp.route('/alunos', methods=['POST'])
+def create_aluno():
+    """Cria um novo aluno"""
+    
+    if 'admin_id' not in session:
+        return jsonify({'error': 'Não autorizado'}), 401
+    
+    data = request.get_json()
+    nome = data.get('nome')
+    email = data.get('email')
+    senha = data.get('senha')
+    plano = data.get('plano', 'freemium')
+    
+    if not all([nome, email, senha]):
+        return jsonify({'error': 'Nome, email e senha são obrigatórios'}), 400
+    
+    try:
+        cursor.execute(
+            'INSERT INTO Aluno (nome, email, senha, plano) VALUES (?, ?, ?, ?)',
+            (nome, email.lower(), senha, plano)
+        )
+        conn.commit()
+        return jsonify({'message': 'Aluno criado com sucesso'}), 201
+    
+    except sqlite3.IntegrityError:
+        return jsonify({'error': 'Email já cadastrado'}), 400
+    except Exception as e:
+        print(f"Erro ao criar aluno: {e}")
+        conn.rollback()
+        return jsonify({'error': str(e)}), 500
+
+
+@admin_bp.route('/alunos/<int:id_aluno>', methods=['PUT'])
+def update_aluno(id_aluno):
+    """Atualiza dados de um aluno"""
+    
+    if 'admin_id' not in session:
+        return jsonify({'error': 'Não autorizado'}), 401
+    
+    data = request.get_json()
+    
+    campos = []
+    valores = []
+    
+    if 'nome' in data:
+        campos.append('nome = ?')
+        valores.append(data['nome'])
+    
+    if 'email' in data:
+        campos.append('email = ?')
+        valores.append(data['email'].lower())
+    
+    if 'senha' in data:
+        campos.append('senha = ?')
+        valores.append(data['senha'])
+    
+    if 'plano' in data:
+        campos.append('plano = ?')
+        valores.append(data['plano'])
+    
+    if not campos:
+        return jsonify({'error': 'Nenhum campo para atualizar'}), 400
+    
+    valores.append(id_aluno)
+    
+    query = f"UPDATE Aluno SET {', '.join(campos)} WHERE id_aluno = ?"
+    
+    try:
+        cursor.execute(query, valores)
+        conn.commit()
         
-    cursor.execute('DELETE FROM Aluno WHERE id_aluno=?', (id_aluno,))
-    conn.commit()
-    if cursor.rowcount == 0:
-        return jsonify({'error': 'Usuário não encontrado.'}), 404
-    return jsonify({'message': 'Usuário excluído com sucesso.'})
-
-
-@auth_bp.route('/usuarios', methods=['GET'])
-def listar_usuarios():
-    if not cursor:
-        return jsonify({'error': 'Erro de conexão com o banco de dados.'}), 500
+        if cursor.rowcount == 0:
+            return jsonify({'error': 'Aluno não encontrado'}), 404
         
-    cursor.execute('SELECT id_aluno, nome, email, url_foto, plano FROM Aluno')
-    usuarios = cursor.fetchall()
-    return jsonify([dict(u) for u in usuarios])
+        return jsonify({'message': 'Aluno atualizado com sucesso'})
+    
+    except sqlite3.IntegrityError:
+        return jsonify({'error': 'Email já em uso'}), 400
+    except Exception as e:
+        print(f"Erro ao atualizar aluno: {e}")
+        conn.rollback()
+        return jsonify({'error': str(e)}), 500
+
+
+@admin_bp.route('/alunos/<int:id_aluno>', methods=['DELETE'])
+def delete_aluno(id_aluno):
+    """Exclui um aluno"""
+    
+    if 'admin_id' not in session:
+        return jsonify({'error': 'Não autorizado'}), 401
+    
+    try:
+        cursor.execute('DELETE FROM Aluno WHERE id_aluno = ?', (id_aluno,))
+        conn.commit()
+        
+        if cursor.rowcount == 0:
+            return jsonify({'error': 'Aluno não encontrado'}), 404
+        
+        return jsonify({'message': 'Aluno excluído com sucesso'})
+    
+    except Exception as e:
+        print(f"Erro ao excluir aluno: {e}")
+        conn.rollback()
+        return jsonify({'error': str(e)}), 500
+
+
+# ===================================================================
+# VISUALIZAR RESULTADOS DE UM ALUNO
+# ===================================================================
+
+@admin_bp.route('/alunos/<int:id_aluno>/resultados', methods=['GET'])
+def get_resultados_aluno(id_aluno):
+    """Retorna os resultados de quizzes de um aluno específico"""
+    
+    if 'admin_id' not in session:
+        return jsonify({'error': 'Não autorizado'}), 401
+    
+    try:
+        cursor.execute('''
+            SELECT 
+                tema,
+                acertos,
+                total_perguntas,
+                data_criacao
+            FROM quiz_resultado
+            WHERE id_aluno = ?
+            ORDER BY data_criacao DESC
+        ''', (id_aluno,))
+        
+        resultados = [dict(row) for row in cursor.fetchall()]
+        return jsonify(resultados)
+    
+    except Exception as e:
+        print(f"Erro ao buscar resultados: {e}")
+        return jsonify({'error': str(e)}), 500
