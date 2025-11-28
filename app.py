@@ -21,17 +21,18 @@ from quiz_routes import quiz_bp
 load_dotenv()
 app = Flask(__name__)
 
-# 1. Configuração DE SESSÃO para funcionar na Nuvem (Render + Vercel)
+# 1. Configuração DE SESSÃO para funcionar na Nuvem
 app.secret_key = os.getenv("SECRET_KEY", "sua_chave_secreta_super_segura")
-app.config['SESSION_COOKIE_SAMESITE'] = 'None'  # Permite cookies entre sites
-app.config['SESSION_COOKIE_SECURE'] = True      # Exige HTTPS
+app.config['SESSION_COOKIE_SAMESITE'] = 'None' 
+app.config['SESSION_COOKIE_SECURE'] = True      
 
-# 2. Configuração do CORS
+# 2. Configuração do CORS (Atualizada com suas URLs)
 CORS(app, supports_credentials=True, resources={
     r"/*": {
         "origins": [
             "https://tcc-frontend-nine.vercel.app", 
             "https://tcc-frontend-repensei.vercel.app",
+            "https://tcc-frontend-git-main-anas-projects-d45e7b2d.vercel.app",
             "http://localhost:5500",
             "http://127.0.0.1:5500",
             "http://localhost:5501",
@@ -42,28 +43,27 @@ CORS(app, supports_credentials=True, resources={
     }
 })
 
-# 3. Inicialização do SocketIO
+# 3. Inicialização do SocketIO (ESSENCIAL PARA O CHAT E PARA O SERVER NÃO CAIR)
+# Adicionei suas origens aqui também por segurança
 socketio = SocketIO(app, cors_allowed_origins=[
-    "https://tcc-frontend-nine.vercel.app",
+    "https://tcc-frontend-nine.vercel.app", 
     "https://tcc-frontend-repensei.vercel.app",
+    "https://tcc-frontend-git-main-anas-projects-d45e7b2d.vercel.app",
     "http://localhost:5500",
     "http://127.0.0.1:5500"
-])
+], ping_timeout=60) # ping_timeout ajuda na estabilidade
 
 # --- INICIALIZA O GERENCIADOR DE CHAVES ---
 print("\n🔐 Inicializando Gerenciador de Chaves API...")
 key_manager = APIKeyManager()
 
-# Verifica se precisa adicionar chaves (primeira execução)
 if not key_manager.keys_data.get('keys'):
     print("\n⚠️ Nenhuma chave configurada!")
 else:
     key_manager.get_status()
 
-# --- Configuração Google GenAI (gerenciada pelo APIKeyManager) ---
+# --- Configuração Google GenAI ---
 MODEL_NAME = "gemini-2.5-flash"
-
-# --- Disponibiliza o key_manager globalmente para as rotas ---
 app.config['KEY_MANAGER'] = key_manager
 
 # --- Registrar Blueprints ---
@@ -166,7 +166,6 @@ def handle_enviar_mensagem(data):
         emit('nova_mensagem', {"remetente": "bot", "texto": resposta.text})
     except Exception as e:
         print(f"Erro GenAI: {e}")
-        # Tenta rotacionar chave se for erro de quota
         if key_manager.handle_api_error(e):
              emit('erro', {'erro': 'Limite atingido, trocando chave... Tente novamente em alguns segundos.'})
         else:
@@ -176,7 +175,5 @@ def handle_enviar_mensagem(data):
 def handle_disconnect():
     print(f"Cliente desconectado: {request.sid}")
 
-# --- Inicialização ---
 if __name__ == "__main__":
-    # O Gunicorn usará o objeto 'app', mas para testes locais:
     socketio.run(app, host="0.0.0.0", debug=True, allow_unsafe_werkzeug=True)
