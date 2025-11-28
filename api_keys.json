@@ -2,7 +2,7 @@
     "keys": [
         {
             "name": "chave 1",
-            "key": "AIzaSyA9S3oR-pLu9c_FQB33qbj9Hm77hv298Ac",
+            "key": "AIzaSyByFb82AFkMHC9MBOJxfYPVR8b3WwGVnz0",
             "active": true,
             "error_count": 0,
             "last_error": null,
@@ -10,7 +10,7 @@
         },
         {
             "name": "chave 2",
-            "key": "AIzaSyDuZi6q2RPeQhzuRPEAUeH2j0wmmkgs7n4",
+            "key": "AIzaSyCw0NLL_V1u4oqUsOV5oqzhJS6C9RLERHk",
             "active": true,
             "error_count": 0,
             "last_error": null,
@@ -18,7 +18,7 @@
         },
         {
             "name": "chave 3",
-            "key": "AIzaSyBfLvk1PD4jVYOFIynxP52RDCNtnkaOhDY",
+            "key": "AIzaSyCw7lNoVcE1Fx7K2K4RSDXSffvEEiISfdc",
             "active": true,
             "error_count": 0,
             "last_error": null,
@@ -26,7 +26,7 @@
         },
         {
             "name": "chave 4",
-            "key": "AIzaSyBvA1sqDncH2X2TPfgog0q6EheG3iheys8",
+            "key": "AIzaSyCJHRBPWSYvXn-hyCqFh1xbfq24J-sC2Q8",
             "active": true,
             "error_count": 0,
             "last_error": null,
@@ -34,7 +34,7 @@
         },
         {
             "name": "chave 5",
-            "key": "AIzaSyDO07yhrPoGzm768RvF0p-NsRp3tl57LPA",
+            "key": "AIzaSyB5U4LvB8NUYmQBi7bz7qZBC0LE0hZya-k",
             "active": true,
             "error_count": 0,
             "last_error": null,
@@ -42,7 +42,7 @@
         },
         {
             "name": "chave 6",
-            "key": "AIzaSyCRRGaInnUK7YCHGQIOY3IyzdxvgImDSpM",
+            "key": "AIzaSyAXC-LTEZ46D2Bq2vKuDB4qzqnNyBDDvSM",
             "active": true,
             "error_count": 0,
             "last_error": null,
@@ -50,7 +50,7 @@
         },
         {
             "name": "chave 7",
-            "key": "AIzaSyCN7ewPrRwy8tvb8qzhYKohO8uMsXWndI0",
+            "key": "AIzaSyAKmYZC1yKz7n3cYY5tPmRZUZO2H6fO3Ow",
             "active": true,
             "error_count": 0,
             "last_error": null,
@@ -58,7 +58,7 @@
         },
         {
             "name": "chave 8",
-            "key": "AIzaSyBjUJlGwOT1kZAL9n-n06Nl34UVp548IYg",
+            "key": "AIzaSyCFURqK-RVGofKUhW1b26VUMsZ0ZaKwLW4",
             "active": true,
             "error_count": 0,
             "last_error": null,
@@ -66,7 +66,7 @@
         },
         {
             "name": "chave 9",
-            "key": "AIzaSyDU8rAzLOzpKEeadgL1Crf7-fFsUmU4_ko",
+            "key": "AIzaSyD5MNaJNap8_aIboSRZXC6OKBoxdbVdcB0",
             "active": true,
             "error_count": 0,
             "last_error": null,
@@ -74,39 +74,7 @@
         },
         {
             "name": "chave 10",
-            "key": "AIzaSyACEzldrmfTtp5ywUJaGguzGjcJ7DZ7fGo",
-            "active": true,
-            "error_count": 0,
-            "last_error": null,
-            "blocked_until": null
-        },
-        {
-            "name": "chave 11",
-            "key": "AIzaSyDEGeB4-uDzz7SHbOHz4JwY-uYk-RCJtw0",
-            "active": true,
-            "error_count": 0,
-            "last_error": null,
-            "blocked_until": null
-        },
-        {
-            "name": "chave 12",
-            "key": "AIzaSyD4waK_RPSYPjG_2J7ofLWWu0lSZI-RGRE",
-            "active": true,
-            "error_count": 0,
-            "last_error": null,
-            "blocked_until": null
-        },
-        {
-            "name": "chave 13",
-            "key": "AIzaSyAkMubqx7w6Daj9OPespHgV6blcXIpGMZY",
-            "active": true,
-            "error_count": 0,
-            "last_error": null,
-            "blocked_until": null
-        },
-        {
-            "name": "chave 14",
-            "key": "AIzaSyC-1ybdscGc3tbutXkiMm2OQESBe3PVa2k",
+            "key": "AIzaSyDC-enIkl5Yz_z2QImiggNPwsfmsGiLOoM",
             "active": true,
             "error_count": 0,
             "last_error": null,
