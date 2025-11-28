@@ -32,7 +32,6 @@ CORS(app, supports_credentials=True, resources={
         "origins": [
             "https://tcc-frontend-nine.vercel.app",     
             "https://tcc-frontend-repensei.vercel.app", 
-            "https://tcc-frontend-nine.vercel.app/login.html",
             "http://localhost:5500",
             "http://127.0.0.1:5500",
             "http://localhost:5501",                     
