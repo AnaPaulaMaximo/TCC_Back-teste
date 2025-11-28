@@ -1,5 +1,4 @@
 from flask import Blueprint, request, jsonify, session
-from mysql.connector import IntegrityError
 from config import conn, cursor
 import sqlite3
 import re
