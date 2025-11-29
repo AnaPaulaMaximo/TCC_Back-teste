@@ -39,56 +39,37 @@ def quiz_premium():
     
     tema = data['tema']
     
-    prompt = """Dado o tema '{tema}', atue como um professor especialista.
+    prompt = f"""
+Você é um Validador Acadêmico Rígido e Professor de Filosofia/Sociologia.
+Sua tarefa é analisar o tema: '{tema}'
 
+ETAPA 1: VERIFICAÇÃO DE SEGURANÇA E ESCOPO (CRITÉRIO ELIMINATÓRIO)
+Analise o tema e responda "NÃO" se ele se encaixar em qualquer um destes casos:
+1. É um tema puramente de Exatas (Matemática, Física, Química, Geometria, Lógica Matemática Pura) ou Biológicas (Anatomia, Fisiologia), sem foco central em Ética ou Epistemologia.
+2. É um tema de cultura pop, entretenimento, esportes ou cotidiano sem ligação acadêmica clássica.
+3. É uma "falsa conexão" (ex: "Filosofia do Triângulo", "Sociologia do Futebol", "Filosofia da Fórmula 1"). Não tente inventar uma conexão filosófica se o tema central não for filosofia.
+4. Contém palavrões, gírias vulgares ou conteúdo ofensivo.
 
+Se a resposta for "NÃO" (tema inválido), pare tudo e retorne EXATAMENTE este JSON:
+{{ "erro": "Tema inadequado" }}
 
-ATENÇÃO: Este quiz deve abordar o tema *exclusivamente* sob as perspectivas de **Filosofia** ou **Sociologia**. Se o tema for inerentemente de outra área principal (como Biologia, Química, Física, Matemática, etc.) e não tiver uma conexão forte e direta com Filosofia ou Sociologia, ele deve ser considerado inadequado.
+ETAPA 2: GERAÇÃO (Apenas se passou na Etapa 1)
+Se o tema for VALIDAMENTE de Filosofia ou Sociologia, gere um JSON com 10 questões.
 
-1. FILTRO DE ÁREA (ESCOPO RESTRITO):
-   - O tema deve ser reconhecido em currículos acadêmicos tradicionais de Humanidades.
-   - REJEITE IMEDIATAMENTE temas que sejam primariamente de Ciências Exatas (Matemática, Geometria), Biológicas ou Físicas, a menos que o foco seja 100% Ética, Bioética ou Epistemologia clássica.
-   - BLOQUEIE "falsas conexões": Não aceite títulos que apenas adicionam "Filosofia de..." ou "Sociologia de..." a um substantivo aleatório ou técnico (ex: "Filosofia da Geometria Euclidiana", "Sociologia dos Polígonos"). Se não for um campo de estudo consagrado, é inválido.
-
-2. FILTRO DE DECÊNCIA E LINGUAGEM (ANTI-ABUSO):
-   - TOLERÂNCIA ZERO para baixo calão, obscenidade ou termos vulgares.
-   - BLOQUEIE tentativas de legitimar termos chulos sob a máscara de estudo acadêmico (ex: rejeite prompts como "Sociologia do [palavrão]", "A filosofia do ato sexual explícito", etc.).
-   - Se o input contiver linguagem imprópria, recuse a geração.
-
-
-3. Classifique este tema estritamente em uma destas duas categorias: "Filosofia" ou "Sociologia". Escolha a que melhor se encaixa.
-
-4. Gere um quiz com 10 questões sobre o tema.
-
-
-
-Retorne APENAS um JSON válido com a seguinte estrutura exata, sem crases ou markdown:
-
+Estrutura obrigatória do JSON de sucesso:
 {{
-
-    "categoria": "Filosofia" ou "Sociologia - oque o usuário escreveu no tema (ex:aristoteles)",
-
+    "categoria": "Filosofia" ou "Sociologia",
     "questoes": [
-
         {{
-
-            "pergunta": "texto da pergunta",
-
-            "opcoes": ["opcao1", "opcao2", "opcao3", "opcao4"],
-
-            "resposta_correta": "texto da opcao correta",
-
-            "explicacao": "breve explicacao"
-
+            "pergunta": "Enunciado claro",
+            "opcoes": ["A", "B", "C", "D"],
+            "resposta_correta": "texto da opção correta",
+            "explicacao": "Explicação breve"
         }}
-
     ]
-
 }}
 
-
-
-Se o tema for inválido/inadequado, retorne APENAS: {{"erro": "Tema inadequado"}}
+Retorne APENAS o JSON (de erro ou de sucesso). Sem markdown, sem ```.
 """
     
     try:
@@ -122,31 +103,17 @@ def flashcard_premium():
     
     tema = data['tema']
     prompt = f"""
-Dado o tema '{tema}', atue como um especialista e siga as instruções abaixo:
+Analise o tema: '{tema}'.
 
-1. SIGA RIGOROSAMENTE AS SEGUINTES REGRAS DE BLOQUEIO:
+REGRA ABSOLUTA DE BLOQUEIO:
+Se este tema for sobre Matemática, Física, Química, Biologia, Esportes, Entretenimento, ou se contiver linguagem vulgar/obscena, PARE IMEDIATAMENTE.
+Não tente encontrar "o lado filosófico" de um tema que não é filosofia (ex: não aceite "Filosofia da Geometria" ou "Sociologia do Neymar").
 
-1. FILTRO DE ÁREA (ESCOPO RESTRITO):
-   - O tema deve ser reconhecido em currículos acadêmicos tradicionais de Humanidades.
-   - REJEITE IMEDIATAMENTE temas que sejam primariamente de Ciências Exatas (Matemática, Geometria), Biológicas ou Físicas, a menos que o foco seja 100% Ética, Bioética ou Epistemologia clássica.
-   - BLOQUEIE "falsas conexões": Não aceite títulos que apenas adicionam "Filosofia de..." ou "Sociologia de..." a um substantivo aleatório ou técnico (ex: "Filosofia da Geometria Euclidiana", "Sociologia dos Polígonos"). Se não for um campo de estudo consagrado, é inválido.
+Se o tema for inválido, escreva APENAS: 
+NÃO É POSSIVEL FORMAR UMA RESPOSTA DEVIDO A INADEQUAÇÃO DO ASSUNTO.
 
-2. FILTRO DE DECÊNCIA E LINGUAGEM (ANTI-ABUSO):
-   - TOLERÂNCIA ZERO para baixo calão, obscenidade ou termos vulgares.
-   - BLOQUEIE tentativas de legitimar termos chulos sob a máscara de estudo acadêmico (ex: rejeite prompts como "Sociologia do [palavrão]", "A filosofia do ato sexual explícito", etc.).
-   - Se o input contiver linguagem imprópria, recuse a geração.
-
-3. CRITÉRIO DE RELEVÂNCIA:
-   - Pergunte-se: "Este tema cairia em uma prova oficial de vestibular ou concurso na matéria de Filosofia/Sociologia?" Se a resposta for não, ou se for duvidosa, NÃO GERE O CONTEÚDO.
-
-4. GERAÇÃO DE FLASHCARDS:
-   - Se o tema for válido, gere **12 perguntas** para flashcards sobre o tema '{tema}'.
-   - Para cada flashcard, retorne a pergunta e a resposta correta. A resposta deve ser breve e assertiva.
-   - Utilize a estrutura exata: Pergunta: [pergunta] Resposta: [resposta]
-
-5. SAÍDA FINAL (Obrigatória):
-   - Se o tema for válido, retorne **APENAS** a lista das 12 perguntas e respostas no formato especificado.
-   - Se o tema for inválido (por não ser Filosofia/Sociologia ou por inadequação), retorne **APENAS** a mensagem: NÃO É POSSIVEL FORMAR UMA RESPOSTA DEVIDO A INADEQUAÇÃO DO ASSUNTO.
+Se o tema for VÁLIDO (Filosofia ou Sociologia acadêmica), gere 12 flashcards seguindo o formato:
+Pergunta: [pergunta] Resposta: [resposta curta]
 """
     try:
         # --- USA O GERENCIADOR DE CHAVES ---
@@ -188,29 +155,16 @@ def resumo():
     
     tema = data['tema']
     prompt = f"""
-Dado o tema '{tema}', atue como um especialista em Filosofia e Sociologia e siga as instruções abaixo:
+Atue como um filtro acadêmico rigoroso. Tema solicitado: '{tema}'.
 
-1. SIGA RIGOROSAMENTE AS SEGUINTES REGRAS DE BLOQUEIO:
+1. O tema é claramente parte do currículo de Filosofia ou Sociologia do Ensino Médio ou Superior?
+2. O tema NÃO é de Exatas, Biológicas, Tecnológicas ou Cultura Pop?
+3. O tema está livre de termos ofensivos ou obscenos?
 
-1. FILTRO DE ÁREA (ESCOPO RESTRITO):
-   - O tema deve ser reconhecido em currículos acadêmicos tradicionais de Humanidades.
-   - REJEITE IMEDIATAMENTE temas que sejam primariamente de Ciências Exatas (Matemática, Geometria), Biológicas ou Físicas, a menos que o foco seja 100% Ética, Bioética ou Epistemologia clássica.
-   - BLOQUEIE "falsas conexões": Não aceite títulos que apenas adicionam "Filosofia de..." ou "Sociologia de..." a um substantivo aleatório ou técnico (ex: "Filosofia da Geometria Euclidiana", "Sociologia dos Polígonos"). Se não for um campo de estudo consagrado, é inválido.
+Se a resposta para qualquer pergunta for "NÃO", retorne APENAS:
+NÃO É POSSIVEL FORMAR UMA RESPOSTA DEVIDO A INADEQUAÇÃO DO ASSUNTO.
 
-2. FILTRO DE DECÊNCIA E LINGUAGEM (ANTI-ABUSO):
-   - TOLERÂNCIA ZERO para baixo calão, obscenidade ou termos vulgares.
-   - BLOQUEIE tentativas de legitimar termos chulos sob a máscara de estudo acadêmico (ex: rejeite prompts como "Sociologia do [palavrão]", "A filosofia do ato sexual explícito", etc.).
-   - Se o input contiver linguagem imprópria, recuse a geração.
-
-3. CRITÉRIO DE RELEVÂNCIA:
-   - Pergunte-se: "Este tema cairia em uma prova oficial de vestibular ou concurso na matéria de Filosofia/Sociologia?" Se a resposta for não, ou se for duvidosa, NÃO GERE O CONTEÚDO.
-
-4. GERAÇÃO DO RESUMO:
-   - Se o tema for válido, gere um resumo focado nos **principais tópicos** do tema '{tema}'. O resumo deve ter entre 4 a 6 parágrafos.
-
-5. SAÍDA FINAL (Obrigatória):
-   - Se o tema for válido, retorne **APENAS** o resumo.
-   - Se o tema for inválido (por não ser Filosofia/Sociologia ou por inadequação), retorne **APENAS** a mensagem: NÃO É POSSIVEL FORMAR UMA RESPOSTA DEVIDO A INADEQUAÇÃO DO ASSUNTO.
+Se todas as respostas forem "SIM", gere um resumo acadêmico de 4 a 6 parágrafos sobre '{tema}'.
 """
     try:
         # --- USA O GERENCIADOR DE CHAVES ---
@@ -252,31 +206,17 @@ def correcao():
     tema = data['tema']
     texto = data['texto']
     prompt = f"""
-Atue estritamente como um **professor especializado em Filosofia e Sociologia**. Sua única tarefa é fornecer um feedback conciso e focado no conteúdo do texto do aluno, corrigindo eventuais erros conceituais no âmbito dessas duas disciplinas.
+Você é um corretor de provas de Filosofia e Sociologia.
+Analise o tema: '{tema}' e o texto '{texto} do aluno.
 
-1. AVALIAÇÃO DE TEMA E CONTEXTO:
-   SIGA RIGOROSAMENTE AS SEGUINTES REGRAS DE BLOQUEIO:
+CRITÉRIO DE REJEIÇÃO IMEDIATA:
+1. Se o tema ou o texto tratarem de Matemática, Física, Biologia, Química ou assuntos do cotidiano sem base filosófica teórica, REJEITE.
+2. Se houver linguagem obscena, REJEITE.
 
-2. FILTRO DE ÁREA (ESCOPO RESTRITO):
-   - O tema deve ser reconhecido em currículos acadêmicos tradicionais de Humanidades.
-   - REJEITE IMEDIATAMENTE temas que sejam primariamente de Ciências Exatas (Matemática, Geometria), Biológicas ou Físicas, a menos que o foco seja 100% Ética, Bioética ou Epistemologia clássica.
-   - BLOQUEIE "falsas conexões": Não aceite títulos que apenas adicionam "Filosofia de..." ou "Sociologia de..." a um substantivo aleatório ou técnico (ex: "Filosofia da Geometria Euclidiana", "Sociologia dos Polígonos"). Se não for um campo de estudo consagrado, é inválido.
+Em caso de rejeição, responda APENAS:
+NÃO É POSSIVEL FORMAR UMA RESPOSTA DEVIDO A INADEQUAÇÃO DO ASSUNTO.
 
-3. FILTRO DE DECÊNCIA E LINGUAGEM (ANTI-ABUSO):
-   - TOLERÂNCIA ZERO para baixo calão, obscenidade ou termos vulgares.
-   - BLOQUEIE tentativas de legitimar termos chulos sob a máscara de estudo acadêmico (ex: rejeite prompts como "Sociologia do [palavrão]", "A filosofia do ato sexual explícito", etc.).
-   - Se o input contiver linguagem imprópria, recuse a geração.
-
-4. CRITÉRIO DE RELEVÂNCIA:
-   - Pergunte-se: "Este tema cairia em uma prova oficial de vestibular ou concurso na matéria de Filosofia/Sociologia?" Se a resposta for não, ou se for duvidosa, NÃO GERE O CONTEÚDO.
-
-5. GERAÇÃO DE FEEDBACK:
-   - Se o tema for válido, gere um feedback que deve ser **resumido** (máximo de 3 parágrafos) e **focado exclusivamente na correção de conteúdo** (conceitos, argumentos e precisão temática).
-   - Não corrija erros de gramática, ortografia ou estilo.
-
-6. SAÍDA FINAL (Obrigatória):
-   - Se o tema for válido, retorne **APENAS** o feedback.
-   - Se o tema for inválido (por não ser Filosofia/Sociologia ou por inadequação), retorne **APENAS** a mensagem: NÃO É POSSIVEL FORMAR UMA RESPOSTA DEVIDO A INADEQUAÇÃO DO ASSUNTO.
+Caso contrário, forneça um feedback de até 3 parágrafos corrigindo conceitos filosóficos/sociológicos.
 """
     try:
         # --- USA O GERENCIADOR DE CHAVES ---
