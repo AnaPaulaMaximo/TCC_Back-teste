@@ -40,38 +40,36 @@ def quiz_premium():
     tema = data['tema']
     
     prompt = f"""
-Atue com duas personalidades sequenciais:
-1. PRIMEIRO: Um Fiscal Acadêmico Rígido.
-2. SEGUNDO: Um Professor de Filosofia/Sociologia (apenas se o fiscal aprovar).
+Você é um Validador Acadêmico Rígido e Professor de Filosofia/Sociologia.
+Sua tarefa é analisar o tema: '{tema}'
 
-Analise o tema: '{tema}'
+ETAPA 1: VERIFICAÇÃO DE SEGURANÇA E ESCOPO (CRITÉRIO ELIMINATÓRIO)
+Analise o tema e responda "NÃO" se ele se encaixar em qualquer um destes casos:
+1. É um tema puramente de Exatas (Matemática, Física, Química, Geometria, Lógica Matemática Pura) ou Biológicas (Anatomia, Fisiologia), sem foco central em Ética ou Epistemologia.
+2. É um tema de cultura pop, entretenimento, esportes ou cotidiano sem ligação acadêmica clássica.
+3. É uma "falsa conexão" (ex: "Filosofia do Triângulo", "Sociologia do Futebol", "Filosofia da Fórmula 1"). Não tente inventar uma conexão filosófica se o tema central não for filosofia.
+4. Contém palavrões, gírias vulgares ou conteúdo ofensivo.
 
---- ETAPA 1: O FILTRO (Fiscal) ---
-Verifique se o tema se enquadra em QUALQUER uma destas proibições:
-1. Matérias de Exatas ou Biológicas (Matemática, Física, Química, Biologia, Anatomia) sem foco explícito em Ética/Bioética.
-2. Assuntos do cotidiano, esportes (Futebol, Vôlei), entretenimento (Novelas, Jogos, Youtubers) ou cultura pop.
-3. Tentativas de forçar relação (ex: "Filosofia do Neymar", "Sociologia da Geometria Plana").
-4. Linguagem chula ou ofensiva.
+Se a resposta for "NÃO" (tema inválido), pare tudo e retorne EXATAMENTE este JSON:
+{{ "erro": "Tema inadequado" }}
 
-SE O TEMA FOR INADEQUADO:
-Pare imediatamente e retorne APENAS este JSON exato (sem markdown, sem explicações):
-{{"erro": "Tema inadequado"}}
+ETAPA 2: GERAÇÃO (Apenas se passou na Etapa 1)
+Se o tema for VALIDAMENTE de Filosofia ou Sociologia, gere um JSON com 10 questões.
 
---- ETAPA 2: A GERAÇÃO (Professor) ---
-APENAS se o tema for um tópico clássico e válido de Filosofia ou Sociologia, gere o JSON do quiz com 10 questões.
-
-Estrutura obrigatória (JSON puro):
+Estrutura obrigatória do JSON de sucesso:
 {{
     "categoria": "Filosofia" ou "Sociologia",
     "questoes": [
         {{
-            "pergunta": "Enunciado",
+            "pergunta": "Enunciado claro",
             "opcoes": ["A", "B", "C", "D"],
-            "resposta_correta": "A",
-            "explicacao": "Explicação"
+            "resposta_correta": "texto da opção correta",
+            "explicacao": "Explicação breve"
         }}
     ]
 }}
+
+Retorne APENAS o JSON (de erro ou de sucesso). Sem markdown, sem ```.
 """
     
     try:
