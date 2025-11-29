@@ -88,9 +88,7 @@ socketio = SocketIO(app,
                     cors_allowed_origins=ALLOWED_ORIGINS,
                     ping_timeout=60,
                     ping_interval=25,
-                    async_mode='eventlet',
-                    cookie=True,
-                    engineio_logger=False)
+                    async_mode='eventlet')
 
 # --- INICIALIZA O GERENCIADOR DE CHAVES ---
 print("\n🔐 Inicializando Gerenciador de Chaves API...")
@@ -185,9 +183,9 @@ def rotate_key_manual():
     else:
         return jsonify({"error": "Falha ao rotacionar chave"}), 500
 
-# ============================================================
-# CHATBOT COM SOCKETIO
-# ============================================================
+# ===================================
+# Chatbot com SocketIO
+# ===================================
 
 instrucoes = """*** IDENTIDADE E PROTOCOLOS: TUTOR SOCRÁTICO DE HUMANIDADES ***
 
@@ -256,6 +254,7 @@ def handle_connect():
     user_chat = get_user_chat()
     if user_chat:
         welcome_message = "Olá! Vamos debater filosofia ou sociologia?"
+        # Tenta pegar a última mensagem do modelo se existir
         if user_chat.history and len(user_chat.history) > 0:
              last_msg = user_chat.history[-1]
              if last_msg.role == 'model':
@@ -293,10 +292,7 @@ def handle_enviar_mensagem(data):
 def handle_disconnect():
     print(f"🔌 Cliente desconectado: {request.sid}")
 
-# ============================================================
-# ERROR HANDLERS
-# ============================================================
-
+# --- Error Handlers ---
 @app.errorhandler(404)
 def not_found(e):
     return jsonify({'error': 'Endpoint não encontrado'}), 404
@@ -305,16 +301,5 @@ def not_found(e):
 def internal_error(e):
     return jsonify({'error': 'Erro interno do servidor', 'details': str(e)}), 500
 
-# ============================================================
-# 🔥 INICIALIZAÇÃO
-# ============================================================
-
 if __name__ == "__main__":
-    port = int(os.getenv('PORT', 5000))
-    
-    if IS_PRODUCTION:
-        print(f"🚀 Iniciando servidor em PRODUÇÃO na porta {port}")
-        socketio.run(app, host="0.0.0.0", port=port, debug=False)
-    else:
-        print(f"💻 Iniciando servidor em DESENVOLVIMENTO na porta {port}")
-        socketio.run(app, host="0.0.0.0", port=port, debug=True, allow_unsafe_werkzeug=True)
+    socketio.run(app, host="0.0.0.0", debug=True, allow_unsafe_werkzeug=True)
