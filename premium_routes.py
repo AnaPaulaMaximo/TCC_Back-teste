@@ -39,7 +39,7 @@ def quiz_premium():
     
     tema = data['tema']
     
-    prompt = prompt = f"""
+    prompt = f"""
 Atue com duas personalidades sequenciais:
 1. PRIMEIRO: Um Fiscal Acadêmico Rígido.
 2. SEGUNDO: Um Professor de Filosofia/Sociologia (apenas se o fiscal aprovar).
@@ -84,12 +84,23 @@ Estrutura obrigatória (JSON puro):
         # Limpeza básica caso a IA mande markdown
         texto = texto.replace("```json", "").replace("```", "").strip()
         
+        # --- CORREÇÃO IMPORTANTE AQUI ---
+        # Tenta ler o JSON para ver se a IA retornou o erro de inadequação
+        try:
+            json_response = json.loads(texto)
+            if "erro" in json_response:
+                return jsonify({"erro": "Tema inadequado. Por favor, insira um tema estritamente de Filosofia ou Sociologia."}), 400
+        except json.JSONDecodeError:
+            # Se não for JSON válido, segue o fluxo (pode ser erro da IA, mas não bloqueamos aqui)
+            pass
+        except Exception:
+            pass
+            
         return jsonify({"assunto": tema, "contedo": texto})
     
     except Exception as e:
         print(f"Erro ao gerar quiz: {e}")
         return jsonify({"erro": f"Erro ao gerar quiz com IA: {str(e)}"}), 500
-
 
 @premium_bp.route('/flashcard', methods=['POST'])
 def flashcard_premium():
