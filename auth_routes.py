@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, session
+from flask import Blueprint, request, jsonify, session, make_response
 from config import conn, cursor
 import sqlite3
 import re
@@ -100,7 +100,7 @@ def validar_nome(nome):
 
 @auth_bp.route('/login', methods=['POST'])
 def login():
-    # 🔥 CORREÇÃO 1: Limpar sessão ANTES de processar
+    # Limpar sessão ANTES de processar
     session.clear()
     
     data = request.get_json()
@@ -115,7 +115,7 @@ def login():
 
     email = email.strip().lower()
 
-    # 🔥 CORREÇÃO 2: Tentar login como ALUNO primeiro (mais comum)
+    # Tentar login como ALUNO primeiro (mais comum)
     cursor.execute('SELECT id_aluno, nome, email, plano, url_foto FROM Aluno WHERE email = ? AND senha = ?', (email, senha))
     aluno = cursor.fetchone()
 
@@ -123,13 +123,26 @@ def login():
         # Login de aluno bem-sucedido
         session['id_aluno'] = aluno['id_aluno']
         session['plano'] = aluno['plano']
-        session.permanent = True  # 🔥 CORREÇÃO 3: Tornar sessão permanente
+        session.permanent = True
         
-        return jsonify({
+        # 🔥 Criar resposta com cookies explícitos
+        response = make_response(jsonify({
             'message': 'Login realizado com sucesso!', 
             'role': 'aluno', 
             'user': dict(aluno)
-        }), 200
+        }))
+        
+        # 🔥 Garantir que o cookie seja enviado
+        response.set_cookie(
+            'session',
+            value=str(session.get('session_id', '')),
+            max_age=604800,  # 7 dias
+            secure=True,     # HTTPS only
+            httponly=True,   # Não acessível via JS
+            samesite='None'  # 🔥 CRÍTICO para cross-domain
+        )
+        
+        return response, 200
 
     # Se não for aluno, tenta admin
     cursor.execute('SELECT id_admin, nome, email FROM Admin WHERE email = ? AND senha = ?', (email, senha))
@@ -138,13 +151,24 @@ def login():
     if admin:
         session['admin_id'] = admin['id_admin']
         session['admin_nome'] = admin['nome']
-        session.permanent = True  # 🔥 CORREÇÃO 3: Tornar sessão permanente
+        session.permanent = True
         
-        return jsonify({
+        response = make_response(jsonify({
             'message': 'Login de admin realizado com sucesso!', 
             'role': 'admin', 
             'user': dict(admin)
-        }), 200
+        }))
+        
+        response.set_cookie(
+            'session',
+            value=str(session.get('session_id', '')),
+            max_age=604800,
+            secure=True,
+            httponly=True,
+            samesite='None'
+        )
+        
+        return response, 200
 
     # Credenciais inválidas
     return jsonify({'error': 'Email ou senha inválidos.'}), 401
@@ -156,12 +180,28 @@ def login():
 
 @auth_bp.route('/logout', methods=['POST'])
 def logout():
+    """Logout com limpeza completa de sessão e cookies"""
+    
+    # Limpar toda a sessão
     session.clear()
-    # 🔥 CORREÇÃO 4: Retornar status explícito de sucesso
-    return jsonify({
+    
+    # Criar resposta
+    response = make_response(jsonify({
         'message': 'Logout realizado com sucesso.',
-        'redirect': '/login.html'  # Frontend deve usar isso
-    }), 200
+        'redirect': '/login.html'
+    }))
+    
+    # 🔥 DELETAR EXPLICITAMENTE O COOKIE
+    response.set_cookie(
+        'session',
+        value='',
+        expires=0,  # Expira imediatamente
+        secure=True,
+        httponly=True,
+        samesite='None'
+    )
+    
+    return response, 200
 
 
 # ===================================================================
@@ -288,7 +328,7 @@ def editar_usuario(id_aluno):
         if cursor.rowcount == 0:
             return jsonify({'error': 'Usuário não encontrado.'}), 404
 
-        # 🔥 CORREÇÃO 5: Atualizar sessão se for o próprio usuário
+        # Atualizar sessão se for o próprio usuário
         if 'id_aluno' in session and session['id_aluno'] == id_aluno:
             if plano:
                 session['plano'] = plano

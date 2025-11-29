@@ -20,7 +20,7 @@ from quiz_routes import quiz_bp
 
 # --- Configurações Iniciais ---
 load_dotenv()
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', static_url_path='/static')
 
 # ============================================================
 # 🔥 CORREÇÃO CRÍTICA: CONFIGURAÇÃO DE SESSÃO PARA O RENDER
@@ -34,12 +34,12 @@ IS_PRODUCTION = os.getenv('RENDER') is not None or os.getenv('RENDER_SERVICE_NAM
 if IS_PRODUCTION:
     print("🚀 MODO PRODUÇÃO (RENDER) - Configuração de cookies ajustada")
     
-    # Para produção no Render (mesmo domínio)
-    app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'  # 🔥 MUDANÇA CRÍTICA
+    # 🔥 CONFIGURAÇÃO CRÍTICA PARA O RENDER
+    app.config['SESSION_COOKIE_SAMESITE'] = 'None'  # 🔥 MUDANÇA CRÍTICA
     app.config['SESSION_COOKIE_SECURE'] = True      # HTTPS obrigatório
     app.config['SESSION_COOKIE_HTTPONLY'] = True
     app.config['SESSION_COOKIE_PATH'] = '/'
-    app.config['SESSION_COOKIE_DOMAIN'] = None      # 🔥 Deixar None para o Render
+    app.config['SESSION_COOKIE_DOMAIN'] = None
     
 else:
     print("💻 MODO DESENVOLVIMENTO (LOCAL)")
@@ -53,20 +53,17 @@ else:
 # Configurações comuns
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 app.config['SESSION_REFRESH_EACH_REQUEST'] = True
-app.config['SESSION_TYPE'] = 'filesystem'  # 🔥 Usar filesystem no Render
+app.config['SESSION_TYPE'] = 'filesystem'
 
 # ============================================================
 # 🔥 CONFIGURAÇÃO DE CORS PARA O RENDER
 # ============================================================
 
 if IS_PRODUCTION:
-    # Em produção, apenas o próprio domínio do Render
     ALLOWED_ORIGINS = [
         "https://repensei.onrender.com",
-        "https://repensei.onrender.com",  # Seu domínio
     ]
 else:
-    # Em desenvolvimento, permite localhost
     ALLOWED_ORIGINS = [
         "http://localhost:5500",
         "http://127.0.0.1:5500",
@@ -79,7 +76,7 @@ CORS(app,
      origins=ALLOWED_ORIGINS,
      methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
      allow_headers=["Content-Type", "Authorization", "X-Requested-With"],
-     expose_headers=["Content-Type", "Authorization", "Set-Cookie"],  # 🔥 IMPORTANTE
+     expose_headers=["Content-Type", "Authorization", "Set-Cookie"],
      max_age=3600
 )
 
@@ -92,7 +89,7 @@ socketio = SocketIO(app,
                     ping_timeout=60,
                     ping_interval=25,
                     async_mode='eventlet',
-                    cookie=True,  # 🔥 Permitir cookies no socket
+                    cookie=True,
                     engineio_logger=False)
 
 # --- INICIALIZA O GERENCIADOR DE CHAVES ---
@@ -116,27 +113,21 @@ app.register_blueprint(admin_bp)
 app.register_blueprint(quiz_bp)
 
 # ============================================================
-# 🔥 MIDDLEWARE PARA DEBUG DE SESSÃO (APENAS DESENVOLVIMENTO)
-# ============================================================
-
-if not IS_PRODUCTION:
-    @app.before_request
-    def log_session():
-        """Log da sessão para debug"""
-        if request.endpoint and not request.endpoint.startswith('static'):
-            print(f"🔍 Request: {request.method} {request.path}")
-            print(f"   Cookies recebidos: {request.cookies.keys()}")
-            print(f"   Sessão ativa: {bool(session)}")
-            if session:
-                print(f"   Conteúdo: {dict(session)}")
-
-# ============================================================
-# 🔥 ROTA PRINCIPAL - CORRIGIDA
+# 🔥 ROTA PRINCIPAL - CORRIGIDA PARA SERVIR login.html
 # ============================================================
 
 @app.route('/')
 def index():
     """Redireciona para a página de login"""
+    return app.send_static_file('login.html')
+
+# ============================================================
+# 🔥 ROTA EXPLÍCITA PARA /login.html
+# ============================================================
+
+@app.route('/login.html')
+def login_page():
+    """Serve explicitamente o login.html"""
     return app.send_static_file('login.html')
 
 # ============================================================
