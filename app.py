@@ -22,43 +22,78 @@ from quiz_routes import quiz_bp
 load_dotenv()
 app = Flask(__name__)
 
-# 1. Configuração DE SESSÃO para funcionar na Nuvem
+# ============================================================
+# 🔥 CORREÇÃO CRÍTICA: CONFIGURAÇÃO DE SESSÃO PARA O RENDER
+# ============================================================
+
 app.secret_key = os.getenv("SECRET_KEY", "sua_chave_secreta_super_segura")
 
-# ===== CONFIGURAÇÕES IMPORTANTES DE SESSÃO =====
-app.config['SESSION_COOKIE_SAMESITE'] = 'None'  # Permite cookies cross-site
-app.config['SESSION_COOKIE_SECURE'] = True       # HTTPS obrigatório
-app.config['SESSION_COOKIE_HTTPONLY'] = True     # Proteção contra XSS
-app.config['SESSION_COOKIE_PATH'] = '/'          # Disponível em toda a aplicação
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)  # Sessão dura 7 dias
-app.config['SESSION_REFRESH_EACH_REQUEST'] = True  # Renova a sessão a cada request
+# 🔥 DETECTAR SE ESTÁ EM PRODUÇÃO (RENDER)
+IS_PRODUCTION = os.getenv('RENDER') is not None or os.getenv('RENDER_SERVICE_NAME') is not None
 
-# 2. Configuração do CORS (Atualizada com suas URLs)
-ALLOWED_ORIGINS = [
-    "https://repensei.onrender.com",
-    "https://repensei.onrender.com",
-    "https://repensei.onrender.com",
-    "http://localhost:5500",
-    "http://127.0.0.1:5500",
-    "http://localhost:5501",
-    "http://127.0.0.1:5501"
-]
+if IS_PRODUCTION:
+    print("🚀 MODO PRODUÇÃO (RENDER) - Configuração de cookies ajustada")
+    
+    # Para produção no Render (mesmo domínio)
+    app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'  # 🔥 MUDANÇA CRÍTICA
+    app.config['SESSION_COOKIE_SECURE'] = True      # HTTPS obrigatório
+    app.config['SESSION_COOKIE_HTTPONLY'] = True
+    app.config['SESSION_COOKIE_PATH'] = '/'
+    app.config['SESSION_COOKIE_DOMAIN'] = None      # 🔥 Deixar None para o Render
+    
+else:
+    print("💻 MODO DESENVOLVIMENTO (LOCAL)")
+    
+    # Para desenvolvimento local
+    app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+    app.config['SESSION_COOKIE_SECURE'] = False     # HTTP permitido
+    app.config['SESSION_COOKIE_HTTPONLY'] = True
+    app.config['SESSION_COOKIE_PATH'] = '/'
+
+# Configurações comuns
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
+app.config['SESSION_REFRESH_EACH_REQUEST'] = True
+app.config['SESSION_TYPE'] = 'filesystem'  # 🔥 Usar filesystem no Render
+
+# ============================================================
+# 🔥 CONFIGURAÇÃO DE CORS PARA O RENDER
+# ============================================================
+
+if IS_PRODUCTION:
+    # Em produção, apenas o próprio domínio do Render
+    ALLOWED_ORIGINS = [
+        "https://repensei.onrender.com",
+        "https://repensei.onrender.com",  # Seu domínio
+    ]
+else:
+    # Em desenvolvimento, permite localhost
+    ALLOWED_ORIGINS = [
+        "http://localhost:5500",
+        "http://127.0.0.1:5500",
+        "http://localhost:5501",
+        "http://127.0.0.1:5501"
+    ]
 
 CORS(app, 
      supports_credentials=True,
      origins=ALLOWED_ORIGINS,
      methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
      allow_headers=["Content-Type", "Authorization", "X-Requested-With"],
-     expose_headers=["Content-Type", "Authorization"],
-     max_age=3600  # Cache preflight por 1 hora
+     expose_headers=["Content-Type", "Authorization", "Set-Cookie"],  # 🔥 IMPORTANTE
+     max_age=3600
 )
 
-# 3. Inicialização do SocketIO
+# ============================================================
+# SOCKETIO
+# ============================================================
+
 socketio = SocketIO(app, 
                     cors_allowed_origins=ALLOWED_ORIGINS,
                     ping_timeout=60,
                     ping_interval=25,
-                    async_mode='eventlet')
+                    async_mode='eventlet',
+                    cookie=True,  # 🔥 Permitir cookies no socket
+                    engineio_logger=False)
 
 # --- INICIALIZA O GERENCIADOR DE CHAVES ---
 print("\n🔐 Inicializando Gerenciador de Chaves API...")
@@ -80,43 +115,67 @@ app.register_blueprint(premium_bp)
 app.register_blueprint(admin_bp)
 app.register_blueprint(quiz_bp)
 
-# --- Middleware para debug de sessão (remover em produção) ---
-@app.before_request
-def log_session():
-    """Log da sessão para debug"""
-    if request.endpoint and not request.endpoint.startswith('static'):
-        print(f"🔍 Request: {request.method} {request.path}")
-        print(f"   Sessão ativa: {bool(session)}")
-        if session:
-            print(f"   Conteúdo: {dict(session)}")
+# ============================================================
+# 🔥 MIDDLEWARE PARA DEBUG DE SESSÃO (APENAS DESENVOLVIMENTO)
+# ============================================================
 
-# --- Rota Principal ---
+if not IS_PRODUCTION:
+    @app.before_request
+    def log_session():
+        """Log da sessão para debug"""
+        if request.endpoint and not request.endpoint.startswith('static'):
+            print(f"🔍 Request: {request.method} {request.path}")
+            print(f"   Cookies recebidos: {request.cookies.keys()}")
+            print(f"   Sessão ativa: {bool(session)}")
+            if session:
+                print(f"   Conteúdo: {dict(session)}")
+
+# ============================================================
+# 🔥 ROTA PRINCIPAL - CORRIGIDA
+# ============================================================
+
 @app.route('/')
 def index():
-    return jsonify({
-        'status': 'online',
-        'message': 'API TCC Backend Rodando com SocketIO',
-        'version': '2.0',
-        'endpoints': {
-            'auth': '/auth/*',
-            'freemium': '/freemium/*',
-            'premium': '/premium/*',
-            'admin': '/admin/*',
-            'quiz': '/quiz/*'
-        }
-    }), 200
+    """Redireciona para a página de login"""
+    return app.send_static_file('login.html')
 
-# --- Rota de Health Check ---
+# ============================================================
+# ROTAS DE SAÚDE
+# ============================================================
+
 @app.route('/health')
 def health_check():
     """Health check para monitoramento"""
     return jsonify({
         'status': 'healthy',
+        'environment': 'production' if IS_PRODUCTION else 'development',
         'database': 'connected' if conn else 'disconnected',
-        'keys_configured': len(key_manager.keys_data.get('keys', []))
+        'keys_configured': len(key_manager.keys_data.get('keys', [])),
+        'session_config': {
+            'samesite': app.config['SESSION_COOKIE_SAMESITE'],
+            'secure': app.config['SESSION_COOKIE_SECURE'],
+            'httponly': app.config['SESSION_COOKIE_HTTPONLY']
+        }
     }), 200
 
-# --- Rota para verificar status das chaves (Admin) ---
+@app.route('/api/session-test')
+def session_test():
+    """Testa se a sessão está funcionando"""
+    if 'test_count' not in session:
+        session['test_count'] = 0
+    session['test_count'] += 1
+    
+    return jsonify({
+        'session_working': True,
+        'test_count': session['test_count'],
+        'session_id': request.cookies.get('session'),
+        'cookies': list(request.cookies.keys())
+    }), 200
+
+# ============================================================
+# ROTAS DE ADMIN (Chaves API)
+# ============================================================
+
 @app.route('/api/keys/status', methods=['GET'])
 def api_keys_status():
     key_manager.get_status()
@@ -127,7 +186,6 @@ def api_keys_status():
     }
     return jsonify(status_data), 200
 
-# --- Rota para rotacionar manualmente (Admin) ---
 @app.route('/api/keys/rotate', methods=['POST'])
 def rotate_key_manual():
     success = key_manager.rotate_key(reason="Rotação manual via API")
@@ -136,9 +194,9 @@ def rotate_key_manual():
     else:
         return jsonify({"error": "Falha ao rotacionar chave"}), 500
 
-# ===================================
-# Chatbot com SocketIO
-# ===================================
+# ============================================================
+# CHATBOT COM SOCKETIO
+# ============================================================
 
 instrucoes = """*** IDENTIDADE E PROTOCOLOS: TUTOR SOCRÁTICO DE HUMANIDADES ***
 
@@ -207,7 +265,6 @@ def handle_connect():
     user_chat = get_user_chat()
     if user_chat:
         welcome_message = "Olá! Vamos debater filosofia ou sociologia?"
-        # Tenta pegar a última mensagem do modelo se existir
         if user_chat.history and len(user_chat.history) > 0:
              last_msg = user_chat.history[-1]
              if last_msg.role == 'model':
@@ -245,7 +302,10 @@ def handle_enviar_mensagem(data):
 def handle_disconnect():
     print(f"🔌 Cliente desconectado: {request.sid}")
 
-# --- Error Handlers ---
+# ============================================================
+# ERROR HANDLERS
+# ============================================================
+
 @app.errorhandler(404)
 def not_found(e):
     return jsonify({'error': 'Endpoint não encontrado'}), 404
@@ -254,5 +314,16 @@ def not_found(e):
 def internal_error(e):
     return jsonify({'error': 'Erro interno do servidor', 'details': str(e)}), 500
 
+# ============================================================
+# 🔥 INICIALIZAÇÃO
+# ============================================================
+
 if __name__ == "__main__":
-    socketio.run(app, host="0.0.0.0", debug=True, allow_unsafe_werkzeug=True)
+    port = int(os.getenv('PORT', 5000))
+    
+    if IS_PRODUCTION:
+        print(f"🚀 Iniciando servidor em PRODUÇÃO na porta {port}")
+        socketio.run(app, host="0.0.0.0", port=port, debug=False)
+    else:
+        print(f"💻 Iniciando servidor em DESENVOLVIMENTO na porta {port}")
+        socketio.run(app, host="0.0.0.0", port=port, debug=True, allow_unsafe_werkzeug=True)
