@@ -66,9 +66,6 @@ def validar_senha(senha):
     if senha.lower() in senhas_comuns:
         erros.append("Esta senha é muito comum. Escolha uma senha mais segura")
     
-    if re.search(r'(.)\1{2,}', senha):
-        erros.append("Evite repetir o mesmo caractere mais de 2 vezes seguidas")
-    
     return len(erros) == 0, erros
 
 def validar_nome(nome):
@@ -83,17 +80,15 @@ def validar_nome(nome):
     if len(nome) > 100:
         return False, None, "O nome deve ter no máximo 100 caracteres"
     
-    partes = [p for p in nome.split(' ') if len(p) > 0]
-    if len(partes) < 2:
-        return False, None, "Por favor, digite nome e sobrenome completos"
-    
+    # Validação de caracteres permitidos
     if not re.match(r'^[a-zA-ZÀ-ÿ\s]+$', nome):
         return False, None, "O nome deve conter apenas letras"
     
+    # Formatação (Capitalize)
+    partes = [p for p in nome.split(' ') if len(p) > 0]
     nome_formatado = ' '.join([p.capitalize() for p in partes])
     
     return True, nome_formatado, None
-
 # ===================================================================
 # ROTA DE LOGIN - CORRIGIDA
 # ===================================================================
