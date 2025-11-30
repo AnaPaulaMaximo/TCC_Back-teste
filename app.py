@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 import os
 from uuid import uuid4
 from datetime import timedelta
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 # --- IMPORTAÇÃO DO GERENCIADOR DE CHAVES ---
 from api_key_manager import APIKeyManager, generate_with_retry
@@ -28,6 +29,13 @@ app = Flask(__name__, static_folder='static', static_url_path='/static')
 
 app.secret_key = os.getenv("SECRET_KEY", "sua_chave_secreta_super_segura")
 
+app = Flask(__name__, static_folder='static', static_url_path='/static')
+
+# Isso diz ao Flask para confiar nos cabeçalhos HTTPS do Render
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
+
+# ... (resto do código de configuração de sessão) ...
+
 # 🔥 DETECTAR SE ESTÁ EM PRODUÇÃO (RENDER)
 IS_PRODUCTION = os.getenv('RENDER') is not None or os.getenv('RENDER_SERVICE_NAME') is not None
 
@@ -35,16 +43,15 @@ IS_PRODUCTION = os.getenv('RENDER') is not None or os.getenv('RENDER_SERVICE_NAM
 if IS_PRODUCTION:
     print("🚀 MODO PRODUÇÃO (RENDER) - Configuração de cookies ajustada")
     
-    # 🔥 CONFIGURAÇÃO CRÍTICA PARA O RENDER
-    app.config['SESSION_COOKIE_SAMESITE'] = 'None'  
-    app.config['SESSION_COOKIE_SECURE'] = True      
-    app.config['SESSION_COOKIE_HTTPONLY'] = True
-    app.config['SESSION_COOKIE_PATH'] = '/'
-    app.config['SESSION_COOKIE_DOMAIN'] = None
+    app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "sua_chave_secreta_super_segura")
     
-    # 🔥 ADICIONA CONFIGURAÇÕES EXTRAS PARA MOBILE
-    app.config['SESSION_COOKIE_NAME'] = 'repensei_session'
-    app.config['SESSION_PROTECTION'] = None  # Desabilita proteção de IP (mobile troca muito)
+    # Configurações para garantir que o cookie persista no mobile
+    app.config['SESSION_COOKIE_SAMESITE'] = 'None' 
+    app.config['SESSION_COOKIE_SECURE'] = True
+    app.config['SESSION_COOKIE_HTTPONLY'] = True
+    app.config['SESSION_COOKIE_DOMAIN'] = None # Deixe None no Render
+    app.config['REMEMBER_COOKIE_SECURE'] = True
+    app.config['SESSION_PROXY'] = True # Importante
     
 else:
     print("💻 MODO DESENVOLVIMENTO (LOCAL)")
