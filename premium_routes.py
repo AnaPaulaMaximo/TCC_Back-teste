@@ -168,6 +168,7 @@ def resumo():
     prompt = f"""
 Atue como um filtro acadêmico rigoroso. Tema solicitado: '{tema}'.
 
+CREITÉRIO DE REJEIÇÃO IMEDIATA:
 1. O tema é claramente parte do currículo de Filosofia ou Sociologia do Ensino Médio ou Superior?
 2. O tema NÃO é de Exatas, Biológicas, Tecnológicas ou Cultura Pop?
 3. O tema está livre de termos ofensivos ou obscenos?
@@ -175,7 +176,7 @@ Atue como um filtro acadêmico rigoroso. Tema solicitado: '{tema}'.
 Se a resposta para qualquer pergunta for "NÃO", retorne APENAS:
 NÃO É POSSIVEL FORMAR UMA RESPOSTA DEVIDO A INADEQUAÇÃO DO ASSUNTO.
 
-Se todas as respostas forem "SIM", gere um resumo acadêmico de 4 a 6 parágrafos sobre '{tema}' e retorne somente o resumo.
+Se todas as respostas forem "SIM", gere um resumo acadêmico de 4 a 6 parágrafos sobre '{tema}' e retorne somente o resumo sem mostar a resposta de nehum critério.
 """
     try:
         # --- USA O GERENCIADOR DE CHAVES ---
