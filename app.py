@@ -31,22 +31,27 @@ app.secret_key = os.getenv("SECRET_KEY", "sua_chave_secreta_super_segura")
 # 🔥 DETECTAR SE ESTÁ EM PRODUÇÃO (RENDER)
 IS_PRODUCTION = os.getenv('RENDER') is not None or os.getenv('RENDER_SERVICE_NAME') is not None
 
+
 if IS_PRODUCTION:
     print("🚀 MODO PRODUÇÃO (RENDER) - Configuração de cookies ajustada")
     
     # 🔥 CONFIGURAÇÃO CRÍTICA PARA O RENDER
-    app.config['SESSION_COOKIE_SAMESITE'] = 'None'  # 🔥 MUDANÇA CRÍTICA
-    app.config['SESSION_COOKIE_SECURE'] = True      # HTTPS obrigatório
+    app.config['SESSION_COOKIE_SAMESITE'] = 'None'  
+    app.config['SESSION_COOKIE_SECURE'] = True      
     app.config['SESSION_COOKIE_HTTPONLY'] = True
     app.config['SESSION_COOKIE_PATH'] = '/'
     app.config['SESSION_COOKIE_DOMAIN'] = None
+    
+    # 🔥 ADICIONA CONFIGURAÇÕES EXTRAS PARA MOBILE
+    app.config['SESSION_COOKIE_NAME'] = 'repensei_session'
+    app.config['SESSION_PROTECTION'] = None  # Desabilita proteção de IP (mobile troca muito)
     
 else:
     print("💻 MODO DESENVOLVIMENTO (LOCAL)")
     
     # Para desenvolvimento local
     app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
-    app.config['SESSION_COOKIE_SECURE'] = False     # HTTP permitido
+    app.config['SESSION_COOKIE_SECURE'] = False     
     app.config['SESSION_COOKIE_HTTPONLY'] = True
     app.config['SESSION_COOKIE_PATH'] = '/'
 
