@@ -70,40 +70,7 @@ Estrutura obrigatória do JSON de sucesso:
 }}
 
 Retorne APENAS o JSON (de erro ou de sucesso). Sem markdown, sem ```.
-"""@premium_bp.route('/historico/<int:id_aluno>', methods=['GET'])
-def get_historico(id_aluno):
-    # CORREÇÃO: Aceita tanto sessão quanto verificação direta do plano
-    if 'id_aluno' not in session:
-        # Se não há sessão, verifica se o ID existe e é premium
-        plano = get_user_plan(id_aluno)
-        if plano != 'premium':
-            return jsonify({'error': 'Acesso negado. Esta funcionalidade é exclusiva Premium.'}), 403
-    elif session.get('id_aluno') != id_aluno:
-        return jsonify({'error': 'Acesso não autorizado ao histórico de outro usuário.'}), 403
-
-    try:
-        cursor.execute(
-            """
-            SELECT 
-                id_historico as id, 
-                tipo_atividade, 
-                tema, 
-                data_criacao, 
-                acertos, 
-                total_perguntas
-            FROM historico_premium 
-            WHERE id_aluno = ?
-            ORDER BY data_criacao DESC
-            """, (id_aluno,)
-        )
-        full_history = [dict(r) for r in cursor.fetchall()]
-        
-        return jsonify(full_history)
-
-    except Exception as e:
-        print(f"Erro ao buscar historico: {e}")
-        conn.rollback()
-        return jsonify({"error": f"Erro interno ao buscar historico: {e}"}), 500
+"""
     
     try:
         key_manager = current_app.config['KEY_MANAGER']
@@ -324,13 +291,11 @@ def salvar_quiz_premium_completo():
 
 @premium_bp.route('/historico/<int:id_aluno>', methods=['GET'])
 def get_historico(id_aluno):
-    # CORREÇÃO: Aceita tanto sessão quanto verificação direta do plano
-    if 'id_aluno' not in session:
-        # Se não há sessão, verifica se o ID existe e é premium
-        plano = get_user_plan(id_aluno)
-        if plano != 'premium':
-            return jsonify({'error': 'Acesso negado. Esta funcionalidade é exclusiva Premium.'}), 403
-    elif session.get('id_aluno') != id_aluno:
+    auth_error = check_premium_session()
+    if auth_error:
+        return auth_error
+    
+    if session['id_aluno'] != id_aluno:
         return jsonify({'error': 'Acesso não autorizado ao histórico de outro usuário.'}), 403
 
     try:
@@ -356,3 +321,35 @@ def get_historico(id_aluno):
         print(f"Erro ao buscar historico: {e}")
         conn.rollback()
         return jsonify({"error": f"Erro interno ao buscar historico: {e}"}), 500
+
+@premium_bp.route('/historico/item/<int:item_id>', methods=['GET'])
+def get_historico_item(item_id):
+    auth_error = check_premium_session()
+    if auth_error:
+        return auth_error
+    
+    id_aluno_sessao = session['id_aluno']
+    
+    try:
+        cursor.execute(
+            "SELECT * FROM historico_premium WHERE id_historico = ? AND id_aluno = ?",
+            (item_id, id_aluno_sessao)
+        )
+        item = cursor.fetchone()
+        
+        if not item:
+            return jsonify({'error': 'Item de histórico não encontrado ou não pertence a você.'}), 404
+        
+        item_dict = dict(item)
+        
+        try:
+            item_dict['respostas_usuario'] = json.loads(item_dict['respostas_usuario'])
+        except:
+            item_dict['respostas_usuario'] = {}
+
+        return jsonify(item_dict)
+
+    except Exception as e:
+        print(f"Erro ao buscar item do historico: {e}")
+        conn.rollback()
+        return jsonify({"error": f"Erro interno ao buscar item: {e}"}), 500

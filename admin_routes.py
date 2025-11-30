@@ -9,26 +9,17 @@ admin_bp = Blueprint('admin_bp', __name__, url_prefix='/admin')
 # ===================================================================
 # ROTA PARA VERIFICAR SESSÃO DE ADMIN
 # ===================================================================
+
 @admin_bp.route('/check_session', methods=['GET'])
 def check_session():
     """Verifica se há uma sessão de admin ativa"""
     
-    # CORREÇÃO: Log detalhado para debug mobile
-    print(f"🔍 Admin check_session - Cookies recebidos: {request.cookies}")
-    print(f"🔍 Session data: {dict(session)}")
-    
     if 'admin_id' not in session:
-        print("❌ admin_id não encontrado na sessão")
         return jsonify({
             'logged_in': False,
-            'message': 'Nenhuma sessão de admin ativa',
-            'debug': {
-                'has_session_cookie': 'session' in request.cookies,
-                'session_keys': list(session.keys())
-            }
+            'message': 'Nenhuma sessão de admin ativa'
         }), 401
     
-    print(f"✅ Admin autenticado: {session.get('admin_nome')}")
     return jsonify({
         'logged_in': True,
         'admin': {
