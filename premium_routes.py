@@ -175,7 +175,7 @@ Atue como um filtro acadêmico rigoroso. Tema solicitado: '{tema}'.
 Se a resposta para qualquer pergunta for "NÃO", retorne APENAS:
 NÃO É POSSIVEL FORMAR UMA RESPOSTA DEVIDO A INADEQUAÇÃO DO ASSUNTO.
 
-Se todas as respostas forem "SIM", gere um resumo acadêmico de 4 a 6 parágrafos sobre '{tema}'.
+Se todas as respostas forem "SIM", gere um resumo acadêmico de 4 a 6 parágrafos sobre '{tema}' e retorne somente o resumo.
 """
     try:
         # --- USA O GERENCIADOR DE CHAVES ---
